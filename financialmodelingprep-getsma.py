@@ -10,7 +10,7 @@ def isNeedSell(data):
         result = True
         return result
     return (result)
-def getsma(symbol,smarange,apikey):
+def getsma(symbol,smarange,action,apikey):
     sma=0
 #    url = "https://financialmodelingprep.com/api/v3/technical_indicator/1day/AAPL?type=sma&period=150&apikey=XOdeeszqGm4RohYI1hZH1dJb92ALCFZN"
     payload = {}
@@ -24,13 +24,14 @@ def getsma(symbol,smarange,apikey):
     response = requests.request("GET", url, headers=headers, data=payload,params=params)
 #    print(response.status_code)
     data = response.json()
-    isSell = isNeedSell(data)
-    msg = "test "+symbol +", rang " + str(smarange) +",sma "+ str(int(data[0]["sma"])) +",close "+ str(int(data[0]["close"]))
-    if isSell:
-        print(msg + ", You have to sell")
-        sendtegrammsg(msg  + ", You have to sell")
-    else:
-        print(msg)
+    if  action == "sell":
+        isSell = isNeedSell(data)
+        msg = "test "+symbol +', action '+action +", rang " + str(smarange) +",sma "+ str(int(data[0]["sma"])) +",close "+ str(int(data[0]["close"]))
+        if isSell:
+            print(msg + ", You have to sell")
+            sendtegrammsg(msg  + ", You have to sell")
+        else:
+            print(msg)
 def sendtegrammsg(message):
     # Replace 'your_bot_token' with your bot's token
     bot_token = os.getenv("bot_token")
@@ -60,17 +61,17 @@ def sendtegrammsg(message):
 
 
 apikey = os.getenv("apikey")
-symbols = [{"symbol":'AAPL',"range":150},
-           {"symbol":'AFRM',"range":200},
-           {"symbol":'AMD',"range":300},
-           {"symbol":'CRM',"range":300},
-           {"symbol":'GOOG',"range":150},
-           {"symbol": 'MSFT', "range": 200},
-           {"symbol": 'MSI', "range": 150},
-           {"symbol": 'NVDA', "range": 150},
-           {"symbol": 'ORCL', "range": 150},
-           {"symbol": 'ASML', "range": 200},
-           {"symbol": 'ARKW', "range": 150},
-           {"symbol": 'AMZN', "range": 200}]
+symbols = [{"symbol":'AAPL',"range":150,"action": 'sell'},
+           {"symbol":'AFRM',"range":300,"action": 'sell'},
+           {"symbol":'AMD',"range":300,"action": 'sell'},
+           {"symbol":'CRM',"range":300,"action": 'sell'},
+           {"symbol":'GOOG',"range":150,"action": 'sell'},
+           {"symbol": 'MSFT', "range": 200,"action": 'sell'},
+           {"symbol": 'MSI', "range": 150,"action": 'sell'},
+           {"symbol": 'NVDA', "range": 150,"action": 'sell'},
+           {"symbol": 'ORCL', "range": 150,"action": 'sell'},
+           {"symbol": 'ASML', "range": 200,"action": 'sell'},
+           {"symbol": 'ARKW', "range": 150,"action": 'sell'},
+           {"symbol": 'AMZN', "range": 200,"action": 'sell'}]
 for item in symbols:
-    getsma(item["symbol"],item["range"],apikey)
+    getsma(item["symbol"],item["range"],item["action"],apikey)
