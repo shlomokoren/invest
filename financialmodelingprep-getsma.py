@@ -1,5 +1,6 @@
 import requests
 import os
+from datetime import datetime
 
 def isNeedSell(data):
     result = False
@@ -26,12 +27,15 @@ def getsma(symbol,smarange,action,apikey):
     data = response.json()
     if  action == "sell":
         isSell = isNeedSell(data)
-        msg = "test "+symbol +', action '+action +", rang " + str(smarange) +",sma "+ str(int(data[0]["sma"])) +",close "+ str(int(data[0]["close"]))
+        msg = symbol +', action '+action +", rang " + str(smarange) +",sma "+ str(int(data[0]["sma"])) +",close "+ str(int(data[0]["close"]))
+        logfile_path = "E:\\momotools\\getsellaction\\logfile.txt"
         if isSell:
             print(msg + ", You have to sell")
             sendtegrammsg(msg  + ", You have to sell")
+            writeToLogfile(msg + ", You have to sell", logfile_path)
         else:
             print(msg)
+            writeToLogfile(msg , logfile_path)
 def sendtegrammsg(message):
     # Replace 'your_bot_token' with your bot's token
     bot_token = os.getenv("bot_token")
@@ -58,7 +62,16 @@ def sendtegrammsg(message):
         print("Message sent successfully!")
     else:
         print("Failed to send message.")
-
+def writeToLogfile(line,logfile_path):
+    # Get the current date and time
+    now = datetime.now()
+    # Format it as a string
+    current_time = now.strftime("%Y-%m-%d %H:%M:%S")
+    logfile_path = "E:\\momotools\\getsellaction\\logfile.txt"
+    # Open the file in append mode ('a')
+    with open(logfile_path, "a") as logfile:
+        # Write a line to the log file
+        logfile.write(current_time +","+ line +" \n")
 
 apikey = os.getenv("apikey")
 symbols = [{"symbol":'AAPL',"range":150,"action": 'sell'},
