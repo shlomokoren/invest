@@ -1,0 +1,14 @@
+[{"symbol":"AAPL","range":150,"action": "sell"},
+           {"symbol":"AFRM","range":300,"action": "sell"},
+           {"symbol":"AMD","range":300,"action": "sell"},
+           {"symbol":"CRM","range":300,"action": "sell"},
+           {"symbol":"GOOG","range":150,"action": "sell"},
+           {"symbol": "MSFT", "range": 200,"action": "sell"},
+           {"symbol": "MSI", "range": 150,"action": "sell"},
+           {"symbol": "NVDA", "range": 150,"action": "sell"},
+           {"symbol": "ORCL", "range": 150,"action": "sell"},
+           {"symbol": "ASML", "range": 200,"action": "sell"},
+           {"symbol": "ARKW", "range": 150,"action": "sell"},
+           {"symbol": "AMZN", "range": 200,"action": "sell"},
+           {"symbol": "AMZN", "range": 300,"action": "buy"}
+]
