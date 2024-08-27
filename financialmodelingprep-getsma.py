@@ -2,6 +2,12 @@ import json
 import requests
 import os
 from datetime import datetime
+def percentageDifference(closedvalue,smavalue):
+    # Calculate the percentage difference
+    percentage_difference = ((closedvalue - smavalue) / closedvalue) * 100
+    formatted_percentage_difference = "{:.2f}".format(percentage_difference)
+    # Print the result
+    return (formatted_percentage_difference)
 
 def isNeedBuy(data):
     result = False
@@ -39,8 +45,13 @@ def getsma(symbol,smarange,action,apikey):
     response = requests.request("GET", url, headers=headers, data=payload,params=params)
 #    print(response.status_code)
     data = response.json()
-    msg = symbol + ', action ' + action + ", rang " + str(smarange) + ",sma " + str(
-        int(data[0]["sma"])) + ",close " + str(int(data[0]["close"]))
+    percentage_difference = percentageDifference(data[0]["close"], data[0]["sma"])
+    msg = symbol + ', action ' + action +\
+          ", rang " + str(smarange) + ",sma " +\
+          str(int(data[0]["sma"])) + ",close " +\
+          str(int(data[0]["close"]))+\
+          ", percentage difference "+ str(percentage_difference)+"%"
+
     if  action == "sell":
         isSell = isNeedSell(data)
         if isSell:
@@ -59,7 +70,9 @@ def getsma(symbol,smarange,action,apikey):
         else:
             print(msg)
             writeToLogfile(msg , logfile_path)
-
+    elif action == "trace":
+        print(msg)
+        writeToLogfile(msg, logfile_path)
 
 
 def sendtegrammsg(message):
@@ -99,7 +112,7 @@ def writeToLogfile(line,logfile_path):
         # Write a line to the log file
         logfile.write(current_time +","+ line +" \n")
 
-debug = True
+debug = False
 apikey = os.getenv("apikey")
 # Read the JSON file
 with open('data_invest.json', 'r') as file:
