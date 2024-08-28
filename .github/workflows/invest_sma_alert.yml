@@ -29,6 +29,6 @@ jobs:
         run: ls -l ../..
 
       - name: Run Python script
-        run: python ../../invest_sma_alert.py  # Specify the path to your Python script here
+        run: python invest_sma_alert.py  # Specify the path to your Python script here
       - name: list files
         run: ls
