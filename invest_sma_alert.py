@@ -114,7 +114,7 @@ def writeToLogfile(line):
         # Write a line to the log file
         logfile.write(current_time +","+ line +" \n")
 
-apikey = os.getenv("")
+apikey = os.getenv("financialmodelingprep_apikey")
 # Read the JSON file
 script_directory = os.path.dirname(os.path.abspath(__file__))
 # if os.name == "nt":
@@ -123,12 +123,18 @@ script_directory = os.path.dirname(os.path.abspath(__file__))
 #     investDataFile=script_directory + "/data_invest.json"
 investDataFile = "data_invest.json"
 print("investDataFile = " + investDataFile)
-with open(investDataFile, 'r') as file:
-    symbols = json.load(file)
-for item in symbols:
-    if debug == True:
-     if item["symbol"] == "ADBE":
-        getsma(item["symbol"],item["range"],item["action"],apikey)
-    else:
-        getsma(item["symbol"],item["range"],item["action"],apikey)
-
+try:
+    with open(investDataFile, 'r') as file:
+        symbols = json.load(file)
+    for item in symbols:
+        if debug == True:
+         if item["symbol"] == "ADBE":
+            getsma(item["symbol"],item["range"],item["action"],apikey)
+        else:
+            getsma(item["symbol"],item["range"],item["action"],apikey)
+except FileNotFoundError:
+    print(f"Error: The file '{investDataFile}' was not found.")
+except json.JSONDecodeError:
+    print(f"Error: The file '{investDataFile}' contains invalid JSON.")
+except Exception as e:
+    print(f"An unexpected error occurred: {e}")
