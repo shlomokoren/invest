@@ -2,6 +2,9 @@ import json
 import requests
 import os
 from datetime import datetime
+
+debug = False
+
 def percentageDifference(closedvalue,smavalue):
     # Calculate the percentage difference
     percentage_difference = ((closedvalue - smavalue) / closedvalue) * 100
@@ -31,7 +34,6 @@ def isNeedSell(data):
     return (result)
 def getsma(symbol,smarange,action,apikey):
     sma=0
-    logfile_path = os.getenv("logfile_path")
 
     #    url = "https://financialmodelingprep.com/api/v3/technical_indicator/1day/AAPL?type=sma&period=150&apikey=XOdeeszqGm4RohYI1hZH1dJb92ALCFZN"
     payload = {}
@@ -56,31 +58,31 @@ def getsma(symbol,smarange,action,apikey):
         isSell = isNeedSell(data)
         if isSell:
             print(msg + ", You have to sell")
-            sendtegrammsg(msg  + ", You have to sell")
-            writeToLogfile(msg + ", You have to sell", logfile_path)
+            sendtelegrammsg(msg + ", You have to sell")
+            writeToLogfile(msg + ", You have to sell")
         else:
             print(msg)
-            writeToLogfile(msg , logfile_path)
+            writeToLogfile(msg)
     elif action == "buy":
         isBuy = isNeedBuy(data)
         if isBuy:
             print(msg + ", You have to buy")
-            sendtegrammsg(msg  + ", You have to buy")
-            writeToLogfile(msg + ", You have to buy", logfile_path)
+            sendtelegrammsg(msg + ", You have to buy")
+            writeToLogfile(msg + ", You have to buy")
         else:
             print(msg)
-            writeToLogfile(msg , logfile_path)
+            writeToLogfile(msg)
     elif action == "trace":
         print(msg)
-        writeToLogfile(msg, logfile_path)
+        writeToLogfile(msg)
 
 
-def sendtegrammsg(message):
+def sendtelegrammsg(message):
     # Replace 'your_bot_token' with your bot's token
-    bot_token = os.getenv("bot_token")
+    bot_token = os.getenv("telegram_bot_token")
 
     # Replace 'your_chat_id' with the chat ID or the recipient's user ID
-    chat_id = '420134022'
+    chat_id = os.getenv("telegram_chat_id")
 
     # The message you want to send
 
@@ -101,25 +103,30 @@ def sendtegrammsg(message):
         print("Message sent successfully!")
     else:
         print("Failed to send message.")
-def writeToLogfile(line,logfile_path):
+def writeToLogfile(line):
     # Get the current date and time
     now = datetime.now()
     # Format it as a string
     current_time = now.strftime("%Y-%m-%d %H:%M:%S")
-    logfile_path = os.getenv("logfile_path")
+    logfile_path = str(os.getenv("invest_logfile_path"))
     # Open the file in append mode ('a')
     with open(logfile_path, "a") as logfile:
         # Write a line to the log file
         logfile.write(current_time +","+ line +" \n")
 
-debug = False
-apikey = os.getenv("apikey")
+apikey = os.getenv("")
 # Read the JSON file
-with open('data_invest.json', 'r') as file:
+script_directory = os.path.dirname(os.path.abspath(__file__))
+if os.name == "nt":
+    investDataFile = script_directory + "\\data_invest.json"
+else:
+    investDataFile=script_directory + "/data_invest.json"
+
+with open(investDataFile, 'r') as file:
     symbols = json.load(file)
 for item in symbols:
     if debug == True:
-     if item["symbol"] == "AMZN":
+     if item["symbol"] == "ADBE":
         getsma(item["symbol"],item["range"],item["action"],apikey)
     else:
         getsma(item["symbol"],item["range"],item["action"],apikey)
