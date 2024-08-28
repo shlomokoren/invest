@@ -19,15 +19,10 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: '3.x'  # You can specify the Python version here
-      - name: 1list files
+      - name: list files
         run: ls -l
-      - name: 2get current directory
-        run: pwd
-      - name: 3list parrent
-        run: ls -l ..
-      - name: 4list parrent parrent
-        run: ls -l ../..
-
+      - name: pip intall requirements.txt
+        run: pip install -r requirements.txt
       - name: Run Python script
         run: python invest_sma_alert.py  # Specify the path to your Python script here
       - name: list files
