@@ -2,7 +2,7 @@ name: Run Python Script
 
 on:
   schedule:
-    - cron: '42 22 * * *' # Runs every day at midnight UTC
+    - cron: '35 22 * * *' # Runs every day at midnight UTC
   push:
     branches:
       - main
@@ -37,8 +37,15 @@ jobs:
         run: |
           git add history.log
           git commit -m "Add history.log from GitHub Actions"
+        env:
+          GIT_AUTHOR_NAME: GitHub Actions
+          GIT_AUTHOR_EMAIL: actions@github.com
+          GIT_COMMITTER_NAME: GitHub Actions
+          GIT_COMMITTER_EMAIL: actions@github.com
+
       - name: Push changes
-        uses: ad-m/github-push-action@v1
+        uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          commit_message: "Add history.log from GitHub Actions"
           branch: main
+          file_pattern: history.log
