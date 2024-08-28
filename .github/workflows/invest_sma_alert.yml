@@ -25,6 +25,8 @@ jobs:
         run: cat data_invest.json
       - name: pip intall requirements.txt
         run: pip install -r requirements.txt
+      - name: echovar
+        run: echo "FINANCIALMODELINGPREP_APIKEY is $FINANCIALMODELINGPREP_APIKEY"
       - name: Run Python script
         run: python invest_sma_alert.py  # Specify the path to your Python script here
       - name: list files
