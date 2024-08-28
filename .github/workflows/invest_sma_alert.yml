@@ -33,17 +33,13 @@ jobs:
         run: python invest_sma_alert.py  # Specify the path to your Python script here
       - name: list files
         run: ls
-      - name: Commit changes
-        run: |
-          git add history.log
-          git commit -m "Add history.log from GitHub Actions"
         env:
           GIT_AUTHOR_NAME: GitHub Actions
           GIT_AUTHOR_EMAIL: actions@github.com
           GIT_COMMITTER_NAME: GitHub Actions
           GIT_COMMITTER_EMAIL: actions@github.com
 
-      - name: Push changes
+      - name: Commit and Push changes
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: "Add history.log from GitHub Actions"
