@@ -38,10 +38,18 @@ jobs:
           GIT_AUTHOR_EMAIL: actions@github.com
           GIT_COMMITTER_NAME: GitHub Actions
           GIT_COMMITTER_EMAIL: actions@github.com
+      - name: push changes to remote
+        run: |
+          git config --global user.name "user mane"
+          git config --global user.email "user email"
+          git add history.log 
+          git commit -m "push history"
+          git push
 
-      - name: Commit and Push changes
-        uses: stefanzweifel/git-auto-commit-action@v4
-        with:
-          commit_message: "Add history.log from GitHub Actions"
-          branch: main
-          file_pattern: history.log
+
+#      - name: Commit and Push changes
+##        uses: stefanzweifel/git-auto-commit-action@v4
+#        with:
+#          commit_message: "Add history.log from GitHub Actions"
+#          branch: main
+#          file_pattern: history.log
