@@ -12,7 +12,7 @@ jobs:
   invest_sma_alert:
     runs-on: ubuntu-latest
     env:
-      INVEST_LOGFILE : "INVEST_LOGFILE"
+      INVEST_LOGFILE : "history.log"
       FINANCIALMODELINGPREP_APIKEY: ${{ secrets.FINANCIALMODELINGPREP_APIKEY }}
       TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
       TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
@@ -33,3 +33,12 @@ jobs:
         run: python invest_sma_alert.py  # Specify the path to your Python script here
       - name: list files
         run: ls
+      - name: Commit changes
+        run: |
+          git add history.log
+          git commit -m "Add history.log from GitHub Actions"
+      - name: Push changes
+        uses: ad-m/github-push-action@v1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: main
