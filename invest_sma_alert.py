@@ -123,8 +123,10 @@ script_directory = os.path.dirname(os.path.abspath(__file__))
 #     investDataFile=script_directory + "/data_invest.json"
 investDataFile = "data_invest.json"
 try:
+    print("debug:before read")
     with open(investDataFile, 'r') as file:
         symbols = json.load(file)
+    print("debug:after read")
     for item in symbols:
         if debug == True:
          if item["symbol"] == "ADBE":
