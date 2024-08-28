@@ -117,10 +117,11 @@ def writeToLogfile(line):
 apikey = os.getenv("")
 # Read the JSON file
 script_directory = os.path.dirname(os.path.abspath(__file__))
-if os.name == "nt":
-    investDataFile = script_directory + "\\data_invest.json"
-else:
-    investDataFile=script_directory + "/data_invest.json"
+# if os.name == "nt":
+#     investDataFile = script_directory + "\\data_invest.json"
+# else:
+#     investDataFile=script_directory + "/data_invest.json"
+investDataFile = "data_invest.json"
 print("investDataFile = " + investDataFile)
 with open(investDataFile, 'r') as file:
     symbols = json.load(file)
