@@ -3,7 +3,7 @@ import requests
 import os
 from datetime import datetime
 
-debug = False
+debug = True
 
 def percentageDifference(closedvalue,smavalue):
     # Calculate the percentage difference
@@ -121,7 +121,7 @@ if os.name == "nt":
     investDataFile = script_directory + "\\data_invest.json"
 else:
     investDataFile=script_directory + "/data_invest.json"
-
+print("investDataFile = " + investDataFile)
 with open(investDataFile, 'r') as file:
     symbols = json.load(file)
 for item in symbols:
