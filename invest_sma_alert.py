@@ -127,7 +127,7 @@ try:
         symbols = json.load(file)
     for item in symbols:
         if debug == True:
-         print("api key: " +apikey) 
+         print("api key: " + str(apikey))
          if item["symbol"] == "ADBE":
             getsma(item["symbol"],item["range"],item["action"],apikey)
         else:
