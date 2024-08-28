@@ -3,7 +3,7 @@ import requests
 import os
 from datetime import datetime
 
-debug = True
+debug = False
 
 def percentageDifference(closedvalue,smavalue):
     # Calculate the percentage difference
@@ -115,17 +115,10 @@ def writeToLogfile(line):
         logfile.write(current_time +","+ line +" \n")
 
 apikey = os.getenv("FINANCIALMODELINGPREP_APIKEY")
-# Read the JSON file
-script_directory = os.path.dirname(os.path.abspath(__file__))
-# if os.name == "nt":
-#     investDataFile = script_directory + "\\data_invest.json"
-# else:
-#     investDataFile=script_directory + "/data_invest.json"
 investDataFile = "data_invest.json"
 try:
     with open(investDataFile, 'r') as file:
         symbols = json.load(file)
-    print("apikey: " +str(apikey))
     for item in symbols:
         if debug == True:
          if item["symbol"] == "ADBE":
