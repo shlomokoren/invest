@@ -21,6 +21,8 @@ jobs:
           python-version: '3.x'  # You can specify the Python version here
       - name: list files
         run: ls -l
+      - name: cat data_invest.json
+        run: cat data_invest.json
       - name: pip intall requirements.txt
         run: pip install -r requirements.txt
       - name: Run Python script

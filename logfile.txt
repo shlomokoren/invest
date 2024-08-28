@@ -1,0 +1,2 @@
+2024-08-28 17:45:11,ADBE, action trace, rang 300,sma 539,close 567, percentage difference 4.89% 
+2024-08-28 17:45:12,ADBE, action trace, rang 150,sma 527,close 567, percentage difference 6.97% 

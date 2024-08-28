@@ -122,7 +122,6 @@ script_directory = os.path.dirname(os.path.abspath(__file__))
 # else:
 #     investDataFile=script_directory + "/data_invest.json"
 investDataFile = "data_invest.json"
-print("investDataFile = " + investDataFile)
 try:
     with open(investDataFile, 'r') as file:
         symbols = json.load(file)
