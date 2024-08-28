@@ -125,6 +125,7 @@ investDataFile = "data_invest.json"
 try:
     with open(investDataFile, 'r') as file:
         symbols = json.load(file)
+    print("apikey: " +str(apikey))
     for item in symbols:
         if debug == True:
          if item["symbol"] == "ADBE":
