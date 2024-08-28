@@ -79,10 +79,10 @@ def getsma(symbol,smarange,action,apikey):
 
 def sendtelegrammsg(message):
     # Replace 'your_bot_token' with your bot's token
-    bot_token = os.getenv("telegram_bot_token")
+    bot_token = os.getenv("TELEGRAM_BOT_TOKEN")
 
     # Replace 'your_chat_id' with the chat ID or the recipient's user ID
-    chat_id = os.getenv("telegram_chat_id")
+    chat_id = os.getenv("TELEGRAM_CHAT_ID")
 
     # The message you want to send
 
@@ -108,13 +108,13 @@ def writeToLogfile(line):
     now = datetime.now()
     # Format it as a string
     current_time = now.strftime("%Y-%m-%d %H:%M:%S")
-    logfile_path = str(os.getenv("invest_logfile_path"))
+    logfile_path = str(os.getenv("INVEST_LOGFILE"))
     # Open the file in append mode ('a')
     with open(logfile_path, "a") as logfile:
         # Write a line to the log file
         logfile.write(current_time +","+ line +" \n")
 
-apikey = os.getenv("financialmodelingprep_apikey")
+apikey = os.getenv("FINANCIALMODELINGPREP_APIKEY")
 # Read the JSON file
 script_directory = os.path.dirname(os.path.abspath(__file__))
 # if os.name == "nt":
@@ -127,7 +127,6 @@ try:
         symbols = json.load(file)
     for item in symbols:
         if debug == True:
-         print("api key: " + str(apikey))
          if item["symbol"] == "ADBE":
             getsma(item["symbol"],item["range"],item["action"],apikey)
         else:
