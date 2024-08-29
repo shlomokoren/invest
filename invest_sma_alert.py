@@ -3,7 +3,26 @@ import requests
 import os
 from datetime import datetime
 
-debug = False
+debug = True
+enableLogFile = False
+enableSendTelgram = False
+
+
+def get_genral_parameters():
+    global enableLogFile , enableSendTelgram
+    filename = "general_parameters.json"
+    try:
+        with open(filename, 'r') as file:
+            data = json.load(file)
+        for item in data:
+            if 'enableLogFile' in item:
+                enableLogFile = item['enableLogFile']
+            elif 'enableSendTelgram' in item:
+                enableSendTelgram = item['enableSendTelgram']
+    except FileNotFoundError:
+        print(f"Error: The file '{investDataFile}' was not found.")
+
+    pass
 
 def percentageDifference(closedvalue,smavalue):
     # Calculate the percentage difference
@@ -78,42 +97,50 @@ def getsma(symbol,smarange,action,apikey):
 
 
 def sendtelegrammsg(message):
-    # Replace 'your_bot_token' with your bot's token
-    bot_token = os.getenv("TELEGRAM_BOT_TOKEN")
+    global enableSendTelgram
+    if enableSendTelgram is True:
+        # Replace 'your_bot_token' with your bot's token
+        bot_token = os.getenv("TELEGRAM_BOT_TOKEN")
 
-    # Replace 'your_chat_id' with the chat ID or the recipient's user ID
-    chat_id = os.getenv("TELEGRAM_CHAT_ID")
+        # Replace 'your_chat_id' with the chat ID or the recipient's user ID
+        chat_id = os.getenv("TELEGRAM_CHAT_ID")
 
-    # The message you want to send
+        # The message you want to send
 
-    # Telegram API URL for sending messages
-    url = f'https://api.telegram.org/bot{bot_token}/sendMessage'
+        # Telegram API URL for sending messages
+        url = f'https://api.telegram.org/bot{bot_token}/sendMessage'
 
-    # Parameters for the API request
-    params = {
-        'chat_id': chat_id,
-        'text': message
-    }
+        # Parameters for the API request
+        params = {
+            'chat_id': chat_id,
+            'text': message
+        }
 
-    # Send the message
-    response = requests.get(url, params=params)
+        # Send the message
+        response = requests.get(url, params=params)
 
-    # Check if the message was sent successfully
-    if response.status_code == 200:
-        print("Message sent successfully!")
-    else:
-        print("Failed to send message.")
+        # Check if the message was sent successfully
+        if response.status_code == 200:
+            print("Message sent successfully!")
+        else:
+            print("Failed to send message.")
+
+
 def writeToLogfile(line):
-    # Get the current date and time
-    now = datetime.now()
-    # Format it as a string
-    current_time = now.strftime("%Y-%m-%d %H:%M:%S")
-    logfile_path = str(os.getenv("INVEST_LOGFILE"))
-    # Open the file in append mode ('a')
-    with open(logfile_path, "a") as logfile:
-        # Write a line to the log file
-        logfile.write(current_time +","+ line +" \n")
+    global enableLogFile
+    if enableLogFile is True:
+        # Get the current date and time
+        now = datetime.now()
+        # Format it as a string
+        current_time = now.strftime("%Y-%m-%d %H:%M:%S")
+        logfile_path = str(os.getenv("INVEST_LOGFILE"))
+        # Open the file in append mode ('a')
+        with open(logfile_path, "a") as logfile:
+            # Write a line to the log file
+            logfile.write(current_time +","+ line +" \n")
 
+
+get_genral_parameters()
 apikey = os.getenv("FINANCIALMODELINGPREP_APIKEY")
 investDataFile = "data_invest.json"
 try:
