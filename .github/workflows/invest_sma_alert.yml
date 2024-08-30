@@ -29,27 +29,11 @@ jobs:
         run: cat data_invest.json
       - name: pip install requirements.txt
         run: pip install -r requirements.txt
+      - name: Set up Google credentials
+        run: echo "${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}" > google-credentials.json
       - name: Run Python script
+        env:
+          GOOGLE_APPLICATION_CREDENTIALS: google-credentials.json
         run: python invest_sma_alert.py  # Specify the path to your Python script here
       - name: list files
         run: ls
-#        env:
-#          GIT_AUTHOR_NAME: GitHub Actions
-#          GIT_AUTHOR_EMAIL: actions@github.com
-#          GIT_COMMITTER_NAME: GitHub Actions
-#          GIT_COMMITTER_EMAIL: actions@github.com
-#      - name: push changes to remote
-#        run: |
-#          git config --global user.name "user mane"
-#          git config --global user.email "user email"
-#          git add history.log
-#          git commit -m "push history"
-#          git push
-
-
-#      - name: Commit and Push changes
-##        uses: stefanzweifel/git-auto-commit-action@v4
-#        with:
-#          commit_message: "Add history.log from GitHub Actions"
-#          branch: main
-#          file_pattern: history.log

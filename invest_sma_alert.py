@@ -2,14 +2,16 @@ import json
 import requests
 import os
 from datetime import datetime
+import gspread
+from google.oauth2.service_account import Credentials
+
 
 debug = True
-enableLogFile = False
-enableSendTelgram = False
 
 
-def get_genral_parameters():
-    global enableLogFile , enableSendTelgram
+def get_general_parameters():
+    global enableLogFile , enableSendTelgram ,enableGoogleSheetUpdate
+    global smapercentagedifference
     filename = "general_parameters.json"
     try:
         with open(filename, 'r') as file:
@@ -19,19 +21,23 @@ def get_genral_parameters():
                 enableLogFile = item['enableLogFile']
             elif 'enableSendTelgram' in item:
                 enableSendTelgram = item['enableSendTelgram']
+            elif 'enableGoogleSheetUpdate' in item:
+                enableGoogleSheetUpdate = item['enableGoogleSheetUpdate']
+            elif 'smapercentagedifference' in item:
+                smapercentagedifference = item['smapercentagedifference']
     except FileNotFoundError:
         print(f"Error: The file '{investDataFile}' was not found.")
 
     pass
 
-def percentageDifference(closedvalue,smavalue):
+def percentage_difference(closedvalue, smavalue):
     # Calculate the percentage difference
     percentage_difference = ((closedvalue - smavalue) / closedvalue) * 100
     formatted_percentage_difference = "{:.2f}".format(percentage_difference)
     # Print the result
     return (formatted_percentage_difference)
 
-def isNeedBuy(data):
+def is_need_buy(data):
     result = False
     closedValue = int(data[0]["close"])
     smaValue = int(data[0]["sma"])
@@ -41,8 +47,7 @@ def isNeedBuy(data):
         return result
     return (result)
 
-
-def isNeedSell(data):
+def is_need_sell(data):
     result = False
     closedValue = int(data[0]["close"])
     smaValue = int(data[0]["sma"])
@@ -51,49 +56,6 @@ def isNeedSell(data):
         result = True
         return result
     return (result)
-def getsma(symbol,smarange,action,apikey):
-    sma=0
-
-    #    url = "https://financialmodelingprep.com/api/v3/technical_indicator/1day/AAPL?type=sma&period=150&apikey=XOdeeszqGm4RohYI1hZH1dJb92ALCFZN"
-    payload = {}
-    headers = {}
-    params = {
-        'type': 'sma',
-        'period': str(smarange),
-        'apikey': apikey
-    }
-    url = "https://financialmodelingprep.com/api/v3/technical_indicator/1day/" + symbol
-    response = requests.request("GET", url, headers=headers, data=payload,params=params)
-#    print(response.status_code)
-    data = response.json()
-    percentage_difference = percentageDifference(data[0]["close"], data[0]["sma"])
-    msg = symbol + ', action ' + action +\
-          ", rang " + str(smarange) + ",sma " +\
-          str(int(data[0]["sma"])) + ",close " +\
-          str(int(data[0]["close"]))+\
-          ", percentage difference "+ str(percentage_difference)+"%"
-
-    if  action == "sell":
-        isSell = isNeedSell(data)
-        if isSell:
-            print(msg + ", You have to sell")
-            sendtelegrammsg(msg + ", You have to sell")
-            writeToLogfile(msg + ", You have to sell")
-        else:
-            print(msg)
-            writeToLogfile(msg)
-    elif action == "buy":
-        isBuy = isNeedBuy(data)
-        if isBuy:
-            print(msg + ", You have to buy")
-            sendtelegrammsg(msg + ", You have to buy")
-            writeToLogfile(msg + ", You have to buy")
-        else:
-            print(msg)
-            writeToLogfile(msg)
-    elif action == "trace":
-        print(msg)
-        writeToLogfile(msg)
 
 
 def sendtelegrammsg(message):
@@ -139,8 +101,130 @@ def writeToLogfile(line):
             # Write a line to the log file
             logfile.write(current_time +","+ line +" \n")
 
+def googlesheets_add_history(symbolsList, color_flag= False):
+    global enableGoogleSheetUpdate
+    if enableGoogleSheetUpdate is True:
+        # # Load the credentials from the JSON key file
+        # credentials = Credentials.from_service_account_file(
+        #     'E:\\pythoninvest\\pythoninvest-434016-892129d295c9.json',
+        #     scopes=["https://www.googleapis.com/auth/spreadsheets",
+        #             "https://www.googleapis.com/auth/drive"]
+        # )
 
-get_genral_parameters()
+        credentials_path = os.getenv('GOOGLE_APPLICATION_CREDENTIALS')
+        credentials = Credentials.from_service_account_file(
+            credentials_path,
+            scopes=["https://www.googleapis.com/auth/spreadsheets",
+                    "https://www.googleapis.com/auth/drive"]
+        )
+
+        # Authorize and create a client
+        client = gspread.authorize(credentials)
+        # Open the Google Sheet by name
+        spreadsheet = client.open("pythoninvesttest")
+        # Check if the "history" sheet exists, if not create it
+        try:
+            worksheet = spreadsheet.worksheet("history")
+        except gspread.exceptions.WorksheetNotFound:
+            worksheet = spreadsheet.add_worksheet(title="history", rows="100", cols="20")
+        # Check if the first row is empty (i.e., if the sheet is new)
+        if not worksheet.cell(1, 1).value:
+            # Add title row
+            title_row = ["Date" ,"Symbol", "Action", "Indecator", "Indicator Value", "Closed"]
+            worksheet.update(range_name='A1:F1', values = [title_row])
+
+
+        # Get the current date
+        current_date = datetime.now().strftime("%d-%m-%Y %H:%M:%S")
+
+        # Append the current date to each row and add to the "history" sheet
+        for row in symbolsList:
+            row.insert(0,current_date)
+            result = worksheet.append_row(row)
+
+            if color_flag:
+                range = str(result['updates']['updatedRange']).split("!")[1]
+            # Apply background color to the newly added rows
+                worksheet.format(ranges= range,format= {
+                    "backgroundColor": {
+                        "red": 1.0,
+                        "green": 1.0,
+                        "blue": 0.0
+                    }
+                })
+
+
+        worksheet.sort((1, 'des'))
+
+def getsma(symbol,smarange,action,apikey):
+    sma=0
+
+    #    url = "https://financialmodelingprep.com/api/v3/technical_indicator/1day/AAPL?type=sma&period=150&apikey=XOdeeszqGm4RohYI1hZH1dJb92ALCFZN"
+    payload = {}
+    headers = {}
+    params = {
+        'type': 'sma',
+        'period': str(smarange),
+        'apikey': apikey
+    }
+    url = "https://financialmodelingprep.com/api/v3/technical_indicator/1day/" + symbol
+    response = requests.request("GET", url, headers=headers, data=payload,params=params)
+#    print(response.status_code)
+    data = response.json()
+    percentagedifference = percentage_difference(data[0]["close"], data[0]["sma"])
+    msg = symbol + ', action ' + action +\
+          ", rang " + str(smarange) + ",sma " +\
+          str(int(data[0]["sma"])) + ",close " +\
+          str(int(data[0]["close"]))+\
+          ", percentage difference "+ str(percentagedifference)+"%"
+    googlesheetsraw = [symbol , action , 'sma'+ str(smarange) , int(data[0]["sma"]) ,int(data[0]["close"]),str(percentagedifference)+"%"]
+    if  action == "sell":
+        isSell = is_need_sell(data)
+        if isSell:
+            print(msg + ", You have to sell")
+            sendtelegrammsg(msg + ", You have to sell")
+            writeToLogfile(msg + ", You have to sell")
+            googlesheetsraw.append("You have to sell")
+            googlesheets_add_history([googlesheetsraw],color_flag= True)
+        else:
+            print(msg)
+            writeToLogfile(msg)
+            googlesheets_add_history([googlesheetsraw])
+    elif action == "buy":
+        isBuy = is_need_buy(data)
+        if isBuy:
+            print(msg + ", You have to buy")
+            sendtelegrammsg(msg + ", You have to buy")
+            writeToLogfile(msg + ", You have to buy")
+            googlesheetsraw.append("You have to buy")
+            googlesheets_add_history([googlesheetsraw],color_flag= True)
+        else:
+            print(msg)
+            writeToLogfile(msg)
+            googlesheets_add_history([googlesheetsraw])
+    elif action == "trace":
+        print(msg)
+        writeToLogfile(msg)
+        if  abs(float(percentagedifference)) < smapercentagedifference:
+            color_flag = True
+        else:
+            color_flag = False
+        googlesheets_add_history([googlesheetsraw],color_flag= color_flag)
+
+
+
+
+
+
+'''
+--------------------------------------------------------------
+'''
+enableLogFile = False
+enableSendTelgram = False
+enableGoogleSheetUpdate = False
+smapercentagedifference = 0
+
+get_general_parameters()
 apikey = os.getenv("FINANCIALMODELINGPREP_APIKEY")
 investDataFile = "data_invest.json"
 try:
