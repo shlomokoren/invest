@@ -102,9 +102,6 @@ def writeToLogfile(line):
 
 def googlesheets_add_history(symbolsList, color_flag= False):
     global enableGoogleSheetUpdate
-    with open('google-credentials.json','r') as f:
-        content = f.read()
-        print(content)
 
     if debug == True : print ("start googlesheets_add_history function ")
 
