@@ -112,6 +112,7 @@ def googlesheets_add_history(symbolsList, color_flag= False):
                 scopes=["https://www.googleapis.com/auth/spreadsheets",
                         "https://www.googleapis.com/auth/drive"]
             )
+            print(credentials)
             # Authorize and create a client
             client = gspread.authorize(credentials)
             # Open the Google Sheet by name
