@@ -12,5 +12,5 @@ def display_file_content(file_path):
         print(f"An error occurred: {e}")
 
 if __name__ == "__main__":
-    file_path = input("data_invest.json")
+    file_path = input("general_parameters.json")
     display_file_content(file_path)
