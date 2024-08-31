@@ -37,7 +37,7 @@ jobs:
       - name: Decode Google credentials
         run: echo "${{ secrets.GOOGLE_APPLICATION_CREDENTIALS_BASE64 }}" | base64 --decode > google-credentials.json
       - name: Set up Google credentials
-        run: echo "${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}" | sed 's/\\n/\\n/g' > google-credentials.json
+        run: echo "${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}" | sed "s/'/\"/g" > google-credentials.json
 
 #      - name: cat google-credentials.json
 #        run: cat google-credentials.json
