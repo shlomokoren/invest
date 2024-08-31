@@ -104,14 +104,9 @@ def writeToLogfile(line):
 def googlesheets_add_history(symbolsList, color_flag= False):
     global enableGoogleSheetUpdate
     if enableGoogleSheetUpdate is True:
-        # # Load the credentials from the JSON key file
-        # credentials = Credentials.from_service_account_file(
-        #     'E:\\pythoninvest\\pythoninvest-434016-892129d295c9.json',
-        #     scopes=["https://www.googleapis.com/auth/spreadsheets",
-        #             "https://www.googleapis.com/auth/drive"]
-        # )
 
         credentials_path = os.getenv('GOOGLE_APPLICATION_CREDENTIALS')
+        print("momo debug11 credentials_path= " +str(credentials_path))
         credentials = Credentials.from_service_account_file(
             credentials_path,
             scopes=["https://www.googleapis.com/auth/spreadsheets",
