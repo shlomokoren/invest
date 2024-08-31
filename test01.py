@@ -1,5 +1,7 @@
 # display_file_content.py
 
+import sys
+
 def display_file_content(file_path):
     try:
         with open(file_path, 'r') as file:
@@ -12,5 +14,9 @@ def display_file_content(file_path):
         print(f"An error occurred: {e}")
 
 if __name__ == "__main__":
-    file_path = input("./general_parameters.json")
+    if len(sys.argv) != 2:
+        print("Usage: python display_file_content.py <file_path>")
+        sys.exit(1)
+
+    file_path = sys.argv[1]
     display_file_content(file_path)
