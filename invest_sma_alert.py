@@ -112,6 +112,7 @@ def googlesheets_add_history(symbolsList, color_flag= False):
                     "https://www.googleapis.com/auth/drive"]
         )
         spreadsheet = None
+        print("momodebug11")
         try:
             # Authorize and create a client
             client = gspread.authorize(credentials)
