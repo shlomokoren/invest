@@ -28,7 +28,6 @@ def get_general_parameters():
     except FileNotFoundError:
         print(f"Error: The file '{investDataFile}' was not found.")
 
-    pass
 
 def percentage_difference(closedvalue, smavalue):
     # Calculate the percentage difference
@@ -103,6 +102,7 @@ def writeToLogfile(line):
 
 def googlesheets_add_history(symbolsList, color_flag= False):
     global enableGoogleSheetUpdate
+    if debug == True : print ("start googlesheets_add_history function ")
     if enableGoogleSheetUpdate is True:
 
         credentials_path = os.getenv('GOOGLE_APPLICATION_CREDENTIALS')
