@@ -1,6 +1,6 @@
 [{"enableLogFile": false},
   {"enableSendTelgram": false},
-  {"enableGoogleSheetUpdate":  true},
+  {"enableGoogleSheetUpdate":  false},
   {"smapercentagedifference" : 2}
 ]
 
