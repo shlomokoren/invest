@@ -230,13 +230,10 @@ get_general_parameters()
 apikey = os.getenv("FINANCIALMODELINGPREP_APIKEY")
 investDataFile = "data_invest.json"
 try:
-    print("momodebug01")
     with open(investDataFile, 'r') as file:
         symbols = json.load(file)
-    print("momodebug02")
     print(symbols)
     for item in symbols:
-        print("momodebug03, " )
         if debug == True:
          if item["symbol"] == "ADBE":
             getsma(item["symbol"],item["range"],item["action"],apikey)
