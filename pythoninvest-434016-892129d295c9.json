@@ -1,12 +1,2 @@
 {
-  "type": "service_account",
-  "project_id": "pythoninvest-434016",
-  "private_key_id": "892129d295c968864ca10ab51d31ffe7a05604ae",
-  "client_email": "pythoninvest@pythoninvest-434016.iam.gserviceaccount.com",
-  "client_id": "115799924401903290306",
-  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
-  "token_uri": "https://oauth2.googleapis.com/token",
-  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
-  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/pythoninvest%40pythoninvest-434016.iam.gserviceaccount.com",
-  "universe_domain": "googleapis.com"
 }
