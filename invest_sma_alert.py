@@ -232,7 +232,6 @@ investDataFile = "data_invest.json"
 try:
     with open(investDataFile, 'r') as file:
         symbols = json.load(file)
-    print(symbols)
     for item in symbols:
         if debug == True:
          if item["symbol"] == "ADBE":
