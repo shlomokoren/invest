@@ -34,8 +34,8 @@ jobs:
         shell: bash
 #      - name: Set up Google credentials
 #        run: echo "${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}" > google-credentials.json
-      - name: Decode Google credentials
-        run: echo "${{ secrets.GOOGLE_APPLICATION_CREDENTIALS_BASE64 }}" | base64 --decode > google-credentials.json
+#      - name: Decode Google credentials
+#        run: echo "${{ secrets.GOOGLE_APPLICATION_CREDENTIALS_BASE64 }}" | base64 --decode > google-credentials.json
       - name: Run Python script
         env:
           GOOGLE_APPLICATION_CREDENTIALS: google-credentials.json
