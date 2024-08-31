@@ -130,8 +130,8 @@ def googlesheets_add_history(symbolsList, color_flag= False):
         # Check if the first row is empty (i.e., if the sheet is new)
         if not worksheet.cell(1, 1).value:
             # Add title row
-            title_row = ["Date" ,"Symbol", "Action", "Indecator", "Indicator Value", "Closed"]
-            worksheet.update(range_name='A1:F1', values = [title_row])
+            title_row = ["Date" ,"Symbol", "Action", "Indecator", "Indicator Value", "Closed" , "difference %"]
+            worksheet.update(range_name='A1:G1', values = [title_row])
 
 
         # Get the current date
@@ -171,7 +171,9 @@ def getsma(symbol,smarange,action,apikey):
     response = requests.request("GET", url, headers=headers, data=payload,params=params)
 #    print(response.status_code)
     data = response.json()
-    percentagedifference = percentage_difference(data[0]["close"], data[0]["sma"])
+    maIndicator = data[0]["sma"]
+    closePrice = data[0]["close"]
+    percentagedifference = percentage_difference(closePrice, maIndicator)
     msg = symbol + ', action ' + action +\
           ", rang " + str(smarange) + ",sma " +\
           str(int(data[0]["sma"])) + ",close " +\
@@ -205,7 +207,7 @@ def getsma(symbol,smarange,action,apikey):
     elif action == "trace":
         print(msg)
         writeToLogfile(msg)
-        if  abs(float(percentagedifference)) < smapercentagedifference:
+        if  abs(float(percentagedifference)) <= smapercentagedifference:
             color_flag = True
         else:
             color_flag = False
@@ -228,9 +230,12 @@ get_general_parameters()
 apikey = os.getenv("FINANCIALMODELINGPREP_APIKEY")
 investDataFile = "data_invest.json"
 try:
+    print("momodebug01")
     with open(investDataFile, 'r') as file:
         symbols = json.load(file)
+    print("momodebug02")
     for item in symbols:
+        print("momodebug03")
         if debug == True:
          if item["symbol"] == "ADBE":
             getsma(item["symbol"],item["range"],item["action"],apikey)
