@@ -106,20 +106,22 @@ def googlesheets_add_history(symbolsList, color_flag= False):
     if enableGoogleSheetUpdate is True:
 
         credentials_path = os.getenv('GOOGLE_APPLICATION_CREDENTIALS')
-        print("momo debug11 credentials_path= " +str(credentials_path))
         credentials = Credentials.from_service_account_file(
             credentials_path,
             scopes=["https://www.googleapis.com/auth/spreadsheets",
                     "https://www.googleapis.com/auth/drive"]
         )
-
-        # Authorize and create a client
-        client = gspread.authorize(credentials)
-        print("momo debug12")
-        # Open the Google Sheet by name
-        spreadsheet = client.open("pythoninvesttest")
-        # Check if the "history" sheet exists, if not create it
-        print("momo debug13")
+        spreadsheet = None
+        try:
+            # Authorize and create a client
+            client = gspread.authorize(credentials)
+            # Open the Google Sheet by name
+            spreadsheet = client.open("pythoninvesttest")
+            # Check if the "history" sheet exists, if not create it
+        except Exception as e:
+            print("fail to open sheet pythoninvesttest")
+            print(f"An error exception is: {e}")
+            return
 
         try:
             worksheet = spreadsheet.worksheet("history")
