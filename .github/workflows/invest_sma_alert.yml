@@ -31,6 +31,9 @@ jobs:
         run: pip install -r requirements.txt
       - name: Set up Google credentials
         run: echo "${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}" > google-credentials.json
+        shell: bash
+      - name: Set up Google credentials
+        run: echo "${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}" > google-credentials.json
       - name: Run Python script
         env:
           GOOGLE_APPLICATION_CREDENTIALS: google-credentials.json
