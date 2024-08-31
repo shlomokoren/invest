@@ -115,9 +115,12 @@ def googlesheets_add_history(symbolsList, color_flag= False):
 
         # Authorize and create a client
         client = gspread.authorize(credentials)
+        print("momo debug12")
         # Open the Google Sheet by name
         spreadsheet = client.open("pythoninvesttest")
         # Check if the "history" sheet exists, if not create it
+        print("momo debug13")
+
         try:
             worksheet = spreadsheet.worksheet("history")
         except gspread.exceptions.WorksheetNotFound:
