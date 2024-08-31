@@ -104,16 +104,14 @@ def googlesheets_add_history(symbolsList, color_flag= False):
     global enableGoogleSheetUpdate
     if debug == True : print ("start googlesheets_add_history function ")
     if enableGoogleSheetUpdate is True:
-
-        credentials_path = os.getenv('GOOGLE_APPLICATION_CREDENTIALS')
-        credentials = Credentials.from_service_account_file(
-            credentials_path,
-            scopes=["https://www.googleapis.com/auth/spreadsheets",
-                    "https://www.googleapis.com/auth/drive"]
-        )
         spreadsheet = None
-        print("momodebug11")
         try:
+            credentials_path = os.getenv('GOOGLE_APPLICATION_CREDENTIALS')
+            credentials = Credentials.from_service_account_file(
+                credentials_path,
+                scopes=["https://www.googleapis.com/auth/spreadsheets",
+                        "https://www.googleapis.com/auth/drive"]
+            )
             # Authorize and create a client
             client = gspread.authorize(credentials)
             # Open the Google Sheet by name
