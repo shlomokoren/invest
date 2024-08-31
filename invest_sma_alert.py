@@ -5,6 +5,7 @@ from datetime import datetime
 import gspread
 from google.oauth2.service_account import Credentials
 
+from googlesheetupdate import symbolsList
 
 debug = True
 
@@ -234,8 +235,9 @@ try:
     with open(investDataFile, 'r') as file:
         symbols = json.load(file)
     print("momodebug02")
+    print(symbols)
     for item in symbols:
-        print("momodebug03")
+        print("momodebug03, " + str(item) )
         if debug == True:
          if item["symbol"] == "ADBE":
             getsma(item["symbol"],item["range"],item["action"],apikey)
