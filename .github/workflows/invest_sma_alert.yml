@@ -41,9 +41,11 @@ jobs:
 
 #      - name: cat google-credentials.json
 #        run: cat google-credentials.json
-      - name: Run Python script
-        env:
-          GOOGLE_APPLICATION_CREDENTIALS: google-credentials.json
-        run: python invest_sma_alert.py  # Specify the path to your Python script here
+#      - name: Run Python script
+#        env:
+#          GOOGLE_APPLICATION_CREDENTIALS: google-credentials.json
+#        run: python invest_sma_alert.py  # Specify the path to your Python script here
+      - name: run test
+        run: python test01.py
       - name: list files
         run: ls
