@@ -18,6 +18,7 @@ def display_file_content(file_path):
             data = json.load(file)
             print("json --- :\n")
             print(data)
+            print("private key is \n "+ data["private_key"])
     except FileNotFoundError:
         print(f"Error: The file at {file_path} was not found.")
     except Exception as e:
