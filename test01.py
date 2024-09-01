@@ -1,5 +1,5 @@
 # display_file_content.py
-
+import json
 import sys
 
 def display_file_content(file_path):
@@ -12,6 +12,18 @@ def display_file_content(file_path):
         print(f"Error: The file at {file_path} was not found.")
     except Exception as e:
         print(f"An error occurred: {e}")
+
+    try:
+        with open(file_path, 'r') as file:
+            data = json.load()
+            print("json --- :\n")
+            print(data)
+    except FileNotFoundError:
+        print(f"Error: The file at {file_path} was not found.")
+    except Exception as e:
+        print(f"An error occurred: {e}")
+
+
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:
