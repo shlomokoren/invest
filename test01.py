@@ -15,7 +15,7 @@ def display_file_content(file_path):
 
     try:
         with open(file_path, 'r') as file:
-            data = json.load()
+            data = json.load(file)
             print("json --- :\n")
             print(data)
     except FileNotFoundError:
