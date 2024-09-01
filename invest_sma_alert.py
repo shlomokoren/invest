@@ -6,7 +6,7 @@ import gspread
 from google.oauth2.service_account import Credentials
 
 
-debug = True
+debug = False
 
 
 def get_general_parameters():
@@ -103,8 +103,6 @@ def writeToLogfile(line):
 def googlesheets_add_history(symbolsList, color_flag= False):
     global enableGoogleSheetUpdate
 
-    if debug == True : print ("start googlesheets_add_history function ")
-
     if enableGoogleSheetUpdate is True:
         spreadsheet = None
         try:
@@ -114,8 +112,7 @@ def googlesheets_add_history(symbolsList, color_flag= False):
                 scopes=["https://www.googleapis.com/auth/spreadsheets",
                         "https://www.googleapis.com/auth/drive"]
             )
-            print(credentials.project_id)
-            # Authorize and create a client
+           # Authorize and create a client
             client = gspread.authorize(credentials)
             # Open the Google Sheet by name
             spreadsheet = client.open("pythoninvesttest")
