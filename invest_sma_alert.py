@@ -7,7 +7,7 @@ from google.oauth2.service_account import Credentials
 
 
 debug = False
-
+__version__ = "0.0.2"
 
 def get_general_parameters():
     global enableLogFile , enableSendTelgram ,enableGoogleSheetUpdate
@@ -37,14 +37,18 @@ def percentage_difference(closedvalue, smavalue):
     return (formatted_percentage_difference)
 
 def is_need_buy(data):
+    global smapercentagedifference
     result = False
     closedValue = int(data[0]["close"])
     smaValue = int(data[0]["sma"])
 #    smaValueBefore = int(data[7]["sma"])
     if (smaValue < closedValue ) :
-        result = True
-        return result
-    return (result)
+
+        percentagedifference = percentage_difference(closedValue, smaValue)
+        if abs(float(percentagedifference)) <= smapercentagedifference:
+            result = True
+            return result
+    return result
 
 def is_need_sell(data):
     result = False
@@ -54,7 +58,7 @@ def is_need_sell(data):
     if (smaValue >=closedValue ) :
         result = True
         return result
-    return (result)
+    return result
 
 
 def sendtelegrammsg(message):
