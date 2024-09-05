@@ -1,5 +1,5 @@
 [{"enableLogFile": false},
-  {"enableSendTelgram": false},
+  {"enableSendTelgram": true},
   {"enableGoogleSheetUpdate": true},
   {"smapercentagedifference" : 2}
 ]
