@@ -1,0 +1,7 @@
+[{"enableLogFile": false},
+  {"enableSendTelgram": false},
+  {"enableGoogleSheetUpdate": true},
+  {"smapercentagedifference" : 2}
+]
+
+

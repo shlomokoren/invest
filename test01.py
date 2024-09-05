@@ -1,0 +1,2 @@
+import invest_sma_alert
+print(invest_sma_alert.__version__)
