@@ -34,18 +34,9 @@ jobs:
         shell: bash
       - name: Set up Google credentials
         run: echo "${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}" > google-credentials.json
-#      - name: Decode Google credentials
-#        run: echo "${{ secrets.GOOGLE_APPLICATION_CREDENTIALS_BASE64 }}" | base64 --decode > google-credentials.json
-
-#      - name: cat google-credentials.json
-#        run: cat google-credentials.json
       - name: Print current time
         run: date -u
       - name: Run Python script
         env:
           GOOGLE_APPLICATION_CREDENTIALS: google-credentials.json
-        run: python invest_sma_alert.py  # Specify the path to your Python script here
-#      - name: run test
-#        run: python test01.py google-credentials.json
-#      - name: list files
-#        run: ls
+        run: python invest_ma150_alert.py  # Specify the path to your Python script here

@@ -1,9 +1,9 @@
 [ {"symbol": "ADBE", "range": 150,"action": "trace"},
+  {"symbol": "AVGO", "range": 150,"action": "trace"},
   {"symbol": "META", "range": 150,"action": "trace"},
   {"symbol": "LULU", "range": 150,"action": "trace"},
   {"symbol": "AMZN", "range": 150,"action": "trace"},
   {"symbol":"AAPL","range":150,"action": "sell"},
-  {"symbol":"CRM","range":300,"action": "sell"},
   {"symbol": "MSFT", "range": 200,"action": "sell"},
   {"symbol": "MSI", "range": 150,"action": "sell"},
   {"symbol": "NVDA", "range": 150,"action": "sell"},
@@ -12,5 +12,6 @@
   {"symbol": "AMZN", "range": 200,"action": "sell"},
   {"symbol":"AFRM","range":150,"action": "buy"},
   {"symbol":"AMD","range":150,"action": "buy"},
+  {"symbol":"CRM","range":150,"action": "buy"},
   {"symbol":"GOOG","range":150,"action": "buy"},
   {"symbol": "ASML", "range": 150,"action": "buy"}]

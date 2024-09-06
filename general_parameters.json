@@ -1,9 +1,5 @@
 [{"enableLogFile": false},
-<<<<<<< HEAD
   {"enableSendTelgram": true},
-=======
-  {"enableSendTelgram": false},
->>>>>>> 742f5748ebf0cf2f4728150119970e28fc359127
   {"enableGoogleSheetUpdate": true},
   {"smapercentagedifference" : 2}
 ]

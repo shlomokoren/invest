@@ -159,9 +159,17 @@ def googlesheets_add_history(symbolsList, color_flag= False):
 
         worksheet.sort((1, 'des'))
 
-def getsma(symbol,smarange,action,apikey):
-    sma=0
+def maRule(symbol, smarange, action, apikey):
+    '''
 
+    :param symbol:
+    :param smarange:
+    :param action:
+    :param apikey:
+    :return: mapkey symbol : buyToSale/SaleToBuy
+    '''
+    sma=0
+    result = None
     #    url = "https://financialmodelingprep.com/api/v3/technical_indicator/1day/AAPL?type=sma&period=150&apikey=XOdeeszqGm4RohYI1hZH1dJb92ALCFZN"
     payload = {}
     headers = {}
@@ -186,6 +194,7 @@ def getsma(symbol,smarange,action,apikey):
     if  action == "sell":
         isSell = is_need_sell(data)
         if isSell:
+            result = {'symbol': symbol ,'change_action':'saleToBuy'}
             print(msg + ", You have to sell")
             sendtelegrammsg(msg + ", You have to sell")
             writeToLogfile(msg + ", You have to sell")
@@ -198,6 +207,7 @@ def getsma(symbol,smarange,action,apikey):
     elif action == "buy":
         isBuy = is_need_buy(data)
         if isBuy:
+            result = {'symbol': symbol ,'change_action':'buyToSale'}
             print(msg + ", You have to buy")
             sendtelegrammsg(msg + ", You have to buy")
             writeToLogfile(msg + ", You have to buy")
@@ -215,7 +225,7 @@ def getsma(symbol,smarange,action,apikey):
         else:
             color_flag = False
         googlesheets_add_history([googlesheetsraw],color_flag= color_flag)
-
+    return result
 
 
 
@@ -235,15 +245,20 @@ investDataFile = "data_invest.json"
 try:
     with open(investDataFile, 'r') as file:
         symbols = json.load(file)
+    replaceBuySale = []
     for item in symbols:
         if debug == True:
          if item["symbol"] == "ADBE":
-            getsma(item["symbol"],item["range"],item["action"],apikey)
+            maRule_result = maRule(item["symbol"], item["range"], item["action"], apikey)
         else:
-            getsma(item["symbol"],item["range"],item["action"],apikey)
+            maRule_result = maRule(item["symbol"], item["range"], item["action"], apikey)
+        if maRule_result is not None:
+            replaceBuySale.append(maRule_result)
+    print(replaceBuySale)
 except FileNotFoundError:
     print(f"Error: The file '{investDataFile}' was not found.")
 except json.JSONDecodeError:
     print(f"Error: The file '{investDataFile}' contains invalid JSON.")
 except Exception as e:
     print(f"An unexpected error occurred: {e}")
+print("run is completed")
