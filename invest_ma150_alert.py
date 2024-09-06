@@ -90,6 +90,22 @@ def sendtelegrammsg(message):
         else:
             print("Failed to send message.")
 
+def change_symbol_action(replaceBuySell):
+    with open(investDataFile, 'r') as file:
+        symbols = json.load(file)
+        for item in replaceBuySell:
+            for symbol in symbols:
+                if symbol['symbol'] == item['symbol']:
+                    if ( item['change_action'] == 'sellToBuy' ) and (symbol['action'] == 'sell'):
+                        print(symbol['action'])
+                        symbol['action'] = 'buy'
+                    elif (item['change_action'] == 'buyToSell') and (symbol['action'] == 'sell'):
+                        print(symbol['action'])
+                        symbol['action'] = 'sell'
+    # Write the updated symbols back to the file
+    with open(investDataFile, 'w') as file:
+        json.dump(symbols, file, indent=4)  # Write the updated symbols to the file
+
 
 def writeToLogfile(line):
     global enableLogFile
@@ -166,7 +182,7 @@ def maRule(symbol, smarange, action, apikey):
     :param smarange:
     :param action:
     :param apikey:
-    :return: mapkey symbol : buyToSale/SaleToBuy
+    :return: mapkey symbol : buyToSell/SellToBuy
     '''
     sma=0
     result = None
@@ -194,7 +210,7 @@ def maRule(symbol, smarange, action, apikey):
     if  action == "sell":
         isSell = is_need_sell(data)
         if isSell:
-            result = {'symbol': symbol ,'change_action':'saleToBuy'}
+            result = {'symbol': symbol ,'change_action':'sellToBuy'}
             print(msg + ", You have to sell")
             sendtelegrammsg(msg + ", You have to sell")
             writeToLogfile(msg + ", You have to sell")
@@ -207,7 +223,7 @@ def maRule(symbol, smarange, action, apikey):
     elif action == "buy":
         isBuy = is_need_buy(data)
         if isBuy:
-            result = {'symbol': symbol ,'change_action':'buyToSale'}
+            result = {'symbol': symbol ,'change_action':'buyToSell'}
             print(msg + ", You have to buy")
             sendtelegrammsg(msg + ", You have to buy")
             writeToLogfile(msg + ", You have to buy")
@@ -245,16 +261,18 @@ investDataFile = "data_invest.json"
 try:
     with open(investDataFile, 'r') as file:
         symbols = json.load(file)
-    replaceBuySale = []
+    replaceBuySell = []
     for item in symbols:
         if debug == True:
-         if item["symbol"] == "ADBE":
+         maRule_result = None
+         if item["action"] == "sell":
             maRule_result = maRule(item["symbol"], item["range"], item["action"], apikey)
         else:
             maRule_result = maRule(item["symbol"], item["range"], item["action"], apikey)
         if maRule_result is not None:
-            replaceBuySale.append(maRule_result)
-    print(replaceBuySale)
+            replaceBuySell.append(maRule_result)
+    change_symbol_action(replaceBuySell)
+
 except FileNotFoundError:
     print(f"Error: The file '{investDataFile}' was not found.")
 except json.JSONDecodeError:
