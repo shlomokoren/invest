@@ -18,13 +18,13 @@ jobs:
       TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
           python-version: '3.x'  # You can specify the Python version here
       - name: list files
-        run: ls -l
+        run: ls -la
       - name: cat data_invest.json
         run: cat data_invest.json
       - name: pip install requirements.txt
