@@ -55,4 +55,4 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}  # Use your PAT stored as a secret
         run: |
-          git push https://$GH_TOKEN@github.com/${{ github.repository }} HEAD:${{ github.ref_name }}
+          git push https://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@github.com/${{ github.repository }} HEAD:${{ github.ref_name }}
