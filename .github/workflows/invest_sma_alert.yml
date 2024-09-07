@@ -53,7 +53,6 @@ jobs:
 
       - name: Push changes
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}  # Use your PAT stored as a secret
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}  # Use your PAT stored as a secret
         run: |
-          # Push to the current branch dynamically using GITHUB_REF_NAME
-          git push https://$GITHUB_TOKEN@github.com/${{ github.repository }} HEAD:${{ github.ref_name }}
+          git push https://$GH_TOKEN@github.com/${{ github.repository }} HEAD:${{ github.ref_name }}
