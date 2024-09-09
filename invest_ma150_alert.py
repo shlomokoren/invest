@@ -90,7 +90,7 @@ def sendtelegrammsg(message):
         else:
             print("Failed to send message.")
 
-def change_symbol_action(replaceBuySell):
+def change_stock_action(replaceBuySell):
     with open(investDataFile, 'r') as file:
         symbols = json.load(file)
         for item in replaceBuySell:
@@ -260,18 +260,18 @@ apikey = os.getenv("FINANCIALMODELINGPREP_APIKEY")
 investDataFile = "data_invest.json"
 try:
     with open(investDataFile, 'r') as file:
-        symbols = json.load(file)
+        stocks = json.load(file)
     replaceBuySell = []
-    for item in symbols:
+    for stock in stocks:
         if debug == True:
          maRule_result = None
-         if item["action"] == "sell":
-            maRule_result = maRule(item["symbol"], item["range"], item["action"], apikey)
+         if stock["action"] == "sell":
+            maRule_result = maRule(stock["symbol"], stock["range"], stock["action"], apikey)
         else:
-            maRule_result = maRule(item["symbol"], item["range"], item["action"], apikey)
+            maRule_result = maRule(stock["symbol"], stock["range"], stock["action"], apikey)
         if maRule_result is not None:
             replaceBuySell.append(maRule_result)
-    change_symbol_action(replaceBuySell)
+    change_stock_action(replaceBuySell)
 
 except FileNotFoundError:
     print(f"Error: The file '{investDataFile}' was not found.")
