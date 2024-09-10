@@ -25,8 +25,11 @@ def get_general_parameters():
                 enableGoogleSheetUpdate = item['enableGoogleSheetUpdate']
             elif 'smapercentagedifference' in item:
                 smapercentagedifference = item['smapercentagedifference']
+            elif 'updateBuySellInInputFile' in item:
+                updateBuySellInInputFile = item['updateBuySellInInputFile']
     except FileNotFoundError:
         print(f"Error: The file '{investDataFile}' was not found.")
+
 
 
 def percentage_difference(closedvalue, smavalue):
@@ -246,13 +249,13 @@ def maRule(symbol, smarange, action, apikey):
 
 
 
-
 '''
 --------------------------------------------------------------
 '''
 enableLogFile = False
 enableSendTelgram = False
 enableGoogleSheetUpdate = False
+updateBuySellInInputFile = False
 smapercentagedifference = 0
 
 get_general_parameters()
@@ -271,7 +274,8 @@ try:
             maRule_result = maRule(stock["symbol"], stock["range"], stock["action"], apikey)
         if maRule_result is not None:
             replaceBuySell.append(maRule_result)
-    change_stock_action(replaceBuySell)
+    if updateBuySellInInputFile is True:
+        change_stock_action(replaceBuySell)
 
 except FileNotFoundError:
     print(f"Error: The file '{investDataFile}' was not found.")

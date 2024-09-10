@@ -27,12 +27,9 @@
     {
         "symbol": "AAPL",
         "range": 150,
-        "action": "sell"
-    },
-    {
-        "symbol": "MSFT",
-        "range": 200,
-        "action": "buy"
+        "action": "sell",
+        "takeProfitPercentage": 10,
+        "takeProfitDone": false
     },
     {
         "symbol": "MSI",
@@ -50,15 +47,34 @@
         "action": "sell"
     },
     {
-        "symbol": "ARKW",
-        "range": 150,
-        "action": "buy"
-    },
-    {
         "symbol": "AMZN",
         "range": 200,
         "action": "sell"
     },
+
+    {
+        "symbol": "AVGO",
+        "range": 150,
+        "action": "buy"
+    },
+
+    {
+        "symbol": "MSFT",
+        "range": 150,
+        "action": "buy"
+    },
+    {
+        "symbol": "ARKW",
+        "range": 150,
+        "action": "buy"
+    },
+
+    {
+        "symbol": "AMZN",
+        "range": 150,
+        "action": "buy"
+    },
+
     {
         "symbol": "AFRM",
         "range": 150,
@@ -79,6 +95,12 @@
         "range": 150,
         "action": "buy"
     },
+    {
+        "symbol": "TSC",
+        "range": 150,
+        "action": "buy"
+    },
+
     {
         "symbol": "ASML",
         "range": 150,

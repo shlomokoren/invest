@@ -2,7 +2,7 @@ name: Run Python Script
 
 on:
   schedule:
-    - cron: '35 19 * * 1-5' # Runs monday till friday 
+    - cron: '35 19 * * 1-5' # Runs monday till friday
   push:
     branches:
       - main
