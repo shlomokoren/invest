@@ -29,22 +29,28 @@
         "range": 150,
         "action": "sell",
         "takeProfitPercentage": 10,
-        "takeProfitDone": false
+        "isNeedToCheckTakeProfit": true
     },
     {
         "symbol": "MSI",
         "range": 150,
-        "action": "sell"
+        "action": "sell",
+        "takeProfitPercentage": 10,
+        "isNeedToCheckTakeProfit": true
     },
     {
         "symbol": "NVDA",
         "range": 150,
-        "action": "sell"
+        "action": "sell",
+        "takeProfitPercentage": 10,
+        "isNeedToCheckTakeProfit": true
     },
     {
         "symbol": "ORCL",
         "range": 150,
-        "action": "sell"
+        "action": "sell",
+        "takeProfitPercentage": 10,
+        "isNeedToCheckTakeProfit": true
     },
     {
         "symbol": "AMZN",

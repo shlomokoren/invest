@@ -30,8 +30,6 @@ def get_general_parameters():
     except FileNotFoundError:
         print(f"Error: The file '{investDataFile}' was not found.")
 
-
-
 def percentage_difference(closedvalue, smavalue):
     # Calculate the percentage difference
     percentage_difference = ((closedvalue - smavalue) / closedvalue) * 100
@@ -62,8 +60,9 @@ def is_need_sell(data):
         result = True
         return result
     return result
-
-
+def is_need_take_profit(smaValue,closeValue):
+    result = False
+    return result
 def sendtelegrammsg(message):
     global enableSendTelgram
     if enableSendTelgram is True:
@@ -108,7 +107,6 @@ def change_stock_action(replaceBuySell):
     # Write the updated symbols back to the file
     with open(investDataFile, 'w') as file:
         json.dump(symbols, file, indent=4)  # Write the updated symbols to the file
-
 
 def writeToLogfile(line):
     global enableLogFile
@@ -178,7 +176,7 @@ def googlesheets_add_history(symbolsList, color_flag= False):
 
         worksheet.sort((1, 'des'))
 
-def maRule(symbol, smarange, action, apikey):
+def maRule(stockObj, apikey):
     '''
 
     :param symbol:
@@ -187,6 +185,15 @@ def maRule(symbol, smarange, action, apikey):
     :param apikey:
     :return: mapkey symbol : buyToSell/SellToBuy
     '''
+    symbol = stockObj["symbol"]
+    smarange = stockObj["range"]
+    action = stockObj["action"]
+    isNeedToCheckTakeProfit = False
+    takeProfitPercentage = 1000
+    if "isNeedToCheckTakeProfit" in stockObj:
+        isNeedToCheckTakeProfit = stockObj["isNeedToCheckTakeProfit"]
+        takeProfitPercentage = stockObj["takeProfitPercentage"]
+
     sma=0
     result = None
     #    url = "https://financialmodelingprep.com/api/v3/technical_indicator/1day/AAPL?type=sma&period=150&apikey=XOdeeszqGm4RohYI1hZH1dJb92ALCFZN"
@@ -199,51 +206,64 @@ def maRule(symbol, smarange, action, apikey):
     }
     url = "https://financialmodelingprep.com/api/v3/technical_indicator/1day/" + symbol
     response = requests.request("GET", url, headers=headers, data=payload,params=params)
-#    print(response.status_code)
     data = response.json()
     maIndicator = data[0]["sma"]
+    maInicatorDaysBefore07 = data[7]["sma"]
+    maInicatorDaysBefore14 = data[14]["sma"]
+    isMaTrandUp = False
+    if (maIndicator > maInicatorDaysBefore07) and (maInicatorDaysBefore07 > maInicatorDaysBefore14):
+        isMaTrandUp = True    
     closePrice = data[0]["close"]
-    percentagedifference = percentage_difference(closePrice, maIndicator)
+    percentageDifference = percentage_difference(closePrice, maIndicator)
     msg = symbol + ', action ' + action +\
           ", rang " + str(smarange) + ",sma " +\
           str(int(data[0]["sma"])) + ",close " +\
           str(int(data[0]["close"]))+\
-          ", percentage difference "+ str(percentagedifference)+"%"
-    googlesheetsraw = [symbol , action , 'sma'+ str(smarange) , int(data[0]["sma"]) ,int(data[0]["close"]),str(percentagedifference)+"%"]
+          ", percentage difference "+ str(percentageDifference)+"%"
+    googleSheetsRaw = [symbol , action , 'sma'+ str(smarange) , int(data[0]["sma"]) ,int(data[0]["close"]),str(percentageDifference)+"%"]
     if  action == "sell":
-        isSell = is_need_sell(data)
-        if isSell:
-            result = {'symbol': symbol ,'change_action':'sellToBuy'}
-            print(msg + ", You have to sell")
-            sendtelegrammsg(msg + ", You have to sell")
-            writeToLogfile(msg + ", You have to sell")
-            googlesheetsraw.append("You have to sell")
-            googlesheets_add_history([googlesheetsraw],color_flag= True)
-        else:
+        if ( isNeedToCheckTakeProfit) and (float(percentageDifference) > takeProfitPercentage) :
+            result = {"stock": stockObj, 'take_profile': 'changeToFalse'}
+            msg = msg + ", You have to take profit"
             print(msg)
+            sendtelegrammsg(msg)
             writeToLogfile(msg)
-            googlesheets_add_history([googlesheetsraw])
+            googleSheetsRaw.append("You have to take profit")
+            googlesheets_add_history([googleSheetsRaw], color_flag=True)
+        else:
+            isSell = is_need_sell(data)
+            if isSell  :
+                result = {"stock": stockObj  ,'change_action':'sellToBuy'}
+                print(msg + ", You have to sell")
+                sendtelegrammsg(msg + ", You have to sell")
+                writeToLogfile(msg + ", You have to sell")
+                googleSheetsRaw.append("You have to sell")
+                googlesheets_add_history([googleSheetsRaw],color_flag= True)
+            else:
+                print(msg)
+                writeToLogfile(msg)
+                googlesheets_add_history([googleSheetsRaw])
     elif action == "buy":
         isBuy = is_need_buy(data)
-        if isBuy:
-            result = {'symbol': symbol ,'change_action':'buyToSell'}
+        if (isBuy == True) and (isMaTrandUp == True):
+            result = {"stock": stockObj ,'change_action':'buyToSell'}
             print(msg + ", You have to buy")
             sendtelegrammsg(msg + ", You have to buy")
             writeToLogfile(msg + ", You have to buy")
-            googlesheetsraw.append("You have to buy")
-            googlesheets_add_history([googlesheetsraw],color_flag= True)
+            googleSheetsRaw.append("You have to buy")
+            googlesheets_add_history([googleSheetsRaw],color_flag= True)
         else:
             print(msg)
             writeToLogfile(msg)
-            googlesheets_add_history([googlesheetsraw])
+            googlesheets_add_history([googleSheetsRaw])
     elif action == "trace":
         print(msg)
         writeToLogfile(msg)
-        if  abs(float(percentagedifference)) <= smapercentagedifference:
+        if  abs(float(percentageDifference)) <= smapercentagedifference:
             color_flag = True
         else:
             color_flag = False
-        googlesheets_add_history([googlesheetsraw],color_flag= color_flag)
+        googlesheets_add_history([googleSheetsRaw],color_flag= color_flag)
     return result
 
 
@@ -266,12 +286,14 @@ try:
         stocks = json.load(file)
     replaceBuySell = []
     for stock in stocks:
+        isNeedTakeProfit = False
         if debug == True:
          maRule_result = None
+#         takeProfitDone = True
          if stock["action"] == "sell":
-            maRule_result = maRule(stock["symbol"], stock["range"], stock["action"], apikey)
+            maRule_result = maRule(stock, apikey)
         else:
-            maRule_result = maRule(stock["symbol"], stock["range"], stock["action"], apikey)
+            maRule_result = maRule(stock,apikey)
         if maRule_result is not None:
             replaceBuySell.append(maRule_result)
     if updateBuySellInInputFile is True:
