@@ -1,8 +1,8 @@
 name: Run Python Script
 
 on:
-  schedule:
-    - cron: '35 19 * * 1-5' # Runs every day at midnight UTC
+#  schedule:
+#    - cron: '35 19 * * 1-5' # Runs every day at midnight UTC
   push:
     branches:
       - main
