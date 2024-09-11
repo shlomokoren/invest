@@ -11,7 +11,7 @@ __version__ = "0.0.2"
 
 def get_general_parameters():
     global enableLogFile , enableSendTelgram ,enableGoogleSheetUpdate
-    global smapercentagedifference
+    global smapercentagedifference,updateBuySellInInputFile
     filename = "general_parameters.json"
     try:
         with open(filename, 'r') as file:
@@ -92,21 +92,25 @@ def sendtelegrammsg(message):
         else:
             print("Failed to send message.")
 
-def change_stock_action(replaceBuySell):
+def update_stocks_input_list(replaceValueList):
     with open(investDataFile, 'r') as file:
-        symbols = json.load(file)
-        for item in replaceBuySell:
-            for symbol in symbols:
-                if symbol['symbol'] == item['symbol']:
-                    if ( item['change_action'] == 'sellToBuy' ) and (symbol['action'] == 'sell'):
+        symbols_input_list = json.load(file)
+        for item in replaceValueList:
+            for symbol in symbols_input_list:
+                if symbol['symbol'] == item['stock']['symbol']:
+                    if ( item['changeField'] == 'sellToBuy' ) and (symbol['action'] == 'sell'):
                         print(symbol['action'])
                         symbol['action'] = 'buy'
-                    elif (item['change_action'] == 'buyToSell') and (symbol['action'] == 'sell'):
+                        if 'isNeedToCheckTakeProfit' in symbol:
+                            symbol['action'] = True
+                    elif (item['changeField'] == 'buyToSell') and (symbol['action'] == 'sell'):
                         print(symbol['action'])
                         symbol['action'] = 'sell'
+                    elif (item['changeField'] == 'disableTakeProfit')and (symbol['action'] == 'sell'):
+                        symbol['isNeedToCheckTakeProfit'] = False
     # Write the updated symbols back to the file
     with open(investDataFile, 'w') as file:
-        json.dump(symbols, file, indent=4)  # Write the updated symbols to the file
+        json.dump(symbols_input_list, file, indent=4)  # Write the updated symbols to the file
 
 def writeToLogfile(line):
     global enableLogFile
@@ -208,10 +212,10 @@ def maRule(stockObj, apikey):
     response = requests.request("GET", url, headers=headers, data=payload,params=params)
     data = response.json()
     maIndicator = data[0]["sma"]
-    maInicatorDaysBefore07 = data[7]["sma"]
-    maInicatorDaysBefore14 = data[14]["sma"]
+    maInicatorDaysBeforeNear = data[7]["sma"]
+    maInicatorDaysBeforeFar = data[14]["sma"]
     isMaTrandUp = False
-    if (maIndicator > maInicatorDaysBefore07) and (maInicatorDaysBefore07 > maInicatorDaysBefore14):
+    if (maIndicator > maInicatorDaysBeforeNear) and (maInicatorDaysBeforeNear > maInicatorDaysBeforeFar):
         isMaTrandUp = True    
     closePrice = data[0]["close"]
     percentageDifference = percentage_difference(closePrice, maIndicator)
@@ -223,7 +227,7 @@ def maRule(stockObj, apikey):
     googleSheetsRaw = [symbol , action , 'sma'+ str(smarange) , int(data[0]["sma"]) ,int(data[0]["close"]),str(percentageDifference)+"%"]
     if  action == "sell":
         if ( isNeedToCheckTakeProfit) and (float(percentageDifference) > takeProfitPercentage) :
-            result = {"stock": stockObj, 'take_profile': 'changeToFalse'}
+            result = {"stock": stockObj, 'changeField': 'disableTakeProfit'}
             msg = msg + ", You have to take profit"
             print(msg)
             sendtelegrammsg(msg)
@@ -246,7 +250,7 @@ def maRule(stockObj, apikey):
     elif action == "buy":
         isBuy = is_need_buy(data)
         if (isBuy == True) and (isMaTrandUp == True):
-            result = {"stock": stockObj ,'change_action':'buyToSell'}
+            result = {"stock": stockObj ,'changeField':'buyToSell'}
             print(msg + ", You have to buy")
             sendtelegrammsg(msg + ", You have to buy")
             writeToLogfile(msg + ", You have to buy")
@@ -284,20 +288,19 @@ investDataFile = "data_invest.json"
 try:
     with open(investDataFile, 'r') as file:
         stocks = json.load(file)
-    replaceBuySell = []
+    replaceValueList = []
     for stock in stocks:
         isNeedTakeProfit = False
         if debug == True:
          maRule_result = None
-#         takeProfitDone = True
          if stock["action"] == "sell":
             maRule_result = maRule(stock, apikey)
         else:
             maRule_result = maRule(stock,apikey)
         if maRule_result is not None:
-            replaceBuySell.append(maRule_result)
+            replaceValueList.append(maRule_result)
     if updateBuySellInInputFile is True:
-        change_stock_action(replaceBuySell)
+        update_stocks_input_list(replaceValueList)
 
 except FileNotFoundError:
     print(f"Error: The file '{investDataFile}' was not found.")

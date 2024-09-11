@@ -1,115 +1,112 @@
 [
-    {
-        "symbol": "ADBE",
-        "range": 150,
-        "action": "trace"
-    },
-    {
-        "symbol": "AVGO",
-        "range": 150,
-        "action": "trace"
-    },
-    {
-        "symbol": "META",
-        "range": 150,
-        "action": "trace"
-    },
-    {
-        "symbol": "LULU",
-        "range": 150,
-        "action": "trace"
-    },
-    {
-        "symbol": "AMZN",
-        "range": 150,
-        "action": "trace"
-    },
-    {
-        "symbol": "AAPL",
-        "range": 150,
-        "action": "sell",
-        "takeProfitPercentage": 10,
-        "isNeedToCheckTakeProfit": true
-    },
-    {
-        "symbol": "MSI",
-        "range": 150,
-        "action": "sell",
-        "takeProfitPercentage": 10,
-        "isNeedToCheckTakeProfit": true
-    },
-    {
-        "symbol": "NVDA",
-        "range": 150,
-        "action": "sell",
-        "takeProfitPercentage": 10,
-        "isNeedToCheckTakeProfit": true
-    },
-    {
-        "symbol": "ORCL",
-        "range": 150,
-        "action": "sell",
-        "takeProfitPercentage": 10,
-        "isNeedToCheckTakeProfit": true
-    },
-    {
-        "symbol": "AMZN",
-        "range": 200,
-        "action": "sell"
-    },
-
-    {
-        "symbol": "AVGO",
-        "range": 150,
-        "action": "buy"
-    },
-
-    {
-        "symbol": "MSFT",
-        "range": 150,
-        "action": "buy"
-    },
-    {
-        "symbol": "ARKW",
-        "range": 150,
-        "action": "buy"
-    },
-
-    {
-        "symbol": "AMZN",
-        "range": 150,
-        "action": "buy"
-    },
-
-    {
-        "symbol": "AFRM",
-        "range": 150,
-        "action": "buy"
-    },
-    {
-        "symbol": "AMD",
-        "range": 150,
-        "action": "buy"
-    },
-    {
-        "symbol": "CRM",
-        "range": 150,
-        "action": "buy"
-    },
-    {
-        "symbol": "GOOG",
-        "range": 150,
-        "action": "buy"
-    },
-    {
-        "symbol": "TSC",
-        "range": 150,
-        "action": "buy"
-    },
-
-    {
-        "symbol": "ASML",
-        "range": 150,
-        "action": "buy"
-    }
+  {
+    "symbol": "ADBE",
+    "range": 150,
+    "action": "trace"
+  },
+  {
+    "symbol": "AVGO",
+    "range": 150,
+    "action": "trace"
+  },
+  {
+    "symbol": "META",
+    "range": 150,
+    "action": "trace"
+  },
+  {
+    "symbol": "LULU",
+    "range": 150,
+    "action": "trace"
+  },
+  {
+    "symbol": "AMZN",
+    "range": 150,
+    "action": "trace"
+  },
+  {
+    "symbol": "AAPL",
+    "range": 150,
+    "action": "sell",
+    "takeProfitPercentage": 20,
+    "isNeedToCheckTakeProfit": false
+  },
+  {
+    "symbol": "MSI",
+    "range": 150,
+    "action": "sell",
+    "takeProfitPercentage": 10,
+    "isNeedToCheckTakeProfit": false
+  },
+  {
+    "symbol": "NVDA",
+    "range": 150,
+    "action": "sell",
+    "takeProfitPercentage": 10,
+    "isNeedToCheckTakeProfit": true
+  },
+  {
+    "symbol": "ORCL",
+    "range": 150,
+    "action": "sell",
+    "takeProfitPercentage": 10,
+    "isNeedToCheckTakeProfit": false
+  },
+  {
+    "symbol": "AMZN",
+    "range": 200,
+    "action": "sell"
+  },
+  {
+    "symbol": "AVGO",
+    "range": 150,
+    "action": "sell",
+    "takeProfitPercentage": 20,
+    "isNeedToCheckTakeProfit": false
+  },
+  {
+    "symbol": "MSFT",
+    "range": 150,
+    "action": "buy"
+  },
+  {
+    "symbol": "ARKW",
+    "range": 150,
+    "action": "buy"
+  },
+  {
+    "symbol": "AMZN",
+    "range": 150,
+    "action": "buy"
+  },
+  {
+    "symbol": "AFRM",
+    "range": 150,
+    "action": "buy"
+  },
+  {
+    "symbol": "AMD",
+    "range": 150,
+    "action": "buy"
+  },
+  {
+    "symbol": "CRM",
+    "range": 150,
+    "action": "buy"
+  },
+  {
+    "symbol": "GOOG",
+    "range": 150,
+    "action": "buy"
+  },
+  {
+    "symbol": "TSC",
+    "range": 150,
+    "action": "buy"
+  },
+  {
+    "symbol": "ASML",
+    "range": 150,
+    "action": "buy"
+  }
 ]
