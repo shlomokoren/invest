@@ -1,3 +1,6 @@
 - update requirements.txt file
    pip3 freeze > requirements.txt
+- configure how to use google sheet write
+- configure how to use telegram bot
+- configure how to write log
 
