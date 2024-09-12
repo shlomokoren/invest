@@ -7,7 +7,7 @@ from google.oauth2.service_account import Credentials
 
 
 debug = False
-__version__ = "0.0.2"
+__version__ = "0.0.3"
 
 def get_general_parameters():
     global enableLogFile , enableSendTelgram ,enableGoogleSheetUpdate
@@ -37,32 +37,27 @@ def percentage_difference(closedvalue, smavalue):
     # Print the result
     return (formatted_percentage_difference)
 
-def is_need_buy(data):
+def is_need_buy(smaValue,closedValue,percentagedifference):
     global smapercentagedifference
     result = False
-    closedValue = int(data[0]["close"])
-    smaValue = int(data[0]["sma"])
+#    closedValue = int(data[0]["close"])
+#    smaValue = int(data[0]["sma"])
 #    smaValueBefore = int(data[7]["sma"])
     if (smaValue < closedValue ) :
 
-        percentagedifference = percentage_difference(closedValue, smaValue)
+ #       percentagedifference = percentage_difference(closedValue, smaValue)
         if abs(float(percentagedifference)) <= smapercentagedifference:
             result = True
             return result
     return result
 
-def is_need_sell(data):
+def is_need_sell(closedValue,smaValue):
     result = False
-    closedValue = int(data[0]["close"])
-    smaValue = int(data[0]["sma"])
-    smaValueBefore = int(data[7]["sma"])
     if (smaValue >=closedValue ) :
         result = True
         return result
     return result
-def is_need_take_profit(smaValue,closeValue):
-    result = False
-    return result
+
 def sendtelegrammsg(message):
     global enableSendTelgram
     if enableSendTelgram is True:
@@ -99,12 +94,10 @@ def update_stocks_input_list(replaceValueList):
             for symbol in symbols_input_list:
                 if symbol['symbol'] == item['stock']['symbol']:
                     if ( item['changeField'] == 'sellToBuy' ) and (symbol['action'] == 'sell'):
-                        print(symbol['action'])
                         symbol['action'] = 'buy'
                         if 'isNeedToCheckTakeProfit' in symbol:
                             symbol['action'] = True
-                    elif (item['changeField'] == 'buyToSell') and (symbol['action'] == 'sell'):
-                        print(symbol['action'])
+                    elif (item['changeField'] == 'buyToSell') and (symbol['action'] == 'buy'):
                         symbol['action'] = 'sell'
                     elif (item['changeField'] == 'disableTakeProfit')and (symbol['action'] == 'sell'):
                         symbol['isNeedToCheckTakeProfit'] = False
@@ -235,7 +228,7 @@ def maRule(stockObj, apikey):
             googleSheetsRaw.append("You have to take profit")
             googlesheets_add_history([googleSheetsRaw], color_flag=True)
         else:
-            isSell = is_need_sell(data)
+            isSell = is_need_sell(closedValue=closePrice,smaValue=maIndicator)
             if isSell  :
                 result = {"stock": stockObj  ,'change_action':'sellToBuy'}
                 print(msg + ", You have to sell")
@@ -248,7 +241,7 @@ def maRule(stockObj, apikey):
                 writeToLogfile(msg)
                 googlesheets_add_history([googleSheetsRaw])
     elif action == "buy":
-        isBuy = is_need_buy(data)
+        isBuy = is_need_buy(smaValue=maIndicator,closedValue=closePrice,percentagedifference=percentageDifference)
         if (isBuy == True) and (isMaTrandUp == True):
             result = {"stock": stockObj ,'changeField':'buyToSell'}
             print(msg + ", You have to buy")
@@ -293,7 +286,7 @@ try:
         isNeedTakeProfit = False
         if debug == True:
          maRule_result = None
-         if stock["action"] == "sell":
+         if stock["symbol"] == "ARKW":
             maRule_result = maRule(stock, apikey)
         else:
             maRule_result = maRule(stock,apikey)
