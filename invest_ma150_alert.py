@@ -38,20 +38,25 @@ def percentage_difference(closedvalue, smavalue):
     return (formatted_percentage_difference)
 
 def is_need_buy(smaValue,closedValue,percentagedifference):
+    ''' check if need to buy
+     check if stock moving average  trand is up
+     check if price is above average and it is not far from average
+    '''
     global smapercentagedifference
     result = False
-#    closedValue = int(data[0]["close"])
-#    smaValue = int(data[0]["sma"])
-#    smaValueBefore = int(data[7]["sma"])
     if (smaValue < closedValue ) :
-
- #       percentagedifference = percentage_difference(closedValue, smaValue)
         if abs(float(percentagedifference)) <= smapercentagedifference:
             result = True
             return result
     return result
 
 def is_need_sell(closedValue,smaValue):
+    '''
+    check if need to sell and stoploss is moving average value
+    :param closedValue:
+    :param smaValue:
+    :return:
+    '''
     result = False
     if (smaValue >=closedValue ) :
         result = True
@@ -88,6 +93,9 @@ def sendtelegrammsg(message):
             print("Failed to send message.")
 
 def update_stocks_input_list(replaceValueList):
+    ''' after all checks all recommendations are in replaceValueList
+      this function change input stocks file according to recommendations
+      '''
     with open(investDataFile, 'r') as file:
         symbols_input_list = json.load(file)
         for item in replaceValueList:
@@ -101,9 +109,14 @@ def update_stocks_input_list(replaceValueList):
                         symbol['action'] = 'sell'
                     elif (item['changeField'] == 'disableTakeProfit')and (symbol['action'] == 'sell'):
                         symbol['isNeedToCheckTakeProfit'] = False
-    # Write the updated symbols back to the file
+
     with open(investDataFile, 'w') as file:
         json.dump(symbols_input_list, file, indent=4)  # Write the updated symbols to the file
+    # with open(investDataFile, 'w') as file:
+    #     json_str = json.dumps(symbols_input_list, indent=4)
+    #     # Insert a newline between "trace", "sell", and "buy" sections
+    #     json_str = json_str.replace("},\n    {", "},\n\n    {")
+    #     file.write(json_str)
 
 def writeToLogfile(line):
     global enableLogFile
