@@ -36,97 +36,73 @@
         "range": 150,
         "action": "sell",
         "takeProfitPercentage": 20,
-        "isNeedToCheckTakeProfit": false,
-        "quantity": 35,
-        "account": "shlomo126"
+        "isNeedToCheckTakeProfit": false
     },
     {
         "symbol": "NVDA",
         "range": 150,
         "action": "sell",
         "takeProfitPercentage": 20,
-        "isNeedToCheckTakeProfit": false,
-        "quantity": 300,
-        "account": "shlomo126"
+        "isNeedToCheckTakeProfit": false
     },
     {
         "symbol": "ORCL",
         "range": 150,
         "action": "sell",
         "takeProfitPercentage": 20,
-        "isNeedToCheckTakeProfit": false,
-        "quantity": 42,
-        "account": "shlomo126"
+        "isNeedToCheckTakeProfit": false
     },
     {
         "symbol": "AVGO",
         "range": 150,
         "action": "sell",
         "takeProfitPercentage": 20,
-        "isNeedToCheckTakeProfit": false,
-        "quantity": 103,
-        "account": "shlomo226"
+        "isNeedToCheckTakeProfit": false
     },
     {
         "symbol": "ARKW",
         "range": 150,
         "action": "sell",
         "takeProfitPercentage": 20,
-        "isNeedToCheckTakeProfit": false,
-        "quantity": 190,
-        "account": "shlomo226"
+        "isNeedToCheckTakeProfit": false
     },
     {
         "symbol": "MSFT",
         "range": 150,
         "action": "sell",
         "takeProfitPercentage": 20,
-        "isNeedToCheckTakeProfit": false,
-        "quantity": 36,
-        "account": "shlomo226"
+        "isNeedToCheckTakeProfit": false
     },
     {
         "symbol": "AMZN",
         "range": 150,
         "action": "sell",
         "takeProfitPercentage": 20,
-        "isNeedToCheckTakeProfit": false,
-        "quantity": 82,
-        "account": "shlomo226"
+        "isNeedToCheckTakeProfit": false
     },
     {
         "symbol": "AFRM",
         "range": 150,
-        "action": "buy",
-        "quantity": 100,
-        "account": "shlomo226"
+        "action": "buy"
     },
     {
         "symbol": "AMD",
         "range": 150,
-        "action": "buy",
-        "quantity": 100,
-        "account": "shlomo226"
+        "action": "buy"
     },
     {
         "symbol": "CRM",
         "range": 150,
-        "action": "buy",
-        "quantity": 100,
-        "account": "shlomo226"
+        "action": "buy"
     },
     {
         "symbol": "GOOG",
         "range": 150,
-        "action": "buy",
-        "quantity": 100,
-        "account": "shlomo226"
+        "action": "buy"
     },
     {
         "symbol": "ASML",
         "range": 150,
-        "action": "buy",
-        "quantity": 100,
-        "account": "shlomo226"
+        "action": "buy"
     }
 ]
