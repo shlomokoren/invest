@@ -1,0 +1,132 @@
+[
+    {
+        "symbol": "ADBE",
+        "range": 150,
+        "action": "trace"
+    },
+    {
+        "symbol": "IBM",
+        "range": 150,
+        "action": "trace"
+    },
+    {
+        "symbol": "TSM",
+        "range": 150,
+        "action": "trace"
+    },
+    {
+        "symbol": "META",
+        "range": 150,
+        "action": "trace"
+    },
+    {
+        "symbol": "LULU",
+        "range": 150,
+        "action": "trace"
+    },
+    {
+        "symbol": "AAPL",
+        "range": 150,
+        "action": "sell",
+        "takeProfitPercentage": 20,
+        "isNeedToCheckTakeProfit": false
+    },
+    {
+        "symbol": "MSI",
+        "range": 150,
+        "action": "sell",
+        "takeProfitPercentage": 20,
+        "isNeedToCheckTakeProfit": false,
+        "quantity": 35,
+        "account": "shlomo126"
+    },
+    {
+        "symbol": "NVDA",
+        "range": 150,
+        "action": "sell",
+        "takeProfitPercentage": 20,
+        "isNeedToCheckTakeProfit": false,
+        "quantity": 300,
+        "account": "shlomo126"
+    },
+    {
+        "symbol": "ORCL",
+        "range": 150,
+        "action": "sell",
+        "takeProfitPercentage": 20,
+        "isNeedToCheckTakeProfit": false,
+        "quantity": 42,
+        "account": "shlomo126"
+    },
+    {
+        "symbol": "AVGO",
+        "range": 150,
+        "action": "sell",
+        "takeProfitPercentage": 20,
+        "isNeedToCheckTakeProfit": false,
+        "quantity": 103,
+        "account": "shlomo226"
+    },
+    {
+        "symbol": "ARKW",
+        "range": 150,
+        "action": "sell",
+        "takeProfitPercentage": 20,
+        "isNeedToCheckTakeProfit": false,
+        "quantity": 190,
+        "account": "shlomo226"
+    },
+    {
+        "symbol": "MSFT",
+        "range": 150,
+        "action": "sell",
+        "takeProfitPercentage": 20,
+        "isNeedToCheckTakeProfit": false,
+        "quantity": 36,
+        "account": "shlomo226"
+    },
+    {
+        "symbol": "AMZN",
+        "range": 150,
+        "action": "sell",
+        "takeProfitPercentage": 20,
+        "isNeedToCheckTakeProfit": false,
+        "quantity": 82,
+        "account": "shlomo226"
+    },
+    {
+        "symbol": "AFRM",
+        "range": 150,
+        "action": "buy",
+        "quantity": 100,
+        "account": "shlomo226"
+    },
+    {
+        "symbol": "AMD",
+        "range": 150,
+        "action": "buy",
+        "quantity": 100,
+        "account": "shlomo226"
+    },
+    {
+        "symbol": "CRM",
+        "range": 150,
+        "action": "buy",
+        "quantity": 100,
+        "account": "shlomo226"
+    },
+    {
+        "symbol": "GOOG",
+        "range": 150,
+        "action": "buy",
+        "quantity": 100,
+        "account": "shlomo226"
+    },
+    {
+        "symbol": "ASML",
+        "range": 150,
+        "action": "buy",
+        "quantity": 100,
+        "account": "shlomo226"
+    }
+]

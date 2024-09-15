@@ -61,16 +61,19 @@ def TWSMarketorder(ib, symbol, Orderaction, totalQuatity):
         ib.sleep(5)
         # Check if the order is filled or failed
         if (trade.orderStatus.status == 'Filled') :
-            msg = msg+"Order {Orderaction} successfully filled. portfolio is automatic updated"
+            msg = msg + "Order {Orderaction} successfully filled. portfolio is automatic updated"
             returnResult = {"retStatus": 'Filled', "message": msg}
         else:
-            msg = f"Order Status is {trade.orderStatus.status} you have to update portfolio manual."
+            msg =  msg +  f"Order Status is {trade.orderStatus.status} you have to update portfolio manual."
             returnResult = {"retStatus": trade.orderStatus.status, "message": msg}
     except Exception as order_error:
         msg = msg + f"Error during order placement: {order_error}"
         returnResult = {"retStatus": "error", "message": msg}
     return returnResult
-
+def notifyCenter(message):
+    print(message)
+    sendtelegrammsg(message)
+    writeToLogfile(message)
 
 def update_stocks_input_list(portfolioChangesList):
     ''' after all checks all recommendations are in replaceValueList
@@ -111,18 +114,14 @@ def update_stocks_input_list(portfolioChangesList):
                         result = TWSMarketorder(ib,record["symbol"], "SELL", quantity)
                         if result["retStatus"] == 'Filled':
                             record['action'] = 'buy'
-                            ## have to fix notify
-                            msg = result["message"]
-                            print(msg)
-                            # do  notification
+                            notifyCenter(result["message"])
                         else:
-                            msg = result["message"]
-                            print(msg)
-                            # do  notification
+                            notifyCenter(result["message"])
                     elif (item['change_action'] == 'buyToSell') and (record['action'] == 'buy'):
                         closedPrice = item['smObj']['closed']
                         quantity = int(fixedInvestment / closedPrice)
                         result = TWSMarketorder(ib,record["symbol"], "BUY", quantity)
+                        notifyCenter(result["message"])
                         if result["retStatus"] == 'Filled':
                             record['action'] = 'sell'
                             record["quantity"] = quantity
@@ -130,10 +129,11 @@ def update_stocks_input_list(portfolioChangesList):
                         record['isNeedToCheckTakeProfit'] = False
                         quantity = int(record["quantity"] / 3)
                         result = TWSMarketorder(ib,record["symbol"], "SELL", quantity)
+                        notifyCenter(result["message"])
                         if (result["retStatus"] == 'Filled') :              #or(result["retStatus"] == 'PreSubmitted')
                             record["quantity"] = record["quantity"] - quantity
-                            msg = result["message"]
-                            print(msg)
+                            message = result["message"]
+                            notifyCenter(message)
 
     with open(investDataFile, 'w') as file:
         json.dump(symbols_input_list, file, indent=4)  # Write the updated symbols to the file
@@ -240,14 +240,14 @@ def googlesheets_add_history(symbolsList, color_flag=False):
             return
 
         try:
-            worksheet = spreadsheet.worksheet("history")
+            worksheet = spreadsheet.worksheet("investHistoryCommands")
         except gspread.exceptions.WorksheetNotFound:
-            worksheet = spreadsheet.add_worksheet(title="history", rows="100", cols="20")
+            worksheet = spreadsheet.add_worksheet(title="investHistoryCommands", rows="100", cols="20")
         # Check if the first row is empty (i.e., if the sheet is new)
         if not worksheet.cell(1, 1).value:
             # Add title row
-            title_row = ["Date", "Symbol", "Action", "Indecator", "Indicator Value", "Closed", "difference %"]
-            worksheet.update(range_name='A1:G1', values=[title_row])
+            title_row = ["Date", "Symbol", "Action", "Indecator", "Indicator Value", "Closed", "difference %" ,"Notes"]
+            worksheet.update(range_name='A1:H1', values=[title_row])
 
         # Get the current date
         current_date = datetime.now().strftime("%d-%m-%Y %H:%M:%S")
@@ -321,18 +321,15 @@ def maRule(stockObj, apikey):
         if (disableTakeProfit) and (float(percentageDifference) > takeProfitPercentage):
             result = {"stock": stockObj, 'change_action': 'disableTakeProfit',"smObj":smObj}
             msg = msg + ", You have to take profit"
-            print(msg)
-            sendtelegrammsg(msg)
-            writeToLogfile(msg)
+            notifyCenter(msg)
             googleSheetsRaw.append("You have to take profit")
             googlesheets_add_history([googleSheetsRaw], color_flag=True)
         else:
             isSell = is_need_sell(closedValue=closePrice, smaValue=maIndicator)
             if isSell:
                 result = {"stock": stockObj, 'change_action': 'sellToBuy',"smObj":smObj}
-                print(msg + ", You have to sell")
-                sendtelegrammsg(msg + ", You have to sell")
-                writeToLogfile(msg + ", You have to sell")
+                msg = msg + ", You have to sell"
+                notifyCenter(msg)
                 googleSheetsRaw.append("You have to sell")
                 googlesheets_add_history([googleSheetsRaw], color_flag=True)
             else:
@@ -343,9 +340,8 @@ def maRule(stockObj, apikey):
         isBuy = is_need_buy(smaValue=maIndicator, closedValue=closePrice, percentagedifference=percentageDifference)
         if (isBuy == True) and (isMaTrandUp == True):
             result = {"stock": stockObj, 'change_action': 'buyToSell',"smObj":smObj}
-            print(msg + ", You have to buy")
-            sendtelegrammsg(msg + ", You have to buy")
-            writeToLogfile(msg + ", You have to buy")
+            msg = msg + ", You have to buy"
+            notifyCenter(msg)
             googleSheetsRaw.append("You have to buy")
             googlesheets_add_history([googleSheetsRaw], color_flag=True)
         else:
@@ -361,6 +357,7 @@ def maRule(stockObj, apikey):
             color_flag = False
         googlesheets_add_history([googleSheetsRaw], color_flag=color_flag)
     return result
+
 
 
 '''
