@@ -70,10 +70,13 @@ def TWSMarketorder(ib, symbol, Orderaction, totalQuatity):
         msg = msg + f"Error during order placement: {order_error}"
         returnResult = {"retStatus": "error", "message": msg}
     return returnResult
-def notifyCenter(message):
+def notifyCenter(message,googleSheetsRaw,notes,color_flag_bool):
     print(message)
     sendtelegrammsg(message)
     writeToLogfile(message)
+    googleSheetsRaw.append(notes)
+    googlesheets_add_history([googleSheetsRaw], color_flag=color_flag_bool)
+
 
 def update_stocks_input_list(portfolioChangesList):
     ''' after all checks all recommendations are in replaceValueList
@@ -106,7 +109,12 @@ def update_stocks_input_list(portfolioChangesList):
             for record in symbols_input_list:
                 symbol = record["symbol"]
                 action = record['action']
+                range = record['range']
+                sma = item['smObj']['closed']
+                closedPrice = item['smObj']['closed']
                 if symbol == item['stock']['symbol']:
+                    googleSheetsRaw = [symbol, action, 'sma' + str(range), int(sma),closedPrice, " "]
+
                     if (item['change_action'] == 'sellToBuy') and (record['action'] == 'sell'):
                         if 'isNeedToCheckTakeProfit' in record:
                             record['isNeedToCheckTakeProfit'] = False
@@ -114,14 +122,14 @@ def update_stocks_input_list(portfolioChangesList):
                         result = TWSMarketorder(ib,record["symbol"], "SELL", quantity)
                         if result["retStatus"] == 'Filled':
                             record['action'] = 'buy'
-                            notifyCenter(result["message"])
+
+                            notifyCenter(result["message"],googleSheetsRaw,result["message"],True)
                         else:
-                            notifyCenter(result["message"])
+                            notifyCenter(result["message"],googleSheetsRaw,"",True)
                     elif (item['change_action'] == 'buyToSell') and (record['action'] == 'buy'):
-                        closedPrice = item['smObj']['closed']
                         quantity = int(fixedInvestment / closedPrice)
                         result = TWSMarketorder(ib,record["symbol"], "BUY", quantity)
-                        notifyCenter(result["message"])
+                        notifyCenter(result["message"], googleSheetsRaw, result["message"], True)
                         if result["retStatus"] == 'Filled':
                             record['action'] = 'sell'
                             record["quantity"] = quantity
@@ -129,11 +137,10 @@ def update_stocks_input_list(portfolioChangesList):
                         record['isNeedToCheckTakeProfit'] = False
                         quantity = int(record["quantity"] / 3)
                         result = TWSMarketorder(ib,record["symbol"], "SELL", quantity)
-                        notifyCenter(result["message"])
+                        notifyCenter(result["message"], googleSheetsRaw, result["message"], True)
                         if (result["retStatus"] == 'Filled') :              #or(result["retStatus"] == 'PreSubmitted')
                             record["quantity"] = record["quantity"] - quantity
-                            message = result["message"]
-                            notifyCenter(message)
+                            notifyCenter(result["message"],googleSheetsRaw,result["message"],True)
 
     with open(investDataFile, 'w') as file:
         json.dump(symbols_input_list, file, indent=4)  # Write the updated symbols to the file
@@ -321,17 +328,13 @@ def maRule(stockObj, apikey):
         if (disableTakeProfit) and (float(percentageDifference) > takeProfitPercentage):
             result = {"stock": stockObj, 'change_action': 'disableTakeProfit',"smObj":smObj}
             msg = msg + ", You have to take profit"
-            notifyCenter(msg)
-            googleSheetsRaw.append("You have to take profit")
-            googlesheets_add_history([googleSheetsRaw], color_flag=True)
+            notifyCenter(msg, googleSheetsRaw, "You have to sell", True)
         else:
             isSell = is_need_sell(closedValue=closePrice, smaValue=maIndicator)
             if isSell:
                 result = {"stock": stockObj, 'change_action': 'sellToBuy',"smObj":smObj}
                 msg = msg + ", You have to sell"
-                notifyCenter(msg)
-                googleSheetsRaw.append("You have to sell")
-                googlesheets_add_history([googleSheetsRaw], color_flag=True)
+                notifyCenter(msg,googleSheetsRaw, "You have to sell",True)
             else:
                 print(msg)
                 writeToLogfile(msg)
@@ -341,9 +344,7 @@ def maRule(stockObj, apikey):
         if (isBuy == True) and (isMaTrandUp == True):
             result = {"stock": stockObj, 'change_action': 'buyToSell',"smObj":smObj}
             msg = msg + ", You have to buy"
-            notifyCenter(msg)
-            googleSheetsRaw.append("You have to buy")
-            googlesheets_add_history([googleSheetsRaw], color_flag=True)
+            notifyCenter(msg, googleSheetsRaw, "You have to sell", True)
         else:
             print(msg)
             writeToLogfile(msg)
