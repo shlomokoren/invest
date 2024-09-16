@@ -9,7 +9,7 @@ from google.oauth2.service_account import Credentials
 from ib_insync import *
 
 debug = False
-__version__ = "0.0.3"
+__version__ = "0.0.4beta"
 
 
 def get_general_parameters():
@@ -113,7 +113,7 @@ def update_stocks_input_list(portfolioChangesList):
                 sma = item['smObj']['closed']
                 closedPrice = item['smObj']['closed']
                 if symbol == item['stock']['symbol']:
-                    googleSheetsRaw = [symbol, action, 'sma' + str(range), int(sma),closedPrice, " "]
+                    googleSheetsRaw = [symbol, action, 'sma' + str(range), int(sma),closedPrice, ""]
 
                     if (item['change_action'] == 'sellToBuy') and (record['action'] == 'sell'):
                         if 'isNeedToCheckTakeProfit' in record:
@@ -125,7 +125,7 @@ def update_stocks_input_list(portfolioChangesList):
 
                             notifyCenter(result["message"],googleSheetsRaw,result["message"],True)
                         else:
-                            notifyCenter(result["message"],googleSheetsRaw,"",True)
+                            notifyCenter(result["message"],googleSheetsRaw, result["message"],True)
                     elif (item['change_action'] == 'buyToSell') and (record['action'] == 'buy'):
                         quantity = int(fixedInvestment / closedPrice)
                         result = TWSMarketorder(ib,record["symbol"], "BUY", quantity)
