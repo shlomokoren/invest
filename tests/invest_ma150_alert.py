@@ -110,7 +110,6 @@ def update_stocks_input_list(portfolioChangesList):
                 symbol = record["symbol"]
                 action = record['action']
                 range = record['range']
-           ##     account = record['account']
                 sma = item['smObj']['closed']
                 closedPrice = item['smObj']['closed']
                 if symbol == item['stock']['symbol']:

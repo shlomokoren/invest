@@ -34,29 +34,34 @@
     {
         "symbol": "IBM",
         "range": 150,
-        "action": "trace"
+        "action": "trace",
+        "account": "shlomo226"
     },
     {
         "symbol": "TSM",
         "range": 150,
-        "action": "trace"
+        "action": "trace",
+        "account": "shlomo226"
     },
     {
         "symbol": "META",
         "range": 150,
-        "action": "trace"
+        "action": "trace",
+        "account": "shlomo226"
     },
     {
         "symbol": "LULU",
         "range": 150,
-        "action": "trace"
+        "action": "trace",
+        "account": "shlomo226"
     },
     {
         "symbol": "AAPL",
         "range": 150,
         "action": "sell",
         "takeProfitPercentage": 20,
-        "isNeedToCheckTakeProfit": false
+        "isNeedToCheckTakeProfit": false,
+        "account": "shlomo226"
     },
     {
         "symbol": "AVGO",
