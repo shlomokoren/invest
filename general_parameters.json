@@ -1,7 +1,11 @@
 [{"enableLogFile": false},
   {"enableSendTelgram": true},
   {"enableGoogleSheetUpdate": true},
-  {"smapercentagedifference" : 2}
+  {"smapercentagedifference" : 4},
+  {"updateBuySellInInputFile":  true},
+  {"TWSEnable":  true},
+  {"TWSaccount":  "shlomo126"},
+  {"fixedInvestment": 16000}
 ]
 
 

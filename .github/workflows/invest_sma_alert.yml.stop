@@ -1,8 +1,8 @@
 name: Run Python Script
 
 on:
-#  schedule:
-#    - cron: '35 19 * * 1-5' # Runs every day at midnight UTC
+  schedule:
+#    - cron: '35 19 * * 1-5' # Runs monday till friday
   push:
     branches:
       - main
@@ -18,13 +18,13 @@ jobs:
       TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
           python-version: '3.x'  # You can specify the Python version here
       - name: list files
-        run: ls -l
+        run: ls -la
       - name: cat data_invest.json
         run: cat data_invest.json
       - name: pip install requirements.txt
@@ -34,18 +34,25 @@ jobs:
         shell: bash
       - name: Set up Google credentials
         run: echo "${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}" > google-credentials.json
-#      - name: Decode Google credentials
-#        run: echo "${{ secrets.GOOGLE_APPLICATION_CREDENTIALS_BASE64 }}" | base64 --decode > google-credentials.json
-
-#      - name: cat google-credentials.json
-#        run: cat google-credentials.json
       - name: Print current time
         run: date -u
       - name: Run Python script
         env:
           GOOGLE_APPLICATION_CREDENTIALS: google-credentials.json
-        run: python invest_sma_alert.py  # Specify the path to your Python script here
-#      - name: run test
-#        run: python test01.py google-credentials.json
-#      - name: list files
-#        run: ls
+        run: python invest_ma150_alert.py  # Specify the path to your Python script here
+
+      - name: Configure git
+        run: |
+          git config user.name "shlomokoren"
+          git config user.email "shlomo.koren@gmail.com"
+
+      - name: Commit changes
+        run: |
+          git add data_invest.json  # Add the modified file
+          git commit -m "Update file during pipeline run" || echo "No changes to commit"
+
+      - name: Push changes
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}  # Use your PAT stored as a secret
+        run: |
+          git push https://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@github.com/${{ github.repository }} HEAD:${{ github.ref_name }}

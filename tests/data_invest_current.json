@@ -5,9 +5,36 @@
         "action": "trace"
     },
     {
+        "symbol": "IBM",
+        "range": 150,
+        "action": "trace"
+    },
+    {
+        "symbol": "TSM",
+        "range": 150,
+        "action": "trace"
+    },
+    {
+        "symbol": "META",
+        "range": 150,
+        "action": "trace"
+    },
+    {
+        "symbol": "LULU",
+        "range": 150,
+        "action": "trace"
+    },
+    {
+        "symbol": "AAPL",
+        "range": 150,
+        "action": "sell",
+        "takeProfitPercentage": 20,
+        "isNeedToCheckTakeProfit": false
+    },
+    {
         "symbol": "MSI",
         "range": 150,
-        "action": "trace",
+        "action": "sell",
         "takeProfitPercentage": 20,
         "isNeedToCheckTakeProfit": false,
         "quantity": 35,
@@ -16,7 +43,7 @@
     {
         "symbol": "NVDA",
         "range": 150,
-        "action": "trace",
+        "action": "sell",
         "takeProfitPercentage": 20,
         "isNeedToCheckTakeProfit": false,
         "quantity": 300,
@@ -25,43 +52,11 @@
     {
         "symbol": "ORCL",
         "range": 150,
-        "action": "trace",
+        "action": "sell",
         "takeProfitPercentage": 20,
         "isNeedToCheckTakeProfit": false,
         "quantity": 42,
         "account": "shlomo126"
-    },
-    {
-        "symbol": "IBM",
-        "range": 150,
-        "action": "trace",
-        "account": "shlomo226"
-    },
-    {
-        "symbol": "TSM",
-        "range": 150,
-        "action": "trace",
-        "account": "shlomo226"
-    },
-    {
-        "symbol": "META",
-        "range": 150,
-        "action": "trace",
-        "account": "shlomo226"
-    },
-    {
-        "symbol": "LULU",
-        "range": 150,
-        "action": "trace",
-        "account": "shlomo226"
-    },
-    {
-        "symbol": "AAPL",
-        "range": 150,
-        "action": "sell",
-        "takeProfitPercentage": 20,
-        "isNeedToCheckTakeProfit": false,
-        "account": "shlomo226"
     },
     {
         "symbol": "AVGO",
@@ -125,33 +120,6 @@
         "range": 150,
         "action": "buy",
         "quantity": 100,
-        "account": "shlomo226"
-    },
-    {
-        "symbol": "MSI",
-        "range": 150,
-        "action": "buy",
-        "takeProfitPercentage": 20,
-        "isNeedToCheckTakeProfit": false,
-        "quantity": 35,
-        "account": "shlomo226"
-    },
-    {
-        "symbol": "NVDA",
-        "range": 150,
-        "action": "buy",
-        "takeProfitPercentage": 20,
-        "isNeedToCheckTakeProfit": false,
-        "quantity": 300,
-        "account": "shlomo226"
-    },
-    {
-        "symbol": "ORCL",
-        "range": 150,
-        "action": "buy",
-        "takeProfitPercentage": 20,
-        "isNeedToCheckTakeProfit": false,
-        "quantity": 42,
         "account": "shlomo226"
     },
     {
