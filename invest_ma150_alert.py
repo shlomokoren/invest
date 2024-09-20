@@ -24,22 +24,31 @@ def get_general_parameters():
         for item in data:
             if 'enableLogFile' in item:
                 enableLogFile = item['enableLogFile']
+                print("send to log is " + str(enableLogFile))
             elif 'enableSendTelgram' in item:
                 enableSendTelgram = item['enableSendTelgram']
+                print("send alerts to telegram  is " + str(enableSendTelgram))
             elif 'enableGoogleSheetUpdate' in item:
                 enableGoogleSheetUpdate = item['enableGoogleSheetUpdate']
+                print("send info to googesheet is "+str(enableGoogleSheetUpdate))
             elif 'smapercentagedifference' in item:
                 smapercentagedifference = item['smapercentagedifference']
+                print("range from sma that allow actions in % is " + str(smapercentagedifference))
             elif 'updateBuySellInInputFile' in item:
                 updateBuySellInInputFile = item['updateBuySellInInputFile']
+                print("enable change values automatic in input file is "+str(updateBuySellInInputFile))
             elif 'fixedInvestment' in item:
                 fixedInvestment = item['fixedInvestment']
+                print("total price for buy command is "+str(fixedInvestment))
             elif 'TWSaccount' in item:
                 TWSaccount = item['TWSaccount']
+                print("IB Broker Account is "+ TWSaccount)
             elif 'TWSEnable' in item:
                 TWSEnable = item['TWSEnable']
+                print("use IBbroker to buy or sell in market is "+ str(TWSEnable))
             elif 'isNeedToCheckTakeProfit' in item['isNeedToCheckTakeProfit']:
                 isNeedToCheckTakeProfit = item['isNeedToCheckTakeProfit']
+                print("Is Need To Check Take Profit  is  "+str(isNeedToCheckTakeProfit))
 
     except FileNotFoundError:
         print(f"Error: The file '{investDataFile}' was not found.")
@@ -70,11 +79,11 @@ def TWSMarketorder(ib, symbol, Orderaction, totalQuatity):
         msg = msg + f"Error during order placement: {order_error}"
         returnResult = {"retStatus": "error", "message": msg}
     return returnResult
-def notifyCenter(message,googleSheetsRaw,notes,color_flag_bool):
+def notifyCenter(message, googleSheetsRaw, sheetColnotes, color_flag_bool):
     print(message)
     sendtelegrammsg(message)
     writeToLogfile(message)
-    googleSheetsRaw.append(notes)
+    googleSheetsRaw.append(sheetColnotes)
     googlesheets_add_history([googleSheetsRaw], color_flag=color_flag_bool)
 
 
@@ -123,7 +132,6 @@ def update_stocks_input_list(portfolioChangesList):
                         result = TWSMarketorder(ib,record["symbol"], "SELL", quantity)
                         if result["retStatus"] == 'Filled':
                             record['action'] = 'buy'
-
                             notifyCenter(result["message"],googleSheetsRaw,result["message"],True)
                         else:
                             notifyCenter(result["message"],googleSheetsRaw, result["message"],True)
@@ -250,12 +258,12 @@ def googlesheets_add_history(symbolsList, color_flag=False):
         try:
             worksheet = spreadsheet.worksheet("investHistoryCommands")
         except gspread.exceptions.WorksheetNotFound:
-            worksheet = spreadsheet.add_worksheet(title="investHistoryCommands", rows="100", cols="20")
+            worksheet = spreadsheet.add_worksheet(title="investHistoryCommands", rows="500", cols="30")
         # Check if the first row is empty (i.e., if the sheet is new)
         if not worksheet.cell(1, 1).value:
             # Add title row
-            title_row = ["Date", "Symbol", "Action", "Indecator", "Indicator Value", "Closed", "difference %" ,"Notes"]
-            worksheet.update(range_name='A1:H1', values=[title_row])
+            title_row = ["Date", "Symbol", "Action", "Indecator", "Indicator Value", "Closed", "difference %", "account" ,"Notes"]
+            worksheet.update(range_name='A1:I1', values=[title_row])
 
         # Get the current date
         current_date = datetime.now().strftime("%d-%m-%Y %H:%M:%S")
@@ -290,6 +298,7 @@ def maRule(stockObj, apikey):
     symbol = stockObj["symbol"]
     smarange = stockObj["range"]
     action = stockObj["action"]
+    account = stockObj["account"]
     disableTakeProfit = False
     takeProfitPercentage = 1000
     if "isNeedToCheckTakeProfit" in stockObj:
@@ -321,9 +330,9 @@ def maRule(stockObj, apikey):
           ", rang " + str(smarange) + ",sma " + \
           str(int(data[0]["sma"])) + ",close " + \
           str(int(data[0]["close"])) + \
-          ", percentage difference " + str(percentageDifference) + "%"
+          ", percentage difference " + str(percentageDifference) + "%" +", account "+account
     googleSheetsRaw = [symbol, action, 'sma' + str(smarange), int(data[0]["sma"]), int(data[0]["close"]),
-                       str(percentageDifference) + "%"]
+                       str(percentageDifference) + "%" ,account]
     smObj={"symbol":symbol,"action":action,"sma":data[0]["sma"],"closed":data[0]["close"]}
     if action == "sell":
         if (disableTakeProfit) and (float(percentageDifference) > takeProfitPercentage):
@@ -363,7 +372,7 @@ def maRule(stockObj, apikey):
 
 
 '''
---------------------------------------------------------------
+-------------------------M1aniZe1959-------------------------------------
 '''
 enableLogFile = False
 enableSendTelgram = False
@@ -377,6 +386,7 @@ investDataFile = "data_invest.json"
 try:
     with open(investDataFile, 'r') as file:
         stocks = json.load(file)
+    print("investDataFile has "+str(len(stocks)) +" records ")
     portfolioChangesList = []
     # create change portfolio changes list
     for stock in stocks:
@@ -390,7 +400,7 @@ try:
         if maRule_result is not None:
             portfolioChangesList.append(maRule_result)
     if (updateBuySellInInputFile) and (TWSEnable):
-        result = update_stocks_input_list(portfolioChangesList)
+      # result = update_stocks_input_list(portfolioChangesList)
         print(result["message"])
     else:
         print("attention: You have to update portfolio manual !! ,see value for updateBuySellInInputFile and TWSEnable ")
