@@ -118,16 +118,7 @@
         "quantity": 82,
         "account": "DU2049237"
     },
-    {
-        "symbol": "LULU",
-        "range": 150,
-        "action": "sell",
-        "takeProfitPercentage": 20,
-        "isNeedToCheckTakeProfit": false,
-        "quantity": 82,
-        "account": "DU2049237"
-    },
-    {
+     {
         "symbol": "AFRM",
         "range": 150,
         "action": "buy",
