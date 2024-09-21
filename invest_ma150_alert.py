@@ -166,7 +166,7 @@ def notifyCenter(message, googleSheetsRaw, sheetColnotes, color_flag_bool):
 
 def update_stocks_input_list(portfolioChangesList):
     ''' after all checks all recommendations are in replaceValueList
-      this function change input stocks file according to recommendations
+      this function sell/buy  use IBTWS and  update input stocks file after the transaction
       '''
     """Log the name of the currently running function."""
     current_function = inspect.currentframe().f_code.co_name
@@ -413,17 +413,16 @@ def googlesheets_add_history(symbolsList, color_flag=False):
 
 def maRule(stockObj):
     '''
-
-    :param symbol:
-    :param smarange:
-    :param action:
-    :param apikey:
+     maRule is handle mooving average rule ,
+     this function check if needs buy or sell if yes create result object that includes details to handle the object
+    input args: stock object
+        stock objects include values for symbol,range,account .. parametrs of objects from data_invest.json
     :return: mapkey symbol : buyToSell/SellToBuy
     '''
+
     """Log the name of the currently running function."""
     current_function = inspect.currentframe().f_code.co_name
     logging.debug(f"Running function: {current_function}()")
-
 
     symbol = stockObj["symbol"]
     smarange = stockObj["range"]
@@ -437,6 +436,7 @@ def maRule(stockObj):
 
     sma = 0
     result = None
+    # get market data for stock symbol
     yahoostockobj = yahoo_finance_get_stock_values(symbol,smarange)
     if yahoostockobj["retcode"] != 0 :
         print("failed to pull data from yahoo finance")
@@ -497,6 +497,11 @@ def maRule(stockObj):
 
 '''
 --------------------------------------------------------------
+this section
+read input stocks records file
+for each records check if need and notify 
+it also create stocks order list  portfolioChangesList
+latter we use portfolioChangesList to connect to IBTWS to do sell/buy and update the input file data_invest
 '''
 enableLogFile = False
 enableSendTelgram = False
@@ -516,7 +521,6 @@ logging.basicConfig(
 
 
 get_general_parameters()
-
 
 investDataFile = "data_invest.json"
 try:
@@ -540,7 +544,6 @@ try:
         print(result["message"])
     else:
         print("attention: You have to update portfolio manual !! ,see value for updateBuySellInInputFile and TWSEnable ")
-
 except FileNotFoundError:
     print(f"Error: The file '{investDataFile}' was not found.")
 except json.JSONDecodeError:
