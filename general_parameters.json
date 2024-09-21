@@ -3,7 +3,7 @@
   {"enableGoogleSheetUpdate": true},
   {"smapercentagedifference" : 4},
   {"updateBuySellInInputFile":  true},
-  {"TWSEnable":  false},
+  {"TWSEnable":  true},
   {"TWSaccount":  "DU2049237"},
   {"fixedInvestment": 16000}
 ]

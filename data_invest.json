@@ -26,12 +26,13 @@
         "quantity": 42,
         "account": "shlomo126"
     },
-    {        "symbol": "AAPL",
+    {
+        "symbol": "AAPL",
         "range": 150,
         "action": "sell",
         "takeProfitPercentage": 20,
         "isNeedToCheckTakeProfit": false,
-        "quantity" : 38,
+        "quantity": 38,
         "account": "shlomo126"
     },
     {
@@ -43,37 +44,35 @@
         "quantity": 36,
         "account": "shlomo126"
     },
-
-
     {
         "symbol": "ADBE",
         "range": 150,
         "action": "trace",
-        "account": "shlomo226"
+        "account": "DU2049237"
     },
     {
         "symbol": "IBM",
         "range": 150,
         "action": "trace",
-        "account": "shlomo226"
+        "account": "DU2049237"
     },
     {
         "symbol": "TSM",
         "range": 150,
         "action": "trace",
-        "account": "shlomo226"
+        "account": "DU2049237"
     },
     {
         "symbol": "META",
         "range": 150,
         "action": "trace",
-        "account": "shlomo226"
+        "account": "DU2049237"
     },
     {
         "symbol": "LULU",
         "range": 150,
         "action": "trace",
-        "account": "shlomo226"
+        "account": "DU2049237"
     },
     {
         "symbol": "AAPL",
@@ -81,10 +80,8 @@
         "action": "sell",
         "takeProfitPercentage": 20,
         "isNeedToCheckTakeProfit": false,
-        "account": "shlomo226"
+        "account": "DU2049237"
     },
-
-
     {
         "symbol": "AVGO",
         "range": 150,
@@ -92,7 +89,7 @@
         "takeProfitPercentage": 20,
         "isNeedToCheckTakeProfit": false,
         "quantity": 103,
-        "account": "shlomo226"
+        "account": "DU2049237"
     },
     {
         "symbol": "ARKW",
@@ -101,7 +98,7 @@
         "takeProfitPercentage": 20,
         "isNeedToCheckTakeProfit": false,
         "quantity": 190,
-        "account": "shlomo226"
+        "account": "DU2049237"
     },
     {
         "symbol": "MSFT",
@@ -110,9 +107,8 @@
         "takeProfitPercentage": 20,
         "isNeedToCheckTakeProfit": false,
         "quantity": 36,
-        "account": "shlomo226"
+        "account": "DU2049237"
     },
-
     {
         "symbol": "AMZN",
         "range": 150,
@@ -120,35 +116,44 @@
         "takeProfitPercentage": 20,
         "isNeedToCheckTakeProfit": false,
         "quantity": 82,
-        "account": "shlomo226"
+        "account": "DU2049237"
+    },
+    {
+        "symbol": "LULU",
+        "range": 150,
+        "action": "sell",
+        "takeProfitPercentage": 20,
+        "isNeedToCheckTakeProfit": false,
+        "quantity": 82,
+        "account": "U2049237"
     },
     {
         "symbol": "AFRM",
         "range": 150,
         "action": "buy",
         "quantity": 100,
-        "account": "shlomo226"
+        "account": "DU2049237"
     },
     {
         "symbol": "AMD",
         "range": 150,
         "action": "buy",
         "quantity": 100,
-        "account": "shlomo226"
+        "account": "DU2049237"
     },
     {
         "symbol": "CRM",
         "range": 150,
         "action": "buy",
         "quantity": 100,
-        "account": "shlomo226"
+        "account": "DU2049237"
     },
     {
         "symbol": "GOOG",
         "range": 150,
         "action": "buy",
         "quantity": 100,
-        "account": "shlomo226"
+        "account": "DU2049237"
     },
     {
         "symbol": "MSI",
@@ -157,7 +162,7 @@
         "takeProfitPercentage": 20,
         "isNeedToCheckTakeProfit": false,
         "quantity": 35,
-        "account": "shlomo226"
+        "account": "DU2049237"
     },
     {
         "symbol": "NVDA",
@@ -166,7 +171,7 @@
         "takeProfitPercentage": 20,
         "isNeedToCheckTakeProfit": false,
         "quantity": 300,
-        "account": "shlomo226"
+        "account": "DU2049237"
     },
     {
         "symbol": "ORCL",
@@ -175,13 +180,13 @@
         "takeProfitPercentage": 20,
         "isNeedToCheckTakeProfit": false,
         "quantity": 42,
-        "account": "shlomo226"
+        "account": "DU2049237"
     },
     {
         "symbol": "ASML",
         "range": 150,
         "action": "buy",
         "quantity": 100,
-        "account": "shlomo226"
+        "account": "DU2049237"
     }
 ]
