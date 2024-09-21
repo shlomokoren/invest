@@ -1583,3 +1583,60 @@
 2024-09-21 14:15:37,815 - INFO - Disconnecting
 2024-09-21 14:15:37,816 - ERROR - API connection failed: ConnectionRefusedError(22, 'The remote computer refused the network connection', None, 1225, None)
 2024-09-21 14:15:37,816 - ERROR - Make sure API port on TWS/IBG is open
+2024-09-21 14:32:38,205 - INFO - Connecting to 127.0.0.1:7497 with clientId 1...
+2024-09-21 14:32:38,207 - INFO - Connected
+2024-09-21 14:32:38,311 - INFO - Logged on to server version 176
+2024-09-21 14:32:38,374 - INFO - API connection ready
+2024-09-21 14:32:38,395 - INFO - Warning 2104, reqId -1: Market data farm connection is OK:hfarm
+2024-09-21 14:32:38,395 - INFO - Warning 2104, reqId -1: Market data farm connection is OK:usfarm.nj
+2024-09-21 14:32:38,395 - INFO - Warning 2104, reqId -1: Market data farm connection is OK:jfarm
+2024-09-21 14:32:38,395 - INFO - Warning 2104, reqId -1: Market data farm connection is OK:cashfarm
+2024-09-21 14:32:38,396 - INFO - Warning 2104, reqId -1: Market data farm connection is OK:eufarmnj
+2024-09-21 14:32:38,396 - INFO - Warning 2104, reqId -1: Market data farm connection is OK:usfarm
+2024-09-21 14:32:38,396 - INFO - Warning 2106, reqId -1: HMDS data farm connection is OK:euhmds
+2024-09-21 14:32:38,396 - INFO - Warning 2106, reqId -1: HMDS data farm connection is OK:cashhmds
+2024-09-21 14:32:38,397 - INFO - Warning 2106, reqId -1: HMDS data farm connection is OK:fundfarm
+2024-09-21 14:32:38,397 - INFO - Warning 2106, reqId -1: HMDS data farm connection is OK:ushmds
+2024-09-21 14:32:38,397 - INFO - Warning 2158, reqId -1: Sec-def data farm connection is OK:secdefil
+2024-09-21 14:32:38,440 - INFO - position: Position(account='DU2049237', contract=Stock(conId=265598, symbol='AAPL', exchange='ISLAND', currency='USD', localSymbol='AAPL', tradingClass='NMS'), position=20.0, avgCost=223.33328)
+2024-09-21 14:32:38,441 - INFO - position: Position(account='DU2049237', contract=Stock(conId=272093, symbol='MSFT', exchange='ISLAND', currency='USD', localSymbol='MSFT', tradingClass='NMS'), position=36.0, avgCost=423.75298055)
+2024-09-21 14:32:38,441 - INFO - position: Position(account='DU2049237', contract=Stock(conId=3691937, symbol='AMZN', exchange='ISLAND', currency='USD', localSymbol='AMZN', tradingClass='NMS'), position=82.0, avgCost=184.63752315)
+2024-09-21 14:32:38,442 - INFO - position: Position(account='DU2049237', contract=Stock(conId=313130367, symbol='AVGO', exchange='ISLAND', currency='USD', localSymbol='AVGO', tradingClass='NMS'), position=103.0, avgCost=144.186667)
+2024-09-21 14:32:38,442 - INFO - position: Position(account='DU2049237', contract=Stock(conId=168647416, symbol='ARKW', exchange='ARCA', currency='USD', localSymbol='ARKW', tradingClass='ARKW'), position=190.0, avgCost=79.3462284)
+2024-09-21 14:32:38,814 - INFO - updatePortfolio: PortfolioItem(contract=Stock(conId=265598, symbol='AAPL', right='0', primaryExchange='ISLAND', currency='USD', localSymbol='AAPL', tradingClass='NMS'), position=20.0, marketPrice=227.77000425, marketValue=4555.4, averageCost=223.33328, unrealizedPNL=88.73, realizedPNL=0.0, account='DU2049237')
+2024-09-21 14:32:38,815 - INFO - updatePortfolio: PortfolioItem(contract=Stock(conId=3691937, symbol='AMZN', right='0', primaryExchange='ISLAND', currency='USD', localSymbol='AMZN', tradingClass='NMS'), position=82.0, marketPrice=191.16000365, marketValue=15675.12, averageCost=184.63752315, unrealizedPNL=534.84, realizedPNL=0.0, account='DU2049237')
+2024-09-21 14:32:38,816 - INFO - updatePortfolio: PortfolioItem(contract=Stock(conId=168647416, symbol='ARKW', right='0', primaryExchange='ARCA', currency='USD', localSymbol='ARKW', tradingClass='ARKW'), position=190.0, marketPrice=84.021698, marketValue=15964.12, averageCost=79.3462284, unrealizedPNL=888.34, realizedPNL=0.0, account='DU2049237')
+2024-09-21 14:32:38,817 - INFO - updatePortfolio: PortfolioItem(contract=Stock(conId=313130367, symbol='AVGO', right='0', primaryExchange='ISLAND', currency='USD', localSymbol='AVGO', tradingClass='NMS'), position=103.0, marketPrice=170.7799988, marketValue=17590.34, averageCost=144.186667, unrealizedPNL=2739.11, realizedPNL=0.0, account='DU2049237')
+2024-09-21 14:32:38,818 - INFO - updatePortfolio: PortfolioItem(contract=Stock(conId=272093, symbol='MSFT', right='0', primaryExchange='ISLAND', currency='USD', localSymbol='MSFT', tradingClass='NMS'), position=36.0, marketPrice=435.6199951, marketValue=15682.32, averageCost=423.75298055, unrealizedPNL=427.21, realizedPNL=0.0, account='DU2049237')
+2024-09-21 14:32:38,899 - INFO - Synchronization complete
+2024-09-21 14:32:39,216 - INFO - Disconnecting from 127.0.0.1:7497, 713 B sent in 9 messages, 31.4 kB received in 654 messages, session time 1.01 s.
+2024-09-21 14:32:39,217 - INFO - Disconnecting
+2024-09-21 14:37:33,002 - INFO - Connecting to 127.0.0.1:7497 with clientId 1...
+2024-09-21 14:37:33,004 - INFO - Connected
+2024-09-21 14:37:33,012 - INFO - Logged on to server version 176
+2024-09-21 14:37:33,028 - INFO - API connection ready
+2024-09-21 14:37:33,029 - INFO - Warning 2104, reqId -1: Market data farm connection is OK:usfarm.nj
+2024-09-21 14:37:33,029 - INFO - Warning 2104, reqId -1: Market data farm connection is OK:cashfarm
+2024-09-21 14:37:33,031 - INFO - Warning 2104, reqId -1: Market data farm connection is OK:eufarmnj
+2024-09-21 14:37:33,032 - INFO - Warning 2104, reqId -1: Market data farm connection is OK:usfarm
+2024-09-21 14:37:33,033 - INFO - Warning 2106, reqId -1: HMDS data farm connection is OK:euhmds
+2024-09-21 14:37:33,033 - INFO - Warning 2106, reqId -1: HMDS data farm connection is OK:cashhmds
+2024-09-21 14:37:33,033 - INFO - Warning 2106, reqId -1: HMDS data farm connection is OK:fundfarm
+2024-09-21 14:37:33,034 - INFO - Warning 2106, reqId -1: HMDS data farm connection is OK:ushmds
+2024-09-21 14:37:33,034 - INFO - Warning 2158, reqId -1: Sec-def data farm connection is OK:secdefil
+2024-09-21 14:37:33,113 - INFO - position: Position(account='DU2049237', contract=Stock(conId=265598, symbol='AAPL', exchange='ISLAND', currency='USD', localSymbol='AAPL', tradingClass='NMS'), position=20.0, avgCost=223.33328)
+2024-09-21 14:37:33,114 - INFO - position: Position(account='DU2049237', contract=Stock(conId=272093, symbol='MSFT', exchange='ISLAND', currency='USD', localSymbol='MSFT', tradingClass='NMS'), position=36.0, avgCost=423.75298055)
+2024-09-21 14:37:33,114 - INFO - position: Position(account='DU2049237', contract=Stock(conId=3691937, symbol='AMZN', exchange='ISLAND', currency='USD', localSymbol='AMZN', tradingClass='NMS'), position=82.0, avgCost=184.63752315)
+2024-09-21 14:37:33,115 - INFO - position: Position(account='DU2049237', contract=Stock(conId=313130367, symbol='AVGO', exchange='ISLAND', currency='USD', localSymbol='AVGO', tradingClass='NMS'), position=103.0, avgCost=144.186667)
+2024-09-21 14:37:33,115 - INFO - position: Position(account='DU2049237', contract=Stock(conId=168647416, symbol='ARKW', exchange='ARCA', currency='USD', localSymbol='ARKW', tradingClass='ARKW'), position=190.0, avgCost=79.3462284)
+2024-09-21 14:37:33,461 - INFO - updatePortfolio: PortfolioItem(contract=Stock(conId=265598, symbol='AAPL', right='0', primaryExchange='ISLAND', currency='USD', localSymbol='AAPL', tradingClass='NMS'), position=20.0, marketPrice=227.77000425, marketValue=4555.4, averageCost=223.33328, unrealizedPNL=88.73, realizedPNL=0.0, account='DU2049237')
+2024-09-21 14:37:33,462 - INFO - updatePortfolio: PortfolioItem(contract=Stock(conId=3691937, symbol='AMZN', right='0', primaryExchange='ISLAND', currency='USD', localSymbol='AMZN', tradingClass='NMS'), position=82.0, marketPrice=191.16000365, marketValue=15675.12, averageCost=184.63752315, unrealizedPNL=534.84, realizedPNL=0.0, account='DU2049237')
+2024-09-21 14:37:33,463 - INFO - updatePortfolio: PortfolioItem(contract=Stock(conId=168647416, symbol='ARKW', right='0', primaryExchange='ARCA', currency='USD', localSymbol='ARKW', tradingClass='ARKW'), position=190.0, marketPrice=84.021698, marketValue=15964.12, averageCost=79.3462284, unrealizedPNL=888.34, realizedPNL=0.0, account='DU2049237')
+2024-09-21 14:37:33,463 - INFO - updatePortfolio: PortfolioItem(contract=Stock(conId=313130367, symbol='AVGO', right='0', primaryExchange='ISLAND', currency='USD', localSymbol='AVGO', tradingClass='NMS'), position=103.0, marketPrice=170.7799988, marketValue=17590.34, averageCost=144.186667, unrealizedPNL=2739.11, realizedPNL=0.0, account='DU2049237')
+2024-09-21 14:37:33,463 - INFO - updatePortfolio: PortfolioItem(contract=Stock(conId=272093, symbol='MSFT', right='0', primaryExchange='ISLAND', currency='USD', localSymbol='MSFT', tradingClass='NMS'), position=36.0, marketPrice=435.6199951, marketValue=15682.32, averageCost=423.75298055, unrealizedPNL=427.21, realizedPNL=0.0, account='DU2049237')
+2024-09-21 14:37:33,613 - INFO - Synchronization complete
+2024-09-21 14:37:33,886 - INFO - placeOrder: New order Trade(contract=Stock(symbol='LULU', exchange='SMART', currency='USD'), order=MarketOrder(orderId=98, clientId=1, action='SELL', totalQuantity=82), orderStatus=OrderStatus(orderId=98, status='PendingSubmit', filled=0.0, remaining=0.0, avgFillPrice=0.0, permId=0, parentId=0, lastFillPrice=0.0, clientId=0, whyHeld='', mktCapPrice=0.0), fills=[], log=[TradeLogEntry(time=datetime.datetime(2024, 9, 21, 11, 37, 33, 886761, tzinfo=datetime.timezone.utc), status='PendingSubmit', message='', errorCode=0)], advancedError='')
+2024-09-21 14:37:34,601 - INFO - Warning 399, reqId 98: Order Message: SELL 82 LULU NASDAQ.NMS Warning: Your order will not be placed at the exchange until 2024-09-23 09:30:00 US/Eastern.
+2024-09-21 14:37:34,618 - INFO - orderStatus: Trade(contract=Stock(symbol='LULU', exchange='SMART', currency='USD'), order=MarketOrder(orderId=98, clientId=1, permId=1304342109, action='SELL', totalQuantity=82.0, lmtPrice=0.0, auxPrice=0.0), orderStatus=OrderStatus(orderId=98, status='PreSubmitted', filled=0.0, remaining=82.0, avgFillPrice=0.0, permId=1304342109, parentId=0, lastFillPrice=0.0, clientId=1, whyHeld='', mktCapPrice=0.0), fills=[], log=[TradeLogEntry(time=datetime.datetime(2024, 9, 21, 11, 37, 33, 886761, tzinfo=datetime.timezone.utc), status='PendingSubmit', message='', errorCode=0), TradeLogEntry(time=datetime.datetime(2024, 9, 21, 11, 37, 34, 617761, tzinfo=datetime.timezone.utc), status='PreSubmitted', message='', errorCode=0)], advancedError='')
+2024-09-21 14:37:42,899 - INFO - Disconnecting from 127.0.0.1:7497, 900 B sent in 10 messages, 36.7 kB received in 736 messages, session time 9.90 s.
+2024-09-21 14:37:42,899 - INFO - Disconnecting
