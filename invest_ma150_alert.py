@@ -220,7 +220,7 @@ def update_stocks_input_list(portfolioChangesList):
                 sma = item['smObj']['closed']
                 closedPrice = item['smObj']['closed']
                 if symbol == item['stock']['symbol']:
-                    googleSheetsRaw = [symbol, action, 'sma' + str(range), int(sma),closedPrice, ""]
+                    googleSheetsRaw = [symbol, action, 'sma' + str(range), int(sma),closedPrice, "",account]
                     if account == TWSaccount:
                         if (item['change_action'] == 'sellToBuy') and (record['action'] == 'sell'):
                             if 'isNeedToCheckTakeProfit' in record:
