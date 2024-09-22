@@ -425,7 +425,7 @@ def maRule(stockObj):
     logging.debug(f"Running function: {current_function}()")
 
     symbol = stockObj["symbol"]
-    smarange = stockObj["range"]
+    smarange to = int(stockObj["range"])
     action = stockObj["action"]
     account = stockObj["account"]
     disableTakeProfit = False

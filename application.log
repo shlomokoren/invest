@@ -1727,3 +1727,7 @@
 2024-09-21 18:34:08,753 - INFO - orderStatus: Trade(contract=Stock(symbol='LULU', exchange='SMART', currency='USD'), order=MarketOrder(orderId=110, clientId=1, permId=1304342112, action='SELL', totalQuantity=82.0, lmtPrice=0.0, auxPrice=0.0), orderStatus=OrderStatus(orderId=110, status='PreSubmitted', filled=0.0, remaining=82.0, avgFillPrice=0.0, permId=1304342112, parentId=0, lastFillPrice=0.0, clientId=1, whyHeld='', mktCapPrice=0.0), fills=[], log=[TradeLogEntry(time=datetime.datetime(2024, 9, 21, 15, 34, 8, 355372, tzinfo=datetime.timezone.utc), status='PendingSubmit', message='', errorCode=0), TradeLogEntry(time=datetime.datetime(2024, 9, 21, 15, 34, 8, 751381, tzinfo=datetime.timezone.utc), status='PreSubmitted', message='', errorCode=0)], advancedError='')
 2024-09-21 18:34:17,542 - INFO - Disconnecting from 127.0.0.1:7497, 904 B sent in 10 messages, 38.5 kB received in 743 messages, session time 9.94 s.
 2024-09-21 18:34:17,542 - INFO - Disconnecting
+2024-09-22 18:04:19,911 - INFO - Connecting to 127.0.0.1:7497 with clientId 1...
+2024-09-22 18:04:21,966 - INFO - Disconnecting
+2024-09-22 18:04:21,967 - ERROR - API connection failed: ConnectionRefusedError(22, 'The remote computer refused the network connection', None, 1225, None)
+2024-09-22 18:04:21,967 - ERROR - Make sure API port on TWS/IBG is open
