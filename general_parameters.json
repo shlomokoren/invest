@@ -5,7 +5,8 @@
   {"updateBuySellInInputFile":  true},
   {"TWSEnable":  true},
   {"TWSaccount":  "DU2049237"},
-  {"fixedInvestment": 16000}
+  {"fixedInvestment": 16000},
+  {"fixedInvestmentBuyAmount": 16000}
 ]
 
 

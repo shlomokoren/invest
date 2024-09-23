@@ -20,7 +20,7 @@ __version__ = "0.0.5beta"
 def get_general_parameters():
     ''' reade global parameters from general_parameters.json '''
     global enableLogFile, enableSendTelgram, enableGoogleSheetUpdate
-    global smapercentagedifference, updateBuySellInInputFile, fixedInvestment
+    global smapercentagedifference, updateBuySellInInputFile, fixedInvestmentBuyAmount
     global TWSaccount,TWSEnable
     global isNeedToCheckTakeProfit
     """Log the name of the currently running function."""
@@ -47,16 +47,16 @@ def get_general_parameters():
             elif 'updateBuySellInInputFile' in item:
                 updateBuySellInInputFile = item['updateBuySellInInputFile']
                 print("enable change values automatic in input file is "+str(updateBuySellInInputFile))
-            elif 'fixedInvestment' in item:
-                fixedInvestment = item['fixedInvestment']
-                print("total price for buy command is "+str(fixedInvestment))
+            elif 'fixedInvestmentBuyAmount' in item:
+                fixedInvestmentBuyAmount = item['fixedInvestmentBuyAmount']
+                print("total price for buy command is " + str(fixedInvestmentBuyAmount))
             elif 'TWSaccount' in item:
                 TWSaccount = item['TWSaccount']
                 print("IB Broker Account is "+ TWSaccount)
             elif 'TWSEnable' in item:
                 TWSEnable = item['TWSEnable']
                 print("use IBbroker to buy or sell in market is "+ str(TWSEnable))
-            elif 'isNeedToCheckTakeProfit' in item['isNeedToCheckTakeProfit']:
+            elif 'isNeedToCheckTakeProfit' in item:
                 isNeedToCheckTakeProfit = item['isNeedToCheckTakeProfit']
                 print("Is Need To Check Take Profit  is  "+str(isNeedToCheckTakeProfit))
 
@@ -172,7 +172,7 @@ def update_stocks_input_list(portfolioChangesList):
     current_function = inspect.currentframe().f_code.co_name
     logging.debug(f"Running function: {current_function}()")
 
-    global fixedInvestment,enableTakeProfit
+    global fixedInvestmentBuyAmount,enableTakeProfit
     ##//check if nasdaq is open
     ## if nasdaq is open connect tws
     ib = None
@@ -233,7 +233,7 @@ def update_stocks_input_list(portfolioChangesList):
                             else:
                                 notifyCenter(result["message"],googleSheetsRaw, result["message"],True)
                         elif (item['change_action'] == 'buyToSell') and (record['action'] == 'buy'):
-                            quantity = int(fixedInvestment / closedPrice)
+                            quantity = int(fixedInvestmentBuyAmount / closedPrice)
                             result = TWSMarketorder(ib,record["symbol"], "BUY", quantity)
                             notifyCenter(result["message"], googleSheetsRaw, result["message"], True)
                             if result["retStatus"] == 'Filled':
@@ -425,7 +425,7 @@ def maRule(stockObj):
     logging.debug(f"Running function: {current_function}()")
 
     symbol = stockObj["symbol"]
-    smarange to = int(stockObj["range"])
+    smarange  = int(stockObj["range"])
     action = stockObj["action"]
     account = stockObj["account"]
     disableTakeProfit = False
