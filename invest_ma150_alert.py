@@ -214,10 +214,10 @@ def update_stocks_input_list(portfolioChangesList):
             for record in symbols_input_list:
                 symbol = record["symbol"]
                 action = record['action']
-                range = record['range']
+                range = int(record['range'])
                 account = record['account']
            ##     account = record['account']
-                sma = item['smObj']['closed']
+                sma = item['smObj']['sma']
                 closedPrice = item['smObj']['closed']
                 if symbol == item['stock']['symbol']:
                     googleSheetsRaw = [symbol, action, 'sma' + str(range), int(sma),closedPrice, "",account]
@@ -225,7 +225,7 @@ def update_stocks_input_list(portfolioChangesList):
                         if (item['change_action'] == 'sellToBuy') and (record['action'] == 'sell'):
                             if 'isNeedToCheckTakeProfit' in record:
                                 record['isNeedToCheckTakeProfit'] = False
-                            quantity = record["quantity"]
+                            quantity = int(record["quantity"])
                             result = TWSMarketorder(ib,record["symbol"], "SELL", quantity)
                             if result["retStatus"] == 'Filled':
                                 record['action'] = 'buy'
@@ -245,7 +245,7 @@ def update_stocks_input_list(portfolioChangesList):
                             result = TWSMarketorder(ib,record["symbol"], "SELL", quantity)
                             notifyCenter(result["message"], googleSheetsRaw, result["message"], True)
                             if (result["retStatus"] == 'Filled') :              #or(result["retStatus"] == 'PreSubmitted')
-                                record["quantity"] = record["quantity"] - quantity
+                                record["quantity"] = int(record["quantity"]) - quantity
                                 notifyCenter(result["message"],googleSheetsRaw,result["message"],True)
 
     if ib.isConnected():
