@@ -145,26 +145,30 @@
     },
     {
         "symbol": "AMD",
-        "range": 150,
+        "range": "150",
         "action": "buy",
-        "quantity": 100,
-        "account": "DU2049237"
+        "quantity": "100",
+        "account": "DU2049237",
+        "takeProfitPercentage": "",
+        "isNeedToCheckTakeProfit": false
     },
     {
         "symbol": "CRM",
-        "range": 150,
+        "range": "150",
         "action": "buy",
-        "quantity": 100,
-        "account": "DU2049237"
+        "quantity": "100",
+        "account": "DU2049237",
+        "takeProfitPercentage": "",
+        "isNeedToCheckTakeProfit": false
     },
     {
         "symbol": "GOOG",
-        "range": 150,
+        "range": "150",
         "action": "buy",
-        "quantity": 96,
-        "takeProfitPercentage": 20,
-        "isNeedToCheckTakeProfit": false,
-        "account": "DU2049237"
+        "quantity": "96",
+        "account": "DU2049237",
+        "takeProfitPercentage": "20%",
+        "isNeedToCheckTakeProfit": false
     },
     {
         "symbol": "MSI",
