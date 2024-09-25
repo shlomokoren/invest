@@ -123,27 +123,28 @@ def yahoo_finance_get_stock_values(ticker,range):
         return {"retcode": retcode, "funcmessage": funcmessage}
 
 
-def TWSMarketorder(ib, symbol, Orderaction, totalQuatity):
+def TWSMarketorder(ib, symbol, Orderaction, totalQuantity):
     """Log the name of the currently running function."""
     current_function = inspect.currentframe().f_code.co_name
     logging.debug(f"Running function: {current_function}()")
 
     returnResult = {"retStatus": "", "message": ""}
-    msg = "IBTWS action="+Orderaction + " symbol="+symbol + " quatity="+str(totalQuatity)+", "
+    msg = "IBTWS action=" + Orderaction + " symbol=" + symbol + " quatity=" + str(totalQuantity) + ", "
     try:
         stock = Stock(symbol, 'SMART', 'USD')
         # Create a market order
-        order = MarketOrder(Orderaction, totalQuatity)
+        order = MarketOrder(Orderaction, totalQuantity)
 
         # Place the order
-        print(f"Placing order {symbol} {Orderaction} {totalQuatity}" )
+        print(f"Placing order {symbol} {Orderaction} {totalQuantity}")
         trade = ib.placeOrder(stock, order)
 
         # Wait until the order is placed or updated
         ib.sleep(5)
         # Check if the order is filled or failed
         if (trade.orderStatus.status == 'Filled') :
-            msg = msg + "Order {Orderaction} successfully filled. portfolio is automatic updated"
+            sellPrice = trade.orderStatus.avgFillPrice
+            msg = msg + "Order {Orderaction} successfully filled. average sell price is "+str(sellPrice)+" , portfolio is automatic updated"
             returnResult = {"retStatus": 'Filled', "message": msg}
         else:
             msg =  msg +  f"Order Status is {trade.orderStatus.status} you have to update portfolio manual."
