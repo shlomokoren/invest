@@ -520,35 +520,39 @@ logging.basicConfig(
     ]
 )
 
+def main():
+    get_general_parameters()
 
-get_general_parameters()
-
-investDataFile = "data_invest.json"
-try:
-    with open(investDataFile, 'r') as file:
-        stocks = json.load(file)
-    print("investDataFile has "+str(len(stocks)) +" records ")
-    portfolioChangesList = []
-    # create change portfolio changes list
-    for stock in stocks:
-        isNeedTakeProfit = False
-        if debug == True:
-            maRule_result = None
-            if stock["symbol"] == "ARKW":
+    investDataFile = "data_invest.json"
+    try:
+        with open(investDataFile, 'r') as file:
+            stocks = json.load(file)
+        print("investDataFile has "+str(len(stocks)) +" records ")
+        portfolioChangesList = []
+        # create change portfolio changes list
+        for stock in stocks:
+            isNeedTakeProfit = False
+            if debug == True:
+                maRule_result = None
+                if stock["symbol"] == "ARKW":
+                    maRule_result = maRule(stock)
+            else:
                 maRule_result = maRule(stock)
+            if maRule_result is not None:
+                portfolioChangesList.append(maRule_result)
+        if (updateBuySellInInputFile) and (TWSEnable) and (len(portfolioChangesList) > 0):
+            result = update_stocks_input_list(portfolioChangesList)
+            print(result["message"])
         else:
-            maRule_result = maRule(stock)
-        if maRule_result is not None:
-            portfolioChangesList.append(maRule_result)
-    if (updateBuySellInInputFile) and (TWSEnable):
-        result = update_stocks_input_list(portfolioChangesList)
-        print(result["message"])
-    else:
-        print("attention: You have to update portfolio manual !! ,see value for updateBuySellInInputFile and TWSEnable ")
-except FileNotFoundError:
-    print(f"Error: The file '{investDataFile}' was not found.")
-except json.JSONDecodeError:
-    print(f"Error: The file '{investDataFile}' contains invalid JSON.")
-except Exception as e:
-    print(f"An unexpected error occurred: {e}")
-print("run is completed")
+            print("attention: You have to update portfolio manual !! ,see value for updateBuySellInInputFile and TWSEnable ")
+    except FileNotFoundError:
+        print(f"Error: The file '{investDataFile}' was not found.")
+    except json.JSONDecodeError:
+        print(f"Error: The file '{investDataFile}' contains invalid JSON.")
+    except Exception as e:
+        print(f"An unexpected error occurred: {e}")
+    print("run is completed")
+
+
+if __name__ == "__main__":
+    main()
