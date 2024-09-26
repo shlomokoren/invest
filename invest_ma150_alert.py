@@ -14,7 +14,8 @@ from datetime import datetime, timedelta
 from pandas.core.computation.common import result_type_many
 
 debug = False
-__version__ = "0.0.5beta"
+__version__ = "0.0.6beta"
+print("script version: " + __version__)
 
 
 def get_general_parameters():
