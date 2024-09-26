@@ -199,5 +199,14 @@
         "action": "buy",
         "quantity": 100,
         "account": "DU2049237"
+    },
+        {
+        "symbol": "V",
+        "range": 150,
+        "action": "buy",
+        "quantity": 100,
+        "account": "DU2049237"
     }
+
+
 ]
