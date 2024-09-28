@@ -39,20 +39,20 @@ jobs:
       - name: Run Python script
         env:
           GOOGLE_APPLICATION_CREDENTIALS: google-credentials.json
-        run: python invest_ma150_alert.py  # Specify the path to your Python script here
+        run: invest_moving_average_rule_handle.py  # Specify the path to your Python script here
 
-      - name: Configure git
-        run: |
-          git config user.name "shlomokoren"
-          git config user.email "shlomo.koren@gmail.com"
-
-      - name: Commit changes
-        run: |
-          git add data_invest.json  # Add the modified file
-          git commit -m "Update file during pipeline run" || echo "No changes to commit"
-
-      - name: Push changes
-        env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}  # Use your PAT stored as a secret
-        run: |
-          git push https://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@github.com/${{ github.repository }} HEAD:${{ github.ref_name }}
+#      - name: Configure git
+#        run: |
+#          git config user.name "shlomokoren"
+#          git config user.email "shlomo.koren@gmail.com"
+#
+#      - name: Commit changes
+#        run: |
+#          git add data_invest.json  # Add the modified file
+#          git commit -m "Update file during pipeline run" || echo "No changes to commit"
+#
+#      - name: Push changes
+#        env:
+#          GH_TOKEN: ${{ secrets.GH_TOKEN }}  # Use your PAT stored as a secret
+#        run: |
+#          git push https://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@github.com/${{ github.repository }} HEAD:${{ github.ref_name }}
