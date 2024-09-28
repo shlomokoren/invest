@@ -377,10 +377,10 @@ def googlesheets_add_history(symbolsList, color_flag=False):
             # Authorize and create a client
             client = gspread.authorize(credentials)
             # Open the Google Sheet by name
-            spreadsheet = client.open("pythoninvesttest")
+            spreadsheet = client.open("invest_portfolio")
             # Check if the "history" sheet exists, if not create it
         except Exception as e:
-            print("fail to open sheet pythoninvesttest")
+            print("fail to open sheet invest_portfolio")
             print(f"An error exception is: {e}")
             return
 
