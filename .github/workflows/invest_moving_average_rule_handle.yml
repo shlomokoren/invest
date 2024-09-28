@@ -2,7 +2,8 @@ name: Run Python Script
 
 on:
   schedule:
-    - cron: '35 19 * * 1-5' # Runs monday till friday
+    # Run at 13:30 UTC (9:30 AM ET) every weekday (Mon-Fri)
+    - cron: '30 13 * * 1-5'
   push:
     branches:
       - main
