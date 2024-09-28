@@ -38,7 +38,7 @@ jobs:
       - name: Run Python script
         env:
           GOOGLE_APPLICATION_CREDENTIALS: google-credentials.json
-        run: invest_moving_average_rule_handle.py  # Specify the path to your Python script here
+        run: python invest_moving_average_rule_handle.py  # Specify the path to your Python script here
 
 #      - name: Configure git
 #        run: |
