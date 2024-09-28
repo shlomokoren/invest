@@ -1,20 +1,23 @@
 import json
-from pickle import FALSE
 import logging
 import inspect
 import requests
 import os
-from datetime import datetime
 import gspread
 from google.oauth2.service_account import Credentials
 from ib_insync import *
 import yfinance as yf
 from datetime import datetime, timedelta
+import socket
 
-from pandas.core.computation.common import result_type_many
+from playhouse.sqlite_udf import hostname
+
+#from datetime import datetime
+#from datetime import datetime
+#from pandas.core.computation.common import result_type_many
 
 debug = False
-__version__ = "0.0.6beta"
+__version__ = "0.0.7beta"
 print("script version: " + __version__)
 
 
@@ -158,7 +161,6 @@ def notifyCenter(message, googleSheetsRaw, sheetColnotes, color_flag_bool):
     """Log the name of the currently running function."""
     current_function = inspect.currentframe().f_code.co_name
     logging.debug(f"Running function: {current_function}()")
-
     print(message)
     sendtelegrammsg(message)
     writeToLogfile(message)
@@ -389,15 +391,16 @@ def googlesheets_add_history(symbolsList, color_flag=False):
         # Check if the first row is empty (i.e., if the sheet is new)
         if not worksheet.cell(1, 1).value:
             # Add title row
-            title_row = ["Date", "Symbol", "Action", "Indecator", "Indicator Value", "Closed", "difference %", "account" ,"Notes"]
-            worksheet.update(range_name='A1:I1', values=[title_row])
+            title_row = ["Date", "Symbol", "Action", "Indecator", "Indicator Value", "Closed", "difference %", "account","host" ,"Notes"]
+            worksheet.update(range_name='A1:J1', values=[title_row])
 
         # Get the current date
         current_date = datetime.now().strftime("%d-%m-%Y %H:%M:%S")
-
+        hostname = socket.gethostname()
         # Append the current date to each row and add to the "history" sheet
         for row in symbolsList:
             row.insert(0, current_date)
+            row.append(hostname)
             result = worksheet.append_row(row)
 
             if color_flag:
@@ -415,10 +418,11 @@ def googlesheets_add_history(symbolsList, color_flag=False):
 
 def maRule(stockObj):
     '''
-     maRule is handle mooving average rule ,
-     this function check if needs buy or sell if yes create result object that includes details to handle the object
-    input args: stock object
-        stock objects include values for symbol,range,account .. parametrs of objects from data_invest.json
+    The `maRule` function handles the logic for the moving average rule.
+    It evaluates whether a buy or sell action is required, and if so, generates a result object containing the necessary details to manage the operation.
+    Input parameters: stock object
+        The stock object includes properties such as symbol, range, account, and other relevant parameters defined in the `data_invest.json` file.
+    :input stock object as configured in list input json file
     :return: mapkey symbol : buyToSell/SellToBuy
     '''
 
@@ -452,11 +456,14 @@ def maRule(stockObj):
         isMaTrandUp = True
     closePrice = yahoostockobj["closePrice"]
     percentageDifference = percentage_difference(closePrice, ma)
+    hostname = socket.gethostname()
+
     msg = symbol + ', action ' + action + \
           ", rang " + str(smarange) + ",sma " + \
           str(ma) + ",close " + \
           str(closePrice) + \
           ", percentage difference " + str(percentageDifference) + "%" +", account "+account
+    msg = msg + " , " + hostname
     googleSheetsRaw = [symbol, action, 'sma' + str(smarange), ma, closePrice,
                        str(percentageDifference) + "%" ,account]
     smObj={"symbol":symbol,"action":action,"sma":ma,"closed":closePrice}
@@ -522,16 +529,24 @@ logging.basicConfig(
 )
 
 def main():
-    get_general_parameters()
+    '''
+    This function performs the following tasks:
+        • Retrieves general software parameters from the configuration file.
+        • Processes the stock trading data from the JSON file.
+          o	For each stock, it evaluates whether the moving average rule is satisfied. If compatible, it triggers a notification and adds the stock to the `portfolioChangesList` for further actions, such as executing buy/sell orders via TWS.
+          o	Checks whether trading is enabled, and if so, processes trades for each stock in the `portfolioChangesList` using TWS.
 
+    :return:
+    '''
+    get_general_parameters()
     investDataFile = "data_invest.json"
     try:
         with open(investDataFile, 'r') as file:
-            stocks = json.load(file)
-        print("investDataFile has "+str(len(stocks)) +" records ")
+            stocksList = json.load(file)
+        print("investDataFile has "+str(len(stocksList)) +" records ")
         portfolioChangesList = []
         # create change portfolio changes list
-        for stock in stocks:
+        for stock in stocksList:
             isNeedTakeProfit = False
             if debug == True:
                 maRule_result = None
