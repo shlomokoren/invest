@@ -20,7 +20,6 @@ debug = False
 __version__ = "0.0.8beta"
 print("script version: " + __version__)
 
-
 def get_general_parameters():
     ''' reade global parameters from general_parameters.json '''
     global enableLogFile, enableSendTelgram, enableGoogleSheetUpdate
@@ -126,7 +125,6 @@ def yahoo_finance_get_stock_values(ticker,range):
         funcmessage = f"Error fetching data for {ticker}: {e}"
         return {"retcode": retcode, "funcmessage": funcmessage}
 
-
 def TWSMarketorder(ib, symbol, Orderaction, totalQuantity):
     """Log the name of the currently running function."""
     current_function = inspect.currentframe().f_code.co_name
@@ -166,7 +164,6 @@ def notifyCenter(message, googleSheetsRaw, sheetColnotes, color_flag_bool):
     writeToLogfile(message)
     googleSheetsRaw.append(sheetColnotes)
     googlesheets_add_history([googleSheetsRaw], color_flag=color_flag_bool)
-
 
 def update_stocks_input_list(portfolioChangesList):
     ''' after all checks all recommendations are in replaceValueList
@@ -292,7 +289,7 @@ def is_need_buy(smaValue, closedValue, percentagedifference):
 
 def is_need_sell(closedValue, smaValue):
     '''
-    check if need to sell and stoploss is moving average value
+    Checks if a sale is needed and whether the stop-loss matches the moving average value.
     :param closedValue:
     :param smaValue:
     :return:
@@ -309,6 +306,11 @@ def is_need_sell(closedValue, smaValue):
     return result
 
 def sendtelegrammsg(message):
+    '''
+    send message to telegram bot
+    :param message:
+    :return:
+    '''
     """Log the name of the currently running function."""
     current_function = inspect.currentframe().f_code.co_name
     logging.debug(f"Running function: {current_function}()")
@@ -342,6 +344,10 @@ def sendtelegrammsg(message):
             print("Failed to send message.")
 
 def writeToLogfile(line):
+    '''
+    Logs line to log file
+    '''
+
     """Log the name of the currently running function."""
     current_function = inspect.currentframe().f_code.co_name
     logging.debug(f"Running function: {current_function}()")
@@ -359,6 +365,12 @@ def writeToLogfile(line):
             logfile.write(current_time + "," + line + " \n")
 
 def googlesheets_add_history(symbolsList, color_flag=False):
+    '''
+    Logs actions to the 'investHistoryCommands' tab in Google Sheets.
+    This function allows users to log their activity in the cloud, enabling access from anywhere, at any time.    :param symbolsList:
+    :param color_flag:
+    :return:
+    '''
     """Log the name of the currently running function."""
     current_function = inspect.currentframe().f_code.co_name
     logging.debug(f"Running function: {current_function}()")
