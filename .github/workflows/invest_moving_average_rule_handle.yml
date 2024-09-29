@@ -7,7 +7,7 @@ on:
   push:
     branches:
       - main
-     # - test
+      - test
 jobs:
   invest_sma_alert:
     runs-on: ubuntu-latest
