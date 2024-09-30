@@ -40,5 +40,9 @@
 
 Describe how to use the script. For example:
 
-```bash
-python your_script.py [options]
+``` there are 2 python script
+1 - software to make recomendations and send notifications/alerts (can log to google sheet , write to local computer logs file, send telegram alerts)
+	python invest_moving_average_rule_handle.py 
+	you have to configure enviroment variables and files before
+2- tool to handle manual portpolio list and general parameters that are in json local files
+    python manualHandleStocksListGUI.py
