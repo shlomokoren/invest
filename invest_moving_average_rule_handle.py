@@ -391,16 +391,27 @@ def googlesheets_add_history(symbolsList, color_flag=False):
         except gspread.exceptions.WorksheetNotFound:
             worksheet = spreadsheet.add_worksheet(title="investHistoryCommands", rows="500", cols="30")
 
-        try:
-            # Check if the first row is empty (i.e., if the sheet is new)
-            if not worksheet.cell(1, 1).value:
-                # Add title row
-                title_row = ["Date", "Symbol", "Action", "Indecator", "Indicator Value", "Closed", "difference %", "account","host" ,"Notes"]
-                worksheet.update(range_name='A1:J1', values=[title_row])
-        except Exception as e:
-            logging.error(f"An unexpected error occurred in if not worksheet.cell: {e}")
-            print(f"An unexpected error occurred  in if not worksheet.cell: {e}")
-            return  # Exit on any other exception
+        attempt = 1
+        max_attempts = 3  # Retry a few times if needed
+        success = False
+        while attempt <= max_attempts and not success:
+            try:
+                # Check if the first row is empty (i.e., if the sheet is new)
+                if not worksheet.cell(1, 1).value:
+                    # Add title row
+                    title_row = ["Date", "Symbol", "Action", "Indecator", "Indicator Value", "Closed", "difference %", "account","host" ,"Notes"]
+                    worksheet.update(range_name='A1:J1', values=[title_row])
+            except gspread.exceptions.APIError as e:
+                logging.error(f"APIError during if not worksheet.cell on attempt {attempt}: {e}")
+                if attempt < max_attempts:
+                   logging.info("Retrying after 60 seconds...")
+                   time.sleep(60)
+                   attempt += 1
+                else:
+                   logging.error("Max retry attempts reached. Failed to if not worksheet.cell.")
+                   print("Max retry attempts reached. Failed to if not worksheet.cell.")
+                   return
+
 
         # Get the current date
         current_date = datetime.now().strftime("%d-%m-%Y %H:%M:%S")
