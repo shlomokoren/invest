@@ -42,7 +42,7 @@
         "takeProfitPercentage": 20,
         "isNeedToCheckTakeProfit": false,
         "quantity": 36,
-        "account": "shlomo126"
+        "account": "DU2049237"
     },
     {
         "symbol": "ADBE",
@@ -146,9 +146,9 @@
     {
         "symbol": "GOOG",
         "range": 150,
-        "action": "buy",
-        "quantity": 96,
-        "takeProfitPercentage": 20,
+        "action": "sell",
+        "quantity": 90,
+        "takeProfitPercentage": 10,
         "isNeedToCheckTakeProfit": false,
         "account": "DU2049237"
     },
