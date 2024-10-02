@@ -410,11 +410,8 @@ def googlesheets_add_history(symbolsList, color_flag=False):
                 logging.debug(f"An unexpected error occurred: {e}")
                 print(f"An unexpected error occurred: {e}")
                 time.sleep(60)
-                try:
-                    result = worksheet.append_row(row)
-                except Exception as e:
-                    logging.debug(f"An second unexpected error occurred: {e}")
-                    print(f"An second unexpected error occurred: {e}")
+                logging.debug("retry google sheet append row")
+                result = worksheet.append_row(row)
 
             if color_flag:
                 range = str(result['updates']['updatedRange']).split("!")[1]
