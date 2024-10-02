@@ -31,16 +31,16 @@
         "range": 150,
         "action": "sell",
         "takeProfitPercentage": 10,
-        "isNeedToCheckTakeProfit": false,
+        "isNeedToCheckTakeProfit": true,
         "quantity": 20,
         "account": "shlomo126"
     },
     {
         "symbol": "MSFT",
         "range": 150,
-        "action": "sell",
+        "action": "buy",
         "takeProfitPercentage": 20,
-        "isNeedToCheckTakeProfit": false,
+        "isNeedToCheckTakeProfit": true,
         "quantity": 36,
         "account": "DU2049237"
     },
@@ -94,7 +94,7 @@
         "range": 150,
         "action": "sell",
         "takeProfitPercentage": 20,
-        "isNeedToCheckTakeProfit": false,
+        "isNeedToCheckTakeProfit": true,
         "quantity": 103,
         "account": "DU2049237"
     },
@@ -103,7 +103,7 @@
         "range": 150,
         "action": "sell",
         "takeProfitPercentage": 20,
-        "isNeedToCheckTakeProfit": false,
+        "isNeedToCheckTakeProfit": true,
         "quantity": 190,
         "account": "DU2049237"
     },
@@ -112,7 +112,7 @@
         "range": 150,
         "action": "sell",
         "takeProfitPercentage": 20,
-        "isNeedToCheckTakeProfit": false,
+        "isNeedToCheckTakeProfit": true,
         "quantity": 82,
         "account": "DU2049237"
     },
@@ -149,7 +149,7 @@
         "action": "sell",
         "quantity": 90,
         "takeProfitPercentage": 10,
-        "isNeedToCheckTakeProfit": false,
+        "isNeedToCheckTakeProfit": true,
         "account": "DU2049237"
     },
     {
