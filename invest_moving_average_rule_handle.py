@@ -401,8 +401,11 @@ def googlesheets_add_history(symbolsList, color_flag=False):
         for row in symbolsList:
             row.insert(0, current_date)
             row.append(hostname)
-            result = worksheet.append_row(row)
-
+            try:
+                result = worksheet.append_row(row)
+            except Exception as e:
+                print(f"An unexpected error occurred: {e}")
+                return
             if color_flag:
                 range = str(result['updates']['updatedRange']).split("!")[1]
                 # Apply background color to the newly added rows
@@ -413,7 +416,6 @@ def googlesheets_add_history(symbolsList, color_flag=False):
                         "blue": 0.0
                     }
                 })
-
         worksheet.sort((1, 'des'))
 
 def maRule(stockObj):
