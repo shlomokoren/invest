@@ -403,15 +403,29 @@ def googlesheets_add_history(symbolsList, color_flag=False):
         for row in symbolsList:
             row.insert(0, current_date)
             row.append(hostname)
-            try:
-                logging.debug(row)
-                result = worksheet.append_row(row)
-            except gspread.exceptions.APIError as e:
-                logging.debug(f"An unexpected error occurred worksheet.append_row(row): {e}")
-                print(f"An unexpected error occurred worksheet.append_row(row) : {e}")
-                time.sleep(60)
-                logging.debug("retry google sheet append row")
-                result = worksheet.append_row(row)
+            attempt = 1
+            max_attempts = 3  # Retry a few times if needed
+            success = False
+
+            while attempt <= max_attempts and not success:
+                try:
+                    logging.debug(f"Attempt {attempt}: {row}")
+                    result = worksheet.append_row(row)
+                    success = True  # If no exception is raised, set success to True
+                except gspread.exceptions.APIError as e:
+                    logging.error(f"APIError during append_row on attempt {attempt}: {e}")
+                    if attempt < max_attempts:
+                        logging.info("Retrying after 60 seconds...")
+                        time.sleep(60)
+                        attempt += 1
+                    else:
+                        logging.error("Max retry attempts reached. Failed to append row.")
+                        print("Max retry attempts reached. Failed to append row.")
+                        return
+                except Exception as e:
+                    logging.error(f"An unexpected error occurred: {e}")
+                    print(f"An unexpected error occurred: {e}")
+                    return  # Exit on any other exception
 
             if color_flag:
                 range = str(result['updates']['updatedRange']).split("!")[1]
