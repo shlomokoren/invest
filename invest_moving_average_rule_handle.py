@@ -407,8 +407,8 @@ def googlesheets_add_history(symbolsList, color_flag=False):
                 logging.debug(row)
                 result = worksheet.append_row(row)
             except gspread.exceptions.APIError as e:
-                logging.debug(f"An unexpected error occurred: {e}")
-                print(f"An unexpected error occurred: {e}")
+                logging.debug(f"An unexpected error occurred worksheet.append_row(row): {e}")
+                print(f"An unexpected error occurred worksheet.append_row(row) : {e}")
                 time.sleep(60)
                 logging.debug("retry google sheet append row")
                 result = worksheet.append_row(row)
@@ -423,7 +423,14 @@ def googlesheets_add_history(symbolsList, color_flag=False):
                         "blue": 0.0
                     }
                 })
-        worksheet.sort((1, 'des'))
+        try:
+            worksheet.sort((1, 'des'))
+        except gspread.exceptions.APIError as e:
+            logging.debug(f"An unexpected error occurred  worksheet.sort: {e}")
+            print(f"An unexpected error occurred  worksheet.sort : {e}")
+            time.sleep(60)
+            logging.debug("retry google  worksheet.sort")
+            worksheet.sort((1, 'des'))
 
 def maRule(stockObj):
     '''
