@@ -1,6 +1,8 @@
 import json
 import logging
 import inspect
+import time
+
 import requests
 import os
 import gspread
@@ -404,10 +406,16 @@ def googlesheets_add_history(symbolsList, color_flag=False):
             try:
                 logging.debug(row)
                 result = worksheet.append_row(row)
-            except Exception as e:
+            except gspread.exceptions.APIError as e:
                 logging.debug(f"An unexpected error occurred: {e}")
                 print(f"An unexpected error occurred: {e}")
-                return
+                time.sleep(60)
+                try:
+                    result = worksheet.append_row(row)
+                except Exception as e:
+                    logging.debug(f"An second unexpected error occurred: {e}")
+                    print(f"An second unexpected error occurred: {e}")
+
             if color_flag:
                 range = str(result['updates']['updatedRange']).split("!")[1]
                 # Apply background color to the newly added rows
