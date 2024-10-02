@@ -402,8 +402,10 @@ def googlesheets_add_history(symbolsList, color_flag=False):
             row.insert(0, current_date)
             row.append(hostname)
             try:
+                logging.debug(row)
                 result = worksheet.append_row(row)
             except Exception as e:
+                logging.debug(f"An unexpected error occurred: {e}")
                 print(f"An unexpected error occurred: {e}")
                 return
             if color_flag:
