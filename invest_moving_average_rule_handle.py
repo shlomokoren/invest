@@ -390,11 +390,17 @@ def googlesheets_add_history(symbolsList, color_flag=False):
             worksheet = spreadsheet.worksheet("investHistoryCommands")
         except gspread.exceptions.WorksheetNotFound:
             worksheet = spreadsheet.add_worksheet(title="investHistoryCommands", rows="500", cols="30")
-        # Check if the first row is empty (i.e., if the sheet is new)
-        if not worksheet.cell(1, 1).value:
-            # Add title row
-            title_row = ["Date", "Symbol", "Action", "Indecator", "Indicator Value", "Closed", "difference %", "account","host" ,"Notes"]
-            worksheet.update(range_name='A1:J1', values=[title_row])
+
+        try:
+            # Check if the first row is empty (i.e., if the sheet is new)
+            if not worksheet.cell(1, 1).value:
+                # Add title row
+                title_row = ["Date", "Symbol", "Action", "Indecator", "Indicator Value", "Closed", "difference %", "account","host" ,"Notes"]
+                worksheet.update(range_name='A1:J1', values=[title_row])
+        except Exception as e:
+            logging.error(f"An unexpected error occurred in if not worksheet.cell: {e}")
+            print(f"An unexpected error occurred  in if not worksheet.cell: {e}")
+            return  # Exit on any other exception
 
         # Get the current date
         current_date = datetime.now().strftime("%d-%m-%Y %H:%M:%S")
