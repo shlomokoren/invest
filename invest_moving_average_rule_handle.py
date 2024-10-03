@@ -29,6 +29,8 @@ def get_general_parameters():
     global smapercentagedifference, updateBuySellInInputFile, fixedInvestmentBuyAmount
     global TWSaccount,TWSEnable
     global isNeedToCheckTakeProfit
+    global isValidationGoogleSheetTitleDone
+    isValidationGoogleSheetTitleDone = False
     """Log the name of the currently running function."""
     current_function = inspect.currentframe().f_code.co_name
     logging.debug(f"Running function: {current_function}()")
@@ -365,7 +367,7 @@ def googlesheets_add_history(symbolsList, color_flag=False):
     current_function = inspect.currentframe().f_code.co_name
     logging.debug(f"Running function: {current_function}()")
 
-    global enableGoogleSheetUpdate
+    global enableGoogleSheetUpdate,isValidationGoogleSheetTitleDone
 
     if enableGoogleSheetUpdate is True:
         spreadsheet = None
@@ -391,26 +393,28 @@ def googlesheets_add_history(symbolsList, color_flag=False):
         except gspread.exceptions.WorksheetNotFound:
             worksheet = spreadsheet.add_worksheet(title="investHistoryCommands", rows="500", cols="30")
 
-        attempt = 1
-        max_attempts = 3  # Retry a few times if needed
-        success = False
-        while attempt <= max_attempts and not success:
-            try:
-                # Check if the first row is empty (i.e., if the sheet is new)
-                if not worksheet.cell(1, 1).value:
-                    # Add title row
-                    title_row = ["Date", "Symbol", "Action", "Indecator", "Indicator Value", "Closed", "difference %", "account","host" ,"Notes"]
-                    worksheet.update(range_name='A1:J1', values=[title_row])
-            except gspread.exceptions.APIError as e:
-                logging.error(f"APIError during if not worksheet.cell on attempt {attempt}: {e}")
-                if attempt < max_attempts:
-                   logging.info("Retrying after 60 seconds...")
-                   time.sleep(60)
-                   attempt += 1
-                else:
-                   logging.error("Max retry attempts reached. Failed to if not worksheet.cell.")
-                   print("Max retry attempts reached. Failed to if not worksheet.cell.")
-                   return
+        if isValidationGoogleSheetTitleDone is False:
+            isValidationGoogleSheetTitleDone = True
+            attempt = 1
+            max_attempts = 3  # Retry a few times if needed
+            success = False
+            while attempt <= max_attempts and not success:
+                try:
+                    # Check if the first row is empty (i.e., if the sheet is new)
+                    if not worksheet.cell(1, 1).value:
+                        # Add title row
+                        title_row = ["Date", "Symbol", "Action", "Indecator", "Indicator Value", "Closed", "difference %", "account","host" ,"Notes"]
+                        worksheet.update(range_name='A1:J1', values=[title_row])
+                except gspread.exceptions.APIError as e:
+                    logging.error(f"APIError during if not worksheet.cell on attempt {attempt}: {e}")
+                    if attempt < max_attempts:
+                       logging.info("Retrying after 60 seconds...")
+                       time.sleep(60)
+                       attempt += 1
+                    else:
+                       logging.error("Max retry attempts reached. Failed to if not worksheet.cell.")
+                       print("Max retry attempts reached. Failed to if not worksheet.cell.")
+                       return
 
 
         # Get the current date
