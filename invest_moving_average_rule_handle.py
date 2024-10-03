@@ -384,16 +384,18 @@ def googlesheets_add_history(symbolsList, color_flag=False):
             spreadsheet = client.open("invest_portfolio")
             # Check if the "history" sheet exists, if not create it
         except Exception as e:
-            print("fail to open sheet invest_portfolio")
+            print("googlesheets_add_history:fail to open sheet invest_portfolio")
             print(f"An error exception is: {e}")
             return
 
         try:
             worksheet = spreadsheet.worksheet("investHistoryCommands")
+            logging.debug("googlesheets_add_history: google sheet open sheet.")
         except gspread.exceptions.WorksheetNotFound:
             worksheet = spreadsheet.add_worksheet(title="investHistoryCommands", rows="500", cols="30")
             title_row = ["Date", "Symbol", "Action", "Indecator", "Indicator Value", "Closed", "difference %", "account","host" ,"Notes"]
             worksheet.update(range_name='A1:J1', values=[title_row])
+            logging.debug("googlesheets_add_history:google sheet add title.")
 
 
 
@@ -420,7 +422,7 @@ def googlesheets_add_history(symbolsList, color_flag=False):
         #                print("Max retry attempts reached. Failed to if not worksheet.cell.")
         #                return
 
-
+        logging.debug("googlesheets_add_history: before add raws to google sheet")
         # Get the current date
         current_date = datetime.now().strftime("%d-%m-%Y %H:%M:%S")
         hostname = socket.gethostname()
@@ -462,6 +464,7 @@ def googlesheets_add_history(symbolsList, color_flag=False):
                         "blue": 0.0
                     }
                 })
+        logging.debug("googlesheets_add_history: before sort raws in google sheet")
         try:
             worksheet.sort((1, 'des'))
         except gspread.exceptions.APIError as e:
@@ -575,7 +578,7 @@ smapercentagedifference = 0
 
 # Configure the logging level, format, and output
 logging.basicConfig(
-    level=logging.INFO,  # Set the lowest level (DEBUG) to capture all messages
+    level=logging.DEBUG,  # Set the lowest level (DEBUG) to capture all messages
     format='%(asctime)s - %(levelname)s - %(message)s',
     handlers=[
         logging.FileHandler("application.log"),  # Logs to a file
