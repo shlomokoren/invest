@@ -31,9 +31,9 @@
         "range": 150,
         "action": "sell",
         "takeProfitPercentage": 10,
-        "isNeedToCheckTakeProfit": true,
-        "quantity": 20,
-        "account": "shlomo126"
+        "isNeedToCheckTakeProfit": false,
+        "quantity": 14,
+        "account": "DU2049237"
     },
     {
         "symbol": "MSFT",

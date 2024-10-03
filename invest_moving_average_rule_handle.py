@@ -2,7 +2,7 @@ import json
 import logging
 import inspect
 import time
-
+import pytz
 import requests
 import os
 import gspread
@@ -172,7 +172,7 @@ def notifyCenter(message, googleSheetsRaw, sheetColnotes, color_flag_bool):
     googlesheets_add_history([googleSheetsRaw], color_flag=color_flag_bool)
 
 
-def update_stocks_input_list(portfolioChangesList):
+def update_stocks_input_list(portfolioChangesList,investDataFile):
     ''' after all checks all recommendations are in replaceValueList
       this function sell/buy  use IBTWS and  update input stocks file after the transaction
       '''
@@ -399,28 +399,6 @@ def googlesheets_add_history(symbolsList, color_flag=False):
 
 
 
-        # if isValidationGoogleSheetTitleDone is False:
-        #     isValidationGoogleSheetTitleDone = True
-        #     attempt = 1
-        #     max_attempts = 3  # Retry a few times if needed
-        #     success = False
-        #     while attempt <= max_attempts and not success:
-        #         try:
-        #             # Check if the first row is empty (i.e., if the sheet is new)
-        #             if not worksheet.cell(1, 1).value:
-        #                 # Add title row
-        #                 title_row = ["Date", "Symbol", "Action", "Indecator", "Indicator Value", "Closed", "difference %", "account","host" ,"Notes"]
-        #                 worksheet.update(range_name='A1:J1', values=[title_row])
-        #         except gspread.exceptions.APIError as e:
-        #             logging.error(f"APIError during if not worksheet.cell on attempt {attempt}: {e}")
-        #             if attempt < max_attempts:
-        #                logging.info("Retrying after 60 seconds...")
-        #                time.sleep(60)
-        #                attempt += 1
-        #             else:
-        #                logging.error("Max retry attempts reached. Failed to if not worksheet.cell.")
-        #                print("Max retry attempts reached. Failed to if not worksheet.cell.")
-        #                return
 
         logging.debug("googlesheets_add_history: before add raws to google sheet")
         # Get the current date
@@ -529,7 +507,7 @@ def maRule(stockObj):
         if (disableTakeProfit) and (float(percentageDifference) > takeProfitPercentage):
             result = {"stock": stockObj, 'change_action': 'disableTakeProfit',"smObj":smObj}
             msg = msg + ", You have to take profit"
-            notifyCenter(msg, googleSheetsRaw, "You have to sell", True)
+            notifyCenter(msg, googleSheetsRaw, "You have to take profit", True)
         else:
             isSell = is_need_sell(closedValue=closePrice, smaValue=ma)
             if isSell:
@@ -578,7 +556,7 @@ smapercentagedifference = 0
 
 # Configure the logging level, format, and output
 logging.basicConfig(
-    level=logging.DEBUG,  # Set the lowest level (DEBUG) to capture all messages
+    level=logging.INFO,  # Set the lowest level (DEBUG) to capture all messages
     format='%(asctime)s - %(levelname)s - %(message)s',
     handlers=[
         logging.FileHandler("application.log"),  # Logs to a file
@@ -615,7 +593,7 @@ def main():
             if maRule_result is not None:
                 portfolioChangesList.append(maRule_result)
         if (updateBuySellInInputFile) and (TWSEnable) and (len(portfolioChangesList) > 0):
-            result = update_stocks_input_list(portfolioChangesList)
+            result = update_stocks_input_list(portfolioChangesList,investDataFile)
             print(result["message"])
         else:
             print("attention: You have to update portfolio manual !! ,see value for updateBuySellInInputFile and TWSEnable ")
