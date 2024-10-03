@@ -27,7 +27,7 @@ def get_general_parameters():
     ''' reade global parameters from general_parameters.json '''
     global enableLogFile, enableSendTelgram, enableGoogleSheetUpdate
     global smapercentagedifference, updateBuySellInInputFile, fixedInvestmentBuyAmount
-    global TWSaccount,TWSEnable
+    global TWSaccount,TWSEnable , logTimezone
     global isNeedToCheckTakeProfit
     global isValidationGoogleSheetTitleDone
     isValidationGoogleSheetTitleDone = False
@@ -67,6 +67,8 @@ def get_general_parameters():
             elif 'isNeedToCheckTakeProfit' in item:
                 isNeedToCheckTakeProfit = item['isNeedToCheckTakeProfit']
                 print("Is Need To Check Take Profit  is  "+str(isNeedToCheckTakeProfit))
+            elif 'logTimezone' in item:
+                logTimezone = item["logTimezone"]
 
     except FileNotFoundError:
         print(f"Error: The file '{investDataFile}' was not found.")
@@ -367,7 +369,7 @@ def googlesheets_add_history(symbolsList, color_flag=False):
     current_function = inspect.currentframe().f_code.co_name
     logging.debug(f"Running function: {current_function}()")
 
-    global enableGoogleSheetUpdate,isValidationGoogleSheetTitleDone
+    global enableGoogleSheetUpdate,isValidationGoogleSheetTitleDone,logTimezone
 
     if enableGoogleSheetUpdate is True:
         spreadsheet = None
@@ -398,11 +400,11 @@ def googlesheets_add_history(symbolsList, color_flag=False):
             logging.debug("googlesheets_add_history:google sheet add title.")
 
 
-
-
         logging.debug("googlesheets_add_history: before add raws to google sheet")
         # Get the current date
-        current_date = datetime.now().strftime("%d-%m-%Y %H:%M:%S")
+        timezone = pytz.timezone(logTimezone)
+
+        current_date = datetime.now(timezone).strftime("%d-%m-%Y %H:%M:%S")
         hostname = socket.gethostname()
         # Append the current date to each row and add to the "history" sheet
         for row in symbolsList:

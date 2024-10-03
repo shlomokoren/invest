@@ -2,9 +2,10 @@
   {"enableSendTelgram": true},
   {"enableGoogleSheetUpdate": true},
   {"smapercentagedifference" : 4},
-  {"updateBuySellInInputFile":  false},
+  {"updateBuySellInInputFile":  true},
   {"TWSEnable":  false},
   {"TWSaccount":  "DU2049237"},
+  {"logTimezone": "Asia/Jerusalem"},
   {"fixedInvestmentBuyAmount": 16000}
 ]
 
