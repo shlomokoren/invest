@@ -263,7 +263,7 @@ def update_stocks_input_list(portfolioChangesList,investDataFile):
 
     with open(investDataFile, 'w') as file:
         json.dump(symbols_input_list, file, indent=4)  # Write the updated symbols to the file
-    msg = "portfolio file was update . please take attention for manual update."
+    msg = "portfolio file was update . please take attention for manually update."
     result = {"retStatus": False, "message": msg}
     return(result)
 
@@ -598,7 +598,7 @@ def main():
             result = update_stocks_input_list(portfolioChangesList,investDataFile)
             print(result["message"])
         else:
-            print("attention: You have to update portfolio manual !! ,see value for updateBuySellInInputFile and TWSEnable ")
+            print("attention: You have to update portfolio manually !! ,see value for updateBuySellInInputFile and TWSEnable ")
     except FileNotFoundError:
         print(f"Error: The file '{investDataFile}' was not found.")
     except json.JSONDecodeError:
