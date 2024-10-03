@@ -575,7 +575,7 @@ smapercentagedifference = 0
 
 # Configure the logging level, format, and output
 logging.basicConfig(
-    level=logging.DEBUG,  # Set the lowest level (DEBUG) to capture all messages
+    level=logging.INFO,  # Set the lowest level (DEBUG) to capture all messages
     format='%(asctime)s - %(levelname)s - %(message)s',
     handlers=[
         logging.FileHandler("application.log"),  # Logs to a file
