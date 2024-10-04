@@ -2,28 +2,15 @@ import tkinter as tk
 from tkinter import ttk, messagebox
 import json
 
-from invest_moving_average_rule_handle import enableLogFile
-
-
 # Load the JSON data from data_invest.json file
 def load_json_data():
     with open("data_invest.json", "r") as f:
         return json.load(f)
+
 # Save the JSON data to data_invest.json file
 def save_json_data(data):
     with open("data_invest.json", "w") as f:
         json.dump(data, f, indent=4)
-
-# Load the JSON data from data_invest.json file
-def load_json_general_parameters():
-    with open("general_parameters.json", "r") as f:
-        return json.load(f)
-# Save the JSON data to data_invest.json file
-def save_json_general_parameters(data):
-    with open("general_parameters.json", "w") as f:
-        json.dump(data, f, indent=4)
-
-
 
 # Populate the listbox based on selected action
 def populate_symbols(event):
@@ -223,51 +210,28 @@ def delete_symbol():
     else:
         messagebox.showerror("Error", "No symbol selected!")
 
-
-
-
-
-
-# Create the main window
+# GUI setup
 root = tk.Tk()
-root.title("Stock Management Tool")
-
-# Create the notebook (tab container)
-notebook = ttk.Notebook(root)
-
-# Create the frames for the two tabs
-portfolio_tab = ttk.Frame(notebook)
-general_params_tab = ttk.Frame(notebook)
-
-# Add the frames as tabs in the notebook
-notebook.add(portfolio_tab, text="Portfolio")
-notebook.add(general_params_tab, text="General Parameters")
-
-# Place the notebook using grid
-notebook.grid(row=0, column=0, padx=10, pady=10, sticky="nsew")
-
-# Configure the root window to expand properly
-root.grid_rowconfigure(0, weight=1)
-root.grid_columnconfigure(0, weight=1)
-
+root.geometry("400x450")
+root.title("Stock Manager")
 
 # Load stocks data
 stocks_data = load_json_data()
 
 # Action combobox (sell, buy, trace)
-tk.Label(portfolio_tab, text="Select Action:").grid(row=0, column=0, padx=10, pady=10)
-action_combobox = ttk.Combobox(portfolio_tab, values=["sell", "buy", "trace"])
+tk.Label(root, text="Select Action:").grid(row=0, column=0, padx=10, pady=10)
+action_combobox = ttk.Combobox(root, values=["sell", "buy", "trace"])
 action_combobox.grid(row=0, column=1, padx=10, pady=10)
 action_combobox.current(0)
 action_combobox.bind("<<ComboboxSelected>>", populate_symbols)
 
 # Symbol listbox
-symbol_listbox = tk.Listbox(portfolio_tab, height=15)
+symbol_listbox = tk.Listbox(root, height=15)
 symbol_listbox.grid(row=1, column=0, padx=10, pady=10, rowspan=6)
 symbol_listbox.bind("<<ListboxSelect>>", display_symbol_details)
 
 # Right panel to show symbol details
-details_frame = tk.Frame(portfolio_tab)
+details_frame = tk.Frame(root)
 details_frame.grid(row=1, column=1, padx=10, pady=10, sticky="n")
 
 tk.Label(details_frame, text="Symbol:").grid(row=0, column=0, padx=5, pady=5, sticky="w")
@@ -299,84 +263,16 @@ account_value_var = tk.StringVar()
 tk.Label(details_frame, textvariable=account_value_var).grid(row=6, column=1, padx=5, pady=5, sticky="w")
 
 # Buttons for Add, Edit, and Delete
-add_button = tk.Button(portfolio_tab, text="Add Symbol", command=add_symbol_popup)
+add_button = tk.Button(root, text="Add Symbol", command=add_symbol_popup)
 add_button.grid(row=7, column=1, padx=10, pady=10)
 
-edit_button = tk.Button(portfolio_tab, text="Edit Selected Symbol", command=edit_symbol_popup)
+edit_button = tk.Button(root, text="Edit Selected Symbol", command=edit_symbol_popup)
 edit_button.grid(row=8, column=1, padx=10, pady=10)
 
-delete_button = tk.Button(portfolio_tab, text="Delete Selected Symbol", command=delete_symbol)
+delete_button = tk.Button(root, text="Delete Selected Symbol", command=delete_symbol)
 delete_button.grid(row=9, column=1, padx=10, pady=10)
 
 # Populate symbols for the initial action
 populate_symbols(None)
 
-##----
-# Load general parameters data
-data = load_json_general_parameters()
-
-# Create a dictionary to store the widget references for updating values
-widget_references = {}
-
-# Function to create widgets for general parameters
-def create_widgets_for_general_parameters(data):
-    for row, param in enumerate(data):
-        key, value = list(param.items())[0]  # Get the key-value pair from the dictionary
-
-        # For boolean values, create a checkbox
-        if isinstance(value, bool):
-            var = tk.BooleanVar(value=value)
-            checkbox = tk.Checkbutton(general_params_tab, text=key, variable=var)
-            checkbox.grid(row=row, column=0, padx=10, pady=5, sticky="w")
-            widget_references[key] = var
-
-        # For string values, create a text entry field
-        elif isinstance(value, str):
-            label = tk.Label(general_params_tab, text=f"{key}:")
-            label.grid(row=row, column=0, padx=10, pady=5, sticky="e")
-            entry = tk.Entry(general_params_tab)
-            entry.insert(0, value)
-            entry.grid(row=row, column=1, padx=10, pady=5, sticky="w")
-            widget_references[key] = entry
-
-        # For integer values, create a text entry field that only allows integer input
-        elif isinstance(value, int):
-            label = tk.Label(general_params_tab, text=f"{key}:")
-            label.grid(row=row, column=0, padx=10, pady=5, sticky="e")
-            entry = tk.Entry(general_params_tab)
-            entry.insert(0, value)
-            entry.grid(row=row, column=1, padx=10, pady=5, sticky="w")
-            # Make sure only integer input is allowed
-            entry.config(validate="key",
-                         validatecommand=(root.register(lambda char: char.isdigit() or char == ""), "%S"))
-            widget_references[key] = entry
-
-
-# Function to save the current state of the general parameters
-def save_general_parameters():
-    updated_data = []
-    for param in data:
-        key = list(param.keys())[0]
-        widget = widget_references[key]
-
-        # Update based on the widget type
-        if isinstance(param[key], bool):
-            updated_data.append({key: widget.get()})
-        elif isinstance(param[key], str):
-            updated_data.append({key: widget.get()})
-        elif isinstance(param[key], int):
-            updated_data.append({key: int(widget.get())})
-
-    # Save to the JSON file
-    save_json_general_parameters(updated_data)
-
-
-# Call the function to create the widgets
-create_widgets_for_general_parameters(data)
-
-# Add a Save button at the bottom of the general_params_tab
-save_button = tk.Button(general_params_tab, text="Save", command=save_general_parameters)
-save_button.grid(row=len(data), column=0, columnspan=2, padx=10, pady=10)
-
-# Start the main loop
 root.mainloop()
