@@ -12,10 +12,10 @@
         "smapercentagedifference": 4
     },
     {
-        "updateBuySellInInputFile": true
+        "updateBuySellInInputFile": false
     },
     {
-        "TWSEnable": true
+        "TWSEnable": false
     },
     {
         "TWSaccount": "DU2049237"
