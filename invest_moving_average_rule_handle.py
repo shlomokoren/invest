@@ -365,7 +365,7 @@ def writeToLogfile(line):
             logfile.write(current_time + "," + line + " \n")
 
 def googlesheets_add_history(symbolsList, color_flag=False):
-    """Log the name of the currently running function."""
+    """add any activity as raw in google sheet invest_portfolio"""
     current_function = inspect.currentframe().f_code.co_name
     logging.debug(f"Running function: {current_function}()")
 
