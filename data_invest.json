@@ -51,7 +51,7 @@
         "account": "DU2049237",
         "takeProfitPercentage": "",
         "isNeedToCheckTakeProfit": false,
-        "quantity": ""
+        "quantity": 20
     },
     {
         "symbol": "IBM",
@@ -60,7 +60,7 @@
         "account": "DU2049237",
         "takeProfitPercentage": "",
         "isNeedToCheckTakeProfit": false,
-        "quantity": ""
+        "quantity": 20
     },
     {
         "symbol": "TSM",
@@ -69,7 +69,7 @@
         "account": "DU2049237",
         "takeProfitPercentage": "",
         "isNeedToCheckTakeProfit": false,
-        "quantity": ""
+        "quantity": 20
     },
     {
         "symbol": "META",
@@ -78,7 +78,7 @@
         "account": "DU2049237",
         "takeProfitPercentage": "",
         "isNeedToCheckTakeProfit": false,
-        "quantity": ""
+        "quantity": 20
     },
     {
         "symbol": "LULU",
@@ -87,7 +87,7 @@
         "account": "DU2049237",
         "takeProfitPercentage": "",
         "isNeedToCheckTakeProfit": false,
-        "quantity": "100"
+        "quantity": 100
     },
     {
         "symbol": "AVGO",
@@ -110,9 +110,9 @@
     {
         "symbol": "AMZN",
         "range": 150,
-        "action": "sell",
+        "action": "buy",
         "takeProfitPercentage": 20,
-        "isNeedToCheckTakeProfit": true,
+        "isNeedToCheckTakeProfit": false,
         "quantity": 82,
         "account": "DU2049237"
     },
@@ -146,10 +146,10 @@
     {
         "symbol": "GOOG",
         "range": 150,
-        "action": "sell",
+        "action": "buy",
         "quantity": 90,
         "takeProfitPercentage": 10,
-        "isNeedToCheckTakeProfit": true,
+        "isNeedToCheckTakeProfit": false,
         "account": "DU2049237"
     },
     {
