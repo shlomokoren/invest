@@ -19,7 +19,7 @@ from playhouse.sqlite_udf import hostname
 #from pandas.core.computation.common import result_type_many
 
 debug = False
-__version__ = "0.0.9beta"
+__version__ = "0.0.10beta"
 print("script version: " + __version__)
 
 
@@ -508,14 +508,16 @@ def maRule(stockObj):
     if action == "sell":
         if (disableTakeProfit) and (float(percentageDifference) > takeProfitPercentage):
             result = {"stock": stockObj, 'change_action': 'disableTakeProfit',"smObj":smObj}
-            msg = msg + ", You have to take profit"
-            notifyCenter(msg, googleSheetsRaw, "You have to take profit", True)
+            note = "You have to take profit"
+            msg = msg + ", " + note
+            notifyCenter(msg, googleSheetsRaw, note, True)
         else:
             isSell = is_need_sell(closedValue=closePrice, smaValue=ma)
             if isSell:
                 result = {"stock": stockObj, 'change_action': 'sellToBuy',"smObj":smObj}
-                msg = msg + ", You have to sell"
-                notifyCenter(msg,googleSheetsRaw, "You have to sell",True)
+                note = "You have to sell"
+                msg = msg + ", " + note
+                notifyCenter(msg,googleSheetsRaw, note,True)
             else:
                 print(msg)
                 writeToLogfile(msg)
@@ -524,8 +526,9 @@ def maRule(stockObj):
         isBuy = is_need_buy(smaValue=ma, closedValue=closePrice, percentagedifference=percentageDifference)
         if (isBuy == True) and (isMaTrandUp == True):
             result = {"stock": stockObj, 'change_action': 'buyToSell',"smObj":smObj}
-            msg = msg + ", You have to buy"
-            notifyCenter(msg, googleSheetsRaw, "You have to sell", True)
+            note = "You have to buy"
+            msg = msg + ", " + note
+            notifyCenter(msg, googleSheetsRaw, note , True)
         else:
             print(msg)
             writeToLogfile(msg)
