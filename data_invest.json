@@ -110,10 +110,10 @@
     {
         "symbol": "AMZN",
         "range": 150,
-        "action": "buy",
+        "action": "sell",
         "takeProfitPercentage": 20,
         "isNeedToCheckTakeProfit": false,
-        "quantity": 82,
+        "quantity": 85,
         "account": "DU2049237"
     },
     {
