@@ -1,0 +1,2 @@
+v0.0.11beta add portfolio configuration file as parameter --portfolioFile xxxx.json
+v0.0.11beta add portfolio configuration file as variable in general_parameters.json

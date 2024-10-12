@@ -25,5 +25,7 @@
     },
     {
         "fixedInvestmentBuyAmount": 16000
-    }
+    },
+    {"portfolioFile": "data_invest.json"}
+
 ]

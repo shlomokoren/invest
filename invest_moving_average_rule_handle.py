@@ -11,6 +11,7 @@ from ib_insync import *
 import yfinance as yf
 from datetime import datetime, timedelta
 import socket
+import argparse
 
 from playhouse.sqlite_udf import hostname
 
@@ -19,7 +20,7 @@ from playhouse.sqlite_udf import hostname
 #from pandas.core.computation.common import result_type_many
 
 debug = False
-__version__ = "0.0.10beta"
+__version__ = "v0.0.11beta"
 print("script version: " + __version__)
 
 
@@ -30,6 +31,7 @@ def get_general_parameters():
     global TWSaccount,TWSEnable , logTimezone
     global isNeedToCheckTakeProfit
     global isValidationGoogleSheetTitleDone
+    global portfolioFile
     isValidationGoogleSheetTitleDone = False
     """Log the name of the currently running function."""
     current_function = inspect.currentframe().f_code.co_name
@@ -69,9 +71,17 @@ def get_general_parameters():
                 print("Is Need To Check Take Profit  is  "+str(isNeedToCheckTakeProfit))
             elif 'logTimezone' in item:
                 logTimezone = item["logTimezone"]
-
+            elif 'portfolioFile' in item:
+                portfolioFile = item["portfolioFile"]
     except FileNotFoundError:
-        print(f"Error: The file '{investDataFile}' was not found.")
+        print(f"Error: The file general_parameters.json was not found.")
+    parser = argparse.ArgumentParser(description="Process some parameters.")
+    parser.add_argument('--portfolioFile', type=str, help='json input portfoilio config ')
+
+    args = parser.parse_args()
+    portfolioFileparametr = args.portfolioFile
+    if portfolioFileparametr is not None:
+        portfolioFile = args.portfolioFile
 
 def yahoo_finance_get_stock_values(ticker,range):
     """Log the name of the currently running function."""
@@ -459,7 +469,7 @@ def maRule(stockObj):
     The `maRule` function handles the logic for the moving average rule.
     It evaluates whether a buy or sell action is required, and if so, generates a result object containing the necessary details to manage the operation.
     Input parameters: stock object
-        The stock object includes properties such as symbol, range, account, and other relevant parameters defined in the `data_invest.json` file.
+        The stock object includes properties such as symbol, range, account, and other relevant parameters defined in the portfolioFile file.
     :input stock object as configured in list input json file
     :return: mapkey symbol : buyToSell/SellToBuy
     '''
@@ -579,8 +589,9 @@ def main():
 
     :return:
     '''
+    global portfolioFile
     get_general_parameters()
-    investDataFile = "data_invest.json"
+    investDataFile = portfolioFile
     try:
         with open(investDataFile, 'r') as file:
             stocksList = json.load(file)
