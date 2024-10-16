@@ -24,7 +24,7 @@
         "logTimezone": "Asia/Jerusalem"
     },
     {
-        "fixedInvestmentBuyAmount": 16000
+        "fixedInvestmentBuyAmount": 8000
     },
     {
         "portfolioFile": "data_invest.json"
