@@ -12,10 +12,10 @@
         "smapercentagedifference": 4
     },
     {
-        "updateBuySellInInputFile": true
+        "updateBuySellInInputFile": false
     },
     {
-        "TWSEnable": true
+        "TWSEnable": false
     },
     {
         "TWSaccount": "DU2049237"
@@ -26,6 +26,7 @@
     {
         "fixedInvestmentBuyAmount": 16000
     },
-    {"portfolioFile": "data_invest.json"}
-
+    {
+        "portfolioFile": "data_invest.json"
+    }
 ]
