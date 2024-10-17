@@ -189,15 +189,6 @@
     "account": "xnes"
   },
   {
-    "symbol": "MSFT",
-    "action": "sell",
-    "range": 150,
-    "takeProfitPercentage": 20,
-    "isNeedToCheckTakeProfit": false,
-    "quantity": 20,
-    "account": "xnes"
-  },
-  {
     "symbol": "ARKW",
     "range": 150,
     "action": "sell",
