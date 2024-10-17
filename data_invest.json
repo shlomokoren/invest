@@ -1,32 +1,5 @@
 [
     {
-        "symbol": "MSI",
-        "range": 150,
-        "action": "trace",
-        "takeProfitPercentage": 20,
-        "isNeedToCheckTakeProfit": false,
-        "quantity": 35,
-        "account": "shlomo126"
-    },
-    {
-        "symbol": "NVDA",
-        "range": "150",
-        "action": "trace",
-        "takeProfitPercentage": "20",
-        "isNeedToCheckTakeProfit": false,
-        "quantity": "300",
-        "account": "shlomo126"
-    },
-    {
-        "symbol": "ORCL",
-        "range": "150",
-        "action": "trace",
-        "takeProfitPercentage": "20",
-        "isNeedToCheckTakeProfit": false,
-        "quantity": "42",
-        "account": "shlomo126"
-    },
-    {
         "symbol": "AAPL",
         "range": 150,
         "action": "sell",
