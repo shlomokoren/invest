@@ -135,76 +135,177 @@ def add_symbol_popup():
     cancel_button.pack(side=tk.RIGHT, padx=20, pady=10)
 
 # Edit symbol pop-up window
+# def edit_symbol_popup():
+#     selected_symbol = symbol_listbox.get(symbol_listbox.curselection())
+#     selected_action = action_combobox.get()  # Assuming action_combobox is on the main screen
+#     # Find the stock with both matching symbol and action
+#     selected_stock = next(
+#         (stock for stock in stocks_data if stock['symbol'] == selected_symbol and stock['action'] == selected_action),
+#         None)
+#
+#
+#     if selected_stock:
+#         def save_edited_symbol():
+#             edited_action = action_combobox_popup.get()
+#             edited_range = int(range_entry_popup.get()) if range_entry_popup.get() else 0
+#             edited_profit = int(profit_entry_popup.get()) if profit_entry_popup.get() else 0
+#             edited_check_profit = check_profit_var_popup.get()
+#             edited_quantity = int(quantity_entry_popup.get()) if quantity_entry_popup.get() else 0
+#             edited_account = account_entry_popup.get()
+#
+#             # Update selected stock with new values
+#             selected_stock['action'] = edited_action
+#             selected_stock['range'] = edited_range
+#             selected_stock['takeProfitPercentage'] = edited_profit
+#             selected_stock['isNeedToCheckTakeProfit'] = edited_check_profit
+#             selected_stock['quantity'] = edited_quantity
+#             selected_stock['account'] = edited_account
+#
+#             save_json_data(stocks_data)
+#             populate_symbols(None)
+#             edit_window.destroy()
+#
+#         # Popup window for editing symbol
+#         edit_window = tk.Toplevel(root)
+#         edit_window.title("Edit Symbol")
+#
+#         tk.Label(edit_window, text="Symbol (Read-only):").pack(pady=5)
+#         symbol_entry = tk.Entry(edit_window)
+#         symbol_entry.insert(0, selected_stock['symbol'])
+#         symbol_entry.config(state='readonly')
+#         symbol_entry.pack(pady=5)
+#
+#         tk.Label(edit_window, text="Action:").pack(pady=5)
+#         action_combobox_popup = ttk.Combobox(edit_window, values=["sell", "buy", "trace"])
+#         action_combobox_popup.set(selected_stock['action'])
+#         action_combobox_popup.pack(pady=5)
+#
+#         tk.Label(edit_window, text="Range:").pack(pady=5)
+#         range_entry_popup = tk.Entry(edit_window)
+#         range_entry_popup.insert(0, selected_stock.get('range', ''))
+#         range_entry_popup.pack(pady=5)
+#
+#         tk.Label(edit_window, text="Take Profit Percentage:").pack(pady=5)
+#         profit_entry_popup = tk.Entry(edit_window)
+#         profit_entry_popup.insert(0, selected_stock.get('takeProfitPercentage', ''))
+#         profit_entry_popup.pack(pady=5)
+#
+#         check_profit_var_popup = tk.BooleanVar(value=selected_stock.get('isNeedToCheckTakeProfit', False))
+#         check_profit_checkbutton_popup = tk.Checkbutton(edit_window, text="Check Take Profit", variable=check_profit_var_popup)
+#         check_profit_checkbutton_popup.pack(pady=5)
+#
+#         tk.Label(edit_window, text="Quantity:").pack(pady=5)
+#         quantity_entry_popup = tk.Entry(edit_window)
+#         quantity_entry_popup.insert(0, selected_stock.get('quantity', ''))
+#         quantity_entry_popup.pack(pady=5)
+#
+#         tk.Label(edit_window, text="Account:").pack(pady=5)
+#         account_entry_popup = tk.Entry(edit_window)
+#         account_entry_popup.insert(0, selected_stock.get('account', ''))
+#         account_entry_popup.pack(pady=5)
+#
+#         # Save and Cancel buttons
+#         save_button = tk.Button(edit_window, text="Save", command=save_edited_symbol)
+#         save_button.pack(side=tk.LEFT, padx=20, pady=10)
+#
+#         cancel_button = tk.Button(edit_window, text="Cancel", command=edit_window.destroy)
+#         cancel_button.pack(side=tk.RIGHT, padx=20, pady=10)
+#     else:
+#         messagebox.showerror("Error", "No symbol selected!")
+# Edit symbol pop-up window
+# Edit symbol pop-up window
 def edit_symbol_popup():
-    selected_symbol = symbol_listbox.get(symbol_listbox.curselection())
-    selected_stock = next((stock for stock in stocks_data if stock['symbol'] == selected_symbol), None)
+    if symbol_listbox.curselection():
+        selected_symbol = symbol_listbox.get(symbol_listbox.curselection())
+        selected_action = action_combobox.get()  # Assuming the action combobox is on the main window
 
-    if selected_stock:
-        def save_edited_symbol():
-            edited_action = action_combobox_popup.get()
-            edited_range = int(range_entry_popup.get()) if range_entry_popup.get() else 0
-            edited_profit = int(profit_entry_popup.get()) if profit_entry_popup.get() else 0
-            edited_check_profit = check_profit_var_popup.get()
-            edited_quantity = int(quantity_entry_popup.get()) if quantity_entry_popup.get() else 0
-            edited_account = account_entry_popup.get()
+        # Find the stock with both matching symbol and action
+        selected_stock_index = next((index for index, stock in enumerate(stocks_data) if stock['symbol'] == selected_symbol and stock['action'] == selected_action), None)
 
-            # Update selected stock with new values
-            selected_stock['action'] = edited_action
-            selected_stock['range'] = edited_range
-            selected_stock['takeProfitPercentage'] = edited_profit
-            selected_stock['isNeedToCheckTakeProfit'] = edited_check_profit
-            selected_stock['quantity'] = edited_quantity
-            selected_stock['account'] = edited_account
+        if selected_stock_index is not None:
+            # Selected stock is now properly identified by both symbol and action
+            selected_stock = stocks_data[selected_stock_index]
 
-            save_json_data(stocks_data)
-            populate_symbols(None)
-            edit_window.destroy()
+            def save_edited_symbol():
+                # Get the edited values from the popup
+                edited_action = action_combobox_popup.get()
+                edited_range = int(range_entry_popup.get()) if range_entry_popup.get() else 0
+                edited_profit = int(profit_entry_popup.get()) if profit_entry_popup.get() else 0
+                edited_check_profit = check_profit_var_popup.get()
+                edited_quantity = int(quantity_entry_popup.get()) if quantity_entry_popup.get() else 0
+                edited_account = account_entry_popup.get()
 
-        # Popup window for editing symbol
-        edit_window = tk.Toplevel(root)
-        edit_window.title("Edit Symbol")
+                # Update the stock data at the specific index
+                stocks_data[selected_stock_index]['action'] = edited_action
+                stocks_data[selected_stock_index]['range'] = edited_range
+                stocks_data[selected_stock_index]['takeProfitPercentage'] = edited_profit
+                stocks_data[selected_stock_index]['isNeedToCheckTakeProfit'] = edited_check_profit
+                stocks_data[selected_stock_index]['quantity'] = edited_quantity
+                stocks_data[selected_stock_index]['account'] = edited_account
 
-        tk.Label(edit_window, text="Symbol (Read-only):").pack(pady=5)
-        symbol_entry = tk.Entry(edit_window)
-        symbol_entry.insert(0, selected_stock['symbol'])
-        symbol_entry.config(state='readonly')
-        symbol_entry.pack(pady=5)
+                # Save the updated data back to the JSON file
+                save_json_data(stocks_data)
 
-        tk.Label(edit_window, text="Action:").pack(pady=5)
-        action_combobox_popup = ttk.Combobox(edit_window, values=["sell", "buy", "trace"])
-        action_combobox_popup.set(selected_stock['action'])
-        action_combobox_popup.pack(pady=5)
+                # Repopulate the symbol list
+                populate_symbols(None)
 
-        tk.Label(edit_window, text="Range:").pack(pady=5)
-        range_entry_popup = tk.Entry(edit_window)
-        range_entry_popup.insert(0, selected_stock.get('range', ''))
-        range_entry_popup.pack(pady=5)
+                # Close the popup window
+                edit_window.destroy()
 
-        tk.Label(edit_window, text="Take Profit Percentage:").pack(pady=5)
-        profit_entry_popup = tk.Entry(edit_window)
-        profit_entry_popup.insert(0, selected_stock.get('takeProfitPercentage', ''))
-        profit_entry_popup.pack(pady=5)
+            # Popup window for editing symbol
+            edit_window = tk.Toplevel(root)
+            edit_window.title("Edit Symbol")
 
-        check_profit_var_popup = tk.BooleanVar(value=selected_stock.get('isNeedToCheckTakeProfit', False))
-        check_profit_checkbutton_popup = tk.Checkbutton(edit_window, text="Check Take Profit", variable=check_profit_var_popup)
-        check_profit_checkbutton_popup.pack(pady=5)
+            # Symbol field (read-only)
+            tk.Label(edit_window, text="Symbol (Read-only):").pack(pady=5)
+            symbol_entry = tk.Entry(edit_window)
+            symbol_entry.insert(0, selected_stock['symbol'])
+            symbol_entry.config(state='readonly')
+            symbol_entry.pack(pady=5)
 
-        tk.Label(edit_window, text="Quantity:").pack(pady=5)
-        quantity_entry_popup = tk.Entry(edit_window)
-        quantity_entry_popup.insert(0, selected_stock.get('quantity', ''))
-        quantity_entry_popup.pack(pady=5)
+            # Action combobox
+            tk.Label(edit_window, text="Action:").pack(pady=5)
+            action_combobox_popup = ttk.Combobox(edit_window, values=["sell", "buy", "trace"])
+            action_combobox_popup.set(selected_stock['action'])
+            action_combobox_popup.pack(pady=5)
 
-        tk.Label(edit_window, text="Account:").pack(pady=5)
-        account_entry_popup = tk.Entry(edit_window)
-        account_entry_popup.insert(0, selected_stock.get('account', ''))
-        account_entry_popup.pack(pady=5)
+            # Range entry
+            tk.Label(edit_window, text="Range:").pack(pady=5)
+            range_entry_popup = tk.Entry(edit_window)
+            range_entry_popup.insert(0, selected_stock.get('range', ''))
+            range_entry_popup.pack(pady=5)
 
-        # Save and Cancel buttons
-        save_button = tk.Button(edit_window, text="Save", command=save_edited_symbol)
-        save_button.pack(side=tk.LEFT, padx=20, pady=10)
+            # Take Profit Percentage entry
+            tk.Label(edit_window, text="Take Profit Percentage:").pack(pady=5)
+            profit_entry_popup = tk.Entry(edit_window)
+            profit_entry_popup.insert(0, selected_stock.get('takeProfitPercentage', ''))
+            profit_entry_popup.pack(pady=5)
 
-        cancel_button = tk.Button(edit_window, text="Cancel", command=edit_window.destroy)
-        cancel_button.pack(side=tk.RIGHT, padx=20, pady=10)
+            # Check Take Profit checkbox
+            check_profit_var_popup = tk.BooleanVar(value=selected_stock.get('isNeedToCheckTakeProfit', False))
+            check_profit_checkbutton_popup = tk.Checkbutton(edit_window, text="Check Take Profit", variable=check_profit_var_popup)
+            check_profit_checkbutton_popup.pack(pady=5)
+
+            # Quantity entry
+            tk.Label(edit_window, text="Quantity:").pack(pady=5)
+            quantity_entry_popup = tk.Entry(edit_window)
+            quantity_entry_popup.insert(0, selected_stock.get('quantity', ''))
+            quantity_entry_popup.pack(pady=5)
+
+            # Account entry
+            tk.Label(edit_window, text="Account:").pack(pady=5)
+            account_entry_popup = tk.Entry(edit_window)
+            account_entry_popup.insert(0, selected_stock.get('account', ''))
+            account_entry_popup.pack(pady=5)
+
+            # Save and Cancel buttons
+            save_button = tk.Button(edit_window, text="Save", command=save_edited_symbol)
+            save_button.pack(side=tk.LEFT, padx=20, pady=10)
+
+            cancel_button = tk.Button(edit_window, text="Cancel", command=edit_window.destroy)
+            cancel_button.pack(side=tk.RIGHT, padx=20, pady=10)
+        else:
+            messagebox.showerror("Error", "No matching stock found with the selected symbol and action!")
     else:
         messagebox.showerror("Error", "No symbol selected!")
 

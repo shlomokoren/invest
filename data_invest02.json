@@ -11,10 +11,10 @@
     {
         "symbol": "MSFT",
         "range": 150,
-        "action": "buy",
+        "action": "sell",
         "takeProfitPercentage": 20,
-        "isNeedToCheckTakeProfit": false,
-        "quantity": 35,
+        "isNeedToCheckTakeProfit": true,
+        "quantity": 36,
         "account": "DU2049237"
     },
     {

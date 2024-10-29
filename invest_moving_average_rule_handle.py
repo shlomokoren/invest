@@ -20,7 +20,7 @@ from playhouse.sqlite_udf import hostname
 #from pandas.core.computation.common import result_type_many
 
 debug = False
-__version__ = "v0.0.11beta"
+__version__ = "v0.0.12beta"
 print("script version: " + __version__)
 
 
