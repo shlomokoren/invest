@@ -1,200 +1,191 @@
 [
-  {
-    "symbol": "MSFT",
-    "range": 150,
-    "action": "buy",
-    "takeProfitPercentage": 20,
-    "isNeedToCheckTakeProfit": true,
-    "quantity": 36,
-    "account": "shlomo126"
-  },
-  {
-    "symbol": "ADBE",
-    "range": "150",
-    "action": "buy",
-    "account": "shlomo126",
-    "takeProfitPercentage": "",
-    "isNeedToCheckTakeProfit": false,
-    "quantity": 20
-  },
-  {
-    "symbol": "IBM",
-    "range": "150",
-    "action": "buy",
-    "account": "shlomo126",
-    "takeProfitPercentage": "",
-    "isNeedToCheckTakeProfit": false,
-    "quantity": 20
-  },
-  {
-    "symbol": "TSM",
-    "range": "150",
-    "action": "buy",
-    "account": "shlomo126",
-    "takeProfitPercentage": "",
-    "isNeedToCheckTakeProfit": false,
-    "quantity": 20
-  },
-  {
-    "symbol": "META",
-    "range": "150",
-    "action": "buy",
-    "account": "shlomo126",
-    "takeProfitPercentage": "",
-    "isNeedToCheckTakeProfit": false,
-    "quantity": 20
-  },
-  {
-    "symbol": "LULU",
-    "range": "150",
-    "action": "buy",
-    "account": "shlomo126",
-    "takeProfitPercentage": "",
-    "isNeedToCheckTakeProfit": false,
-    "quantity": 100
-  },
-  {
-    "symbol": "CRM",
-    "range": 150,
-    "action": "buy",
-    "quantity": 100,
-    "takeProfitPercentage": 20,
-    "isNeedToCheckTakeProfit": false,
-    "account": "shlomo126"
-  },
-  {
-    "symbol": "ASML",
-    "range": 150,
-    "action": "buy",
-    "takeProfitPercentage": 20,
-    "isNeedToCheckTakeProfit": false,
-    "quantity": 100,
-    "account": "shlomo126"
-  },
-  {
-    "symbol": "V",
-    "range": 150,
-    "action": "buy",
-    "takeProfitPercentage": 20,
-    "isNeedToCheckTakeProfit": false,
-    "quantity": 100,
-    "account": "shlomo126"
-  },
-  {
-    "symbol": "MU",
-    "range": 150,
-    "action": "buy",
-    "takeProfitPercentage": 20,
-    "isNeedToCheckTakeProfit": false,
-    "quantity": 100,
-    "account": "shlomo126"
-  },
-  {
-    "symbol": "AAPL",
-    "range": 150,
-    "action": "sell",
-    "takeProfitPercentage": 20,
-    "isNeedToCheckTakeProfit": false,
-    "quantity": 75,
-    "account": "shlomo126"
-  },
-  {
-    "symbol": "AFRM",
-    "range": 150,
-    "action": "sell",
-    "takeProfitPercentage": 20,
-    "isNeedToCheckTakeProfit": false,
-    "quantity": 200,
-    "account": "shlomo126"
-  },
-  {
-    "symbol": "AMD",
-    "range": 150,
-    "action": "sell",
-    "takeProfitPercentage": 20,
-    "isNeedToCheckTakeProfit": false,
-    "quantity": 100,
-    "account": "shlomo126"
-  },
-  {
-    "symbol": "AMZN",
-    "range": 150,
-    "action": "sell",
-    "takeProfitPercentage": 20,
-    "isNeedToCheckTakeProfit": false,
-    "quantity": 127,
-    "account": "shlomo126:xnes"
-  },
-  {
-    "symbol": "GOOG",
-    "range": 150,
-    "action": "sell",
-    "takeProfitPercentage": 20,
-    "isNeedToCheckTakeProfit": false,
-    "quantity": 170,
-    "account": "shlomo126:xnes"
-  },
-  {
-    "symbol": "MSI",
-    "range": 150,
-    "action": "sell",
-    "takeProfitPercentage": 20,
-    "isNeedToCheckTakeProfit": false,
-    "quantity": 63,
-    "account": "shlomo126:xnes"
-  },
-  {
-    "symbol": "NVDA",
-    "action": "sell",
-    "range": 150,
-    "takeProfitPercentage": 20,
-    "isNeedToCheckTakeProfit": false,
-    "quantity": 300,
-    "account": "shlomo126"
-  },
-  {
-    "symbol": "ORCL",
-    "action": "sell",
-    "range": 150,
-    "takeProfitPercentage": 20,
-    "isNeedToCheckTakeProfit": false,
-    "quantity": 129,
-    "account": "shlomo126:xnes"
-  },
-  {
-    "symbol": "TENB",
-    "action": "sell",
-    "range": 150,
-    "takeProfitPercentage": 20,
-    "isNeedToCheckTakeProfit": false,
-    "quantity": 250,
-    "account": "shlomo126"
-  },
-  {
-    "symbol": "META",
-    "action": "sell",
-    "range": 150,
-    "takeProfitPercentage": 20,
-    "isNeedToCheckTakeProfit": false,
-    "quantity": 10,
-    "account": "xnes"
-  },
-  {
-    "symbol": "MSFT",
-    "action": "sell",
-    "range": 150,
-    "takeProfitPercentage": 20,
-    "isNeedToCheckTakeProfit": false,
-    "quantity": 20,
-    "account": "xnes"
-  },
-  {
-    "symbol": "ARKW",
-    "range": 150,
-    "action": "sell",
-    "takeProfitPercentage": 20,
-    "isNeedToCheckTakeProfit": true,
-    "quantity": 135,
-    "account": "xnes"
-  }
+    {
+        "symbol": "ADBE",
+        "range": "150",
+        "action": "buy",
+        "account": "shlomo126",
+        "takeProfitPercentage": "",
+        "isNeedToCheckTakeProfit": false,
+        "quantity": 20
+    },
+    {
+        "symbol": "IBM",
+        "range": "150",
+        "action": "buy",
+        "account": "shlomo126",
+        "takeProfitPercentage": "",
+        "isNeedToCheckTakeProfit": false,
+        "quantity": 20
+    },
+    {
+        "symbol": "TSM",
+        "range": "150",
+        "action": "buy",
+        "account": "shlomo126",
+        "takeProfitPercentage": "",
+        "isNeedToCheckTakeProfit": false,
+        "quantity": 20
+    },
+    {
+        "symbol": "META",
+        "range": "150",
+        "action": "buy",
+        "account": "shlomo126",
+        "takeProfitPercentage": "",
+        "isNeedToCheckTakeProfit": false,
+        "quantity": 20
+    },
+    {
+        "symbol": "LULU",
+        "range": "150",
+        "action": "buy",
+        "account": "shlomo126",
+        "takeProfitPercentage": "",
+        "isNeedToCheckTakeProfit": false,
+        "quantity": 100
+    },
+    {
+        "symbol": "CRM",
+        "range": 150,
+        "action": "buy",
+        "quantity": 100,
+        "takeProfitPercentage": 20,
+        "isNeedToCheckTakeProfit": false,
+        "account": "shlomo126"
+    },
+    {
+        "symbol": "ASML",
+        "range": 150,
+        "action": "buy",
+        "takeProfitPercentage": 20,
+        "isNeedToCheckTakeProfit": false,
+        "quantity": 100,
+        "account": "shlomo126"
+    },
+    {
+        "symbol": "V",
+        "range": 150,
+        "action": "buy",
+        "takeProfitPercentage": 20,
+        "isNeedToCheckTakeProfit": false,
+        "quantity": 100,
+        "account": "shlomo126"
+    },
+    {
+        "symbol": "MU",
+        "range": 150,
+        "action": "buy",
+        "takeProfitPercentage": 20,
+        "isNeedToCheckTakeProfit": false,
+        "quantity": 100,
+        "account": "shlomo126"
+    },
+    {
+        "symbol": "AAPL",
+        "range": 150,
+        "action": "sell",
+        "takeProfitPercentage": 20,
+        "isNeedToCheckTakeProfit": false,
+        "quantity": 75,
+        "account": "shlomo126"
+    },
+    {
+        "symbol": "AFRM",
+        "range": 150,
+        "action": "sell",
+        "takeProfitPercentage": 20,
+        "isNeedToCheckTakeProfit": false,
+        "quantity": 200,
+        "account": "shlomo126"
+    },
+    {
+        "symbol": "AMD",
+        "range": 150,
+        "action": "sell",
+        "takeProfitPercentage": 20,
+        "isNeedToCheckTakeProfit": false,
+        "quantity": 100,
+        "account": "shlomo126"
+    },
+    {
+        "symbol": "AMZN",
+        "range": 150,
+        "action": "sell",
+        "takeProfitPercentage": 20,
+        "isNeedToCheckTakeProfit": false,
+        "quantity": 127,
+        "account": "shlomo126:xnes"
+    },
+    {
+        "symbol": "GOOG",
+        "range": 150,
+        "action": "sell",
+        "takeProfitPercentage": 20,
+        "isNeedToCheckTakeProfit": false,
+        "quantity": 170,
+        "account": "shlomo126:xnes"
+    },
+    {
+        "symbol": "MSI",
+        "range": 150,
+        "action": "sell",
+        "takeProfitPercentage": 20,
+        "isNeedToCheckTakeProfit": false,
+        "quantity": 63,
+        "account": "shlomo126:xnes"
+    },
+    {
+        "symbol": "NVDA",
+        "action": "sell",
+        "range": 150,
+        "takeProfitPercentage": 20,
+        "isNeedToCheckTakeProfit": false,
+        "quantity": 300,
+        "account": "shlomo126"
+    },
+    {
+        "symbol": "ORCL",
+        "action": "sell",
+        "range": 150,
+        "takeProfitPercentage": 20,
+        "isNeedToCheckTakeProfit": false,
+        "quantity": 129,
+        "account": "shlomo126:xnes"
+    },
+    {
+        "symbol": "TENB",
+        "action": "sell",
+        "range": 150,
+        "takeProfitPercentage": 20,
+        "isNeedToCheckTakeProfit": false,
+        "quantity": 250,
+        "account": "shlomo126"
+    },
+    {
+        "symbol": "META",
+        "action": "sell",
+        "range": 150,
+        "takeProfitPercentage": 20,
+        "isNeedToCheckTakeProfit": false,
+        "quantity": 10,
+        "account": "xnes"
+    },
+    {
+        "symbol": "ARKW",
+        "range": 150,
+        "action": "sell",
+        "takeProfitPercentage": 20,
+        "isNeedToCheckTakeProfit": true,
+        "quantity": 135,
+        "account": "xnes"
+    },
+    {
+        "symbol": "MSFT",
+        "action": "sell",
+        "range": 150,
+        "takeProfitPercentage": 20,
+        "isNeedToCheckTakeProfit": true,
+        "quantity": 10,
+        "account": "shlomo126"
+    }
 ]
