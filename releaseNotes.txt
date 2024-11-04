@@ -1,2 +1,5 @@
+v0.0.13beta add smaLess to sell if less the smaLess
+v0.0.13beta add smaPLus to buy if greater then smaPLus
+v0.0.12beta fix delete stock in portfolio according to stock and action in manualHandleStocksListGUI.py
 v0.0.11beta add portfolio configuration file as parameter --portfolioFile xxxx.json
 v0.0.11beta add portfolio configuration file as variable in general_parameters.json

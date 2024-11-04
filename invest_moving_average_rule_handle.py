@@ -20,7 +20,7 @@ from playhouse.sqlite_udf import hostname
 #from pandas.core.computation.common import result_type_many
 
 debug = False
-__version__ = "v0.0.11beta"
+__version__ = "v0.0.13beta"
 print("script version: " + __version__)
 
 
@@ -300,7 +300,8 @@ def is_need_buy(smaValue, closedValue, percentagedifference):
 
     global smapercentagedifference
     result = False
-    if (smaValue < closedValue):
+    smaPlus = smaValue * 1.005
+    if (smaPlus < closedValue):
         if abs(float(percentagedifference)) <= smapercentagedifference:
             result = True
             return result
@@ -319,7 +320,8 @@ def is_need_sell(closedValue, smaValue):
 
 
     result = False
-    if (smaValue >= closedValue):
+    smaLess = smaValue * 0.995
+    if (smaLess >= closedValue):
         result = True
         return result
     return result
