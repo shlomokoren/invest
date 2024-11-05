@@ -119,8 +119,8 @@
     {
         "symbol": "GOOG",
         "range": 150,
-        "action": "buy",
-        "quantity": 90,
+        "action": "sell",
+        "quantity": 93,
         "takeProfitPercentage": 10,
         "isNeedToCheckTakeProfit": false,
         "account": "DU2049237"
