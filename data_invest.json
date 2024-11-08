@@ -153,15 +153,6 @@
         "account": "shlomo126:xnes"
     },
     {
-        "symbol": "TENB",
-        "action": "sell",
-        "range": 150,
-        "takeProfitPercentage": 20,
-        "isNeedToCheckTakeProfit": false,
-        "quantity": 250,
-        "account": "shlomo126"
-    },
-    {
         "symbol": "META",
         "action": "sell",
         "range": 150,
