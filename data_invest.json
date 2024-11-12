@@ -178,5 +178,14 @@
         "isNeedToCheckTakeProfit": true,
         "quantity": 10,
         "account": "shlomo126"
+    },
+    {
+        "symbol": "TESLA",
+        "action": "sell",
+        "range": 150,
+        "takeProfitPercentage": 100,
+        "isNeedToCheckTakeProfit": false,
+        "quantity": 25,
+        "account": "shlomo126"
     }
 ]
