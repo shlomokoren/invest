@@ -101,7 +101,7 @@
     {
         "symbol": "AMD",
         "range": 150,
-        "action": "sell",
+        "action": "buy",
         "takeProfitPercentage": 20,
         "isNeedToCheckTakeProfit": false,
         "quantity": 100,
