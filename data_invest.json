@@ -187,5 +187,14 @@
         "isNeedToCheckTakeProfit": false,
         "quantity": 25,
         "account": "shlomo126"
+    },
+    {
+        "symbol": "AVGO",
+        "action": "sell",
+        "range": 150,
+        "takeProfitPercentage": 20,
+        "isNeedToCheckTakeProfit": false,
+        "quantity": 50,
+        "account": "shlomo126"
     }
 ]
