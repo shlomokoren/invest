@@ -120,7 +120,11 @@
         "symbol": "GOOG",
         "range": 150,
         "action": "sell",
+<<<<<<< HEAD
         "quantity": 277,
+=======
+        "quantity": 186,
+>>>>>>> 4780f5a31e6241e72335bad506f2699088d7df6e
         "takeProfitPercentage": 10,
         "isNeedToCheckTakeProfit": true,
         "account": "DU2049237"
