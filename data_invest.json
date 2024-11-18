@@ -166,7 +166,7 @@
         "range": 150,
         "action": "sell",
         "takeProfitPercentage": 20,
-        "isNeedToCheckTakeProfit": true,
+        "isNeedToCheckTakeProfit": false,
         "quantity": 135,
         "account": "xnes"
     },
@@ -180,7 +180,7 @@
         "account": "shlomo126"
     },
     {
-        "symbol": "TESLA",
+        "symbol": "TSLA",
         "action": "sell",
         "range": 150,
         "takeProfitPercentage": 100,
