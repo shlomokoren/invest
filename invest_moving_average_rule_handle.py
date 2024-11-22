@@ -94,6 +94,7 @@ def yahoo_finance_get_stock_values(ticker,range):
         # Fetch historical data for the last 1 year
         print(f"momo debug {current_function}() before yf.download" )
         stock_data = yf.download(ticker, period="1y",progress=False)
+        print(stock_data)
         print(f"momo debug {current_function}() after yf.download" )
         # Check if data is fetched successfully
         if stock_data.empty:
