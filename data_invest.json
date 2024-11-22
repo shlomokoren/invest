@@ -77,7 +77,7 @@
         "action": "sell",
         "takeProfitPercentage": 20,
         "isNeedToCheckTakeProfit": false,
-        "quantity": 127,
+        "quantity": 64,
         "account": "DU2049237"
     },
     {
@@ -120,9 +120,9 @@
         "symbol": "GOOG",
         "range": 150,
         "action": "sell",
-        "quantity": 186,
+        "quantity": 277,
         "takeProfitPercentage": 10,
-        "isNeedToCheckTakeProfit": false,
+        "isNeedToCheckTakeProfit": true,
         "account": "DU2049237"
     },
     {
