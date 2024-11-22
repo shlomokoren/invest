@@ -76,8 +76,8 @@
         "range": 150,
         "action": "sell",
         "takeProfitPercentage": 20,
-        "isNeedToCheckTakeProfit": true,
-        "quantity": 190,
+        "isNeedToCheckTakeProfit": false,
+        "quantity": 127,
         "account": "DU2049237"
     },
     {
