@@ -288,7 +288,7 @@ def percentage_difference(closedvalue, smavalue):
     current_function = inspect.currentframe().f_code.co_name
     logging.debug(f"Running function: {current_function}()")
     print(f"momo debugRunning function: {current_function}()")
-
+    print(f"momo debug {current_function}() closeValue:" + str(closedvalue) + "  smavalue:"+str(smavalue))
     percentage_difference = ((closedvalue - smavalue) / closedvalue) * 100
     formatted_percentage_difference = "{:.2f}".format(percentage_difference)
     # Print the result
