@@ -12,6 +12,7 @@ import yfinance as yf
 from datetime import datetime, timedelta
 import socket
 import argparse
+import logging
 
 from playhouse.sqlite_udf import hostname
 
@@ -592,7 +593,11 @@ def main():
     :return:
     '''
     global portfolioFile
+    logging.getLogger().handlers = []  # Reset any existing handlers
+    logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
+    logging.debug("Start main")
     get_general_parameters()
+    logging.debug("main() after get_general_parameters() ")
     investDataFile = portfolioFile
     try:
         with open(investDataFile, 'r') as file:
@@ -600,6 +605,7 @@ def main():
         print("investDataFile has "+str(len(stocksList)) +" records ")
         portfolioChangesList = []
         # create change portfolio changes list
+        logging.debug("main() before loop stocksList ")
         for stock in stocksList:
             isNeedTakeProfit = False
             if debug == True:
@@ -610,6 +616,7 @@ def main():
                 maRule_result = maRule(stock)
             if maRule_result is not None:
                 portfolioChangesList.append(maRule_result)
+        logging.debug("main() after loop stocksList ")
         if (updateBuySellInInputFile) and (TWSEnable) and (len(portfolioChangesList) > 0):
             result = update_stocks_input_list(portfolioChangesList,investDataFile)
             print(result["message"])
