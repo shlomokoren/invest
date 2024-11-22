@@ -96,6 +96,7 @@ def yahoo_finance_get_stock_values(ticker,range):
         stock_data = yf.download(ticker, period="1y",progress=False)
 
         print(f"momo debug {current_function} stock_data ")
+        print(yf.__version__)
         print(stock_data)
         # Check if the DataFrame has a MultiIndex with 'Ticker'
         if isinstance(stock_data.columns, pd.MultiIndex):
