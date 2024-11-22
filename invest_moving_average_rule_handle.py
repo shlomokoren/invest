@@ -121,7 +121,8 @@ def yahoo_finance_get_stock_values(ticker,range):
         highPrice = stock_data['High'].iloc[-1]
         lowPrice = stock_data['Low'].iloc[-1]
         volume = stock_data['Volume'].iloc[-1]
-
+        print(f"momo debug {current_function}() closePrice={closePrice} openPrice={openPrice} highPrice={highPrice}"
+              f"lowPrice={lowPrice} volume={volume} ")
         # Return the results in a dictionary with success code and message
         retcode = 0
         retmessage = "success"
