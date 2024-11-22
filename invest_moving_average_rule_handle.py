@@ -92,10 +92,7 @@ def yahoo_finance_get_stock_values(ticker,range):
 
     try:
         # Fetch historical data for the last 1 year
-        print(f"momo debug {current_function}() before yf.download" )
         stock_data = yf.download(ticker, period="1y",progress=False)
-        print(stock_data)
-        print(f"momo debug {current_function}() after yf.download" )
         # Check if data is fetched successfully
         if stock_data.empty:
             retcode = 1
@@ -104,7 +101,7 @@ def yahoo_finance_get_stock_values(ticker,range):
 
         # Calculate the range-day moving average
         stock_data['SMA'] = stock_data['Close'].rolling(window=range).mean()
-
+        print(stock_data['SMA'])
         # Get the latest value of the range-day moving average (current)
         currentsma = stock_data['SMA'].iloc[-1]
 
