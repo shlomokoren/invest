@@ -88,7 +88,7 @@ def yahoo_finance_get_stock_values(ticker,range):
     """Log the name of the currently running function."""
     current_function = inspect.currentframe().f_code.co_name
     logging.debug(f"Running function: {current_function}()")
-    print(f"momo debugRunning function: {current_function}()")
+    print(f"momo debug Running function: {current_function}()")
 
     try:
         # Fetch historical data for the last 1 year
@@ -101,16 +101,18 @@ def yahoo_finance_get_stock_values(ticker,range):
 
         # Calculate the range-day moving average
         stock_data['SMA'] = stock_data['Close'].rolling(window=range).mean()
-        print(stock_data['SMA'])
         # Get the latest value of the range-day moving average (current)
         currentsma = stock_data['SMA'].iloc[-1]
-
+        print(f"momo debug {current_function}() currentsma:{currentsma}")
         # Get the value of the range-day moving average a week ago
         week_ago_date = datetime.now() - timedelta(days=7)
+        print(f"momo debug {current_function}() week_ago_date:{week_ago_date}")
         weekagosma = stock_data['SMA'].loc[stock_data.index <= week_ago_date].iloc[-1]
 
         # Get the value of the range-day moving average two weeks ago
         two_weeks_ago_date = datetime.now() - timedelta(days=14)
+        print(f"momo debug {current_function}() two_weeks_ago_date:{two_weeks_ago_date}")
+
         twoweekagosma = stock_data['SMA'].loc[stock_data.index <= two_weeks_ago_date].iloc[-1]
 
         # Get the latest closing price
