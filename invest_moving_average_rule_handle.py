@@ -12,6 +12,7 @@ import yfinance as yf
 from datetime import datetime, timedelta
 import socket
 import argparse
+import pandas as pd
 
 from playhouse.sqlite_udf import hostname
 
@@ -93,9 +94,14 @@ def yahoo_finance_get_stock_values(ticker,range):
     try:
         # Fetch historical data for the last 1 year
         stock_data = yf.download(ticker, period="1y",progress=False)
-        print(f"momo debug {current_function} stock_data.head() ")
-        print(stock_data.head())
-        print(stock_data['Close'].head())
+
+        print(f"momo debug {current_function} stock_data ")
+        print(stock_data)
+        # Check if the DataFrame has a MultiIndex with 'Ticker'
+        if isinstance(stock_data.columns, pd.MultiIndex):
+            stock_data.columns = stock_data.columns.droplevel(0)  # Drop the 'Ticker' level
+
+        print(stock_data)
         # Check if data is fetched successfully
         if stock_data.empty:
             retcode = 1
