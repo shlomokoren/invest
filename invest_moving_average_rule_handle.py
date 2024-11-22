@@ -499,6 +499,7 @@ def maRule(stockObj):
     sma = 0
     result = None
     # get market data for stock symbol
+    print(f"momo debug {current_function}() symbol:")+symbol + " smarange:" +str(smarange))
     yahoostockobj = yahoo_finance_get_stock_values(symbol,smarange)
     if yahoostockobj["retcode"] != 0 :
         print("failed to pull data from yahoo finance")
