@@ -12,7 +12,6 @@ import yfinance as yf
 from datetime import datetime, timedelta
 import socket
 import argparse
-import logging
 
 from playhouse.sqlite_udf import hostname
 
@@ -37,6 +36,7 @@ def get_general_parameters():
     """Log the name of the currently running function."""
     current_function = inspect.currentframe().f_code.co_name
     logging.debug(f"Running function: {current_function}()")
+    print(f"momo debugRunning function: {current_function}()")
 
     filename = "general_parameters.json"
     try:
@@ -88,6 +88,7 @@ def yahoo_finance_get_stock_values(ticker,range):
     """Log the name of the currently running function."""
     current_function = inspect.currentframe().f_code.co_name
     logging.debug(f"Running function: {current_function}()")
+    print(f"momo debugRunning function: {current_function}()")
 
     try:
         # Fetch historical data for the last 1 year
@@ -148,6 +149,7 @@ def TWSMarketorder(ib, symbol, Orderaction, totalQuantity):
     """Log the name of the currently running function."""
     current_function = inspect.currentframe().f_code.co_name
     logging.debug(f"Running function: {current_function}()")
+    print(f"momo debugRunning function: {current_function}()")
 
     returnResult = {"retStatus": "", "message": ""}
     msg = "IBTWS action=" + Orderaction + " symbol=" + symbol + " quatity=" + str(totalQuantity) + ", "
@@ -178,6 +180,7 @@ def notifyCenter(message, googleSheetsRaw, sheetColnotes, color_flag_bool):
     """Log the name of the currently running function."""
     current_function = inspect.currentframe().f_code.co_name
     logging.debug(f"Running function: {current_function}()")
+    print(f"momo debugRunning function: {current_function}()")
     print(message)
     sendtelegrammsg(message)
     writeToLogfile(message)
@@ -192,6 +195,7 @@ def update_stocks_input_list(portfolioChangesList,investDataFile):
     """Log the name of the currently running function."""
     current_function = inspect.currentframe().f_code.co_name
     logging.debug(f"Running function: {current_function}()")
+    print(f"momo debugRunning function: {current_function}()")
 
     global fixedInvestmentBuyAmount,enableTakeProfit
     ##//check if nasdaq is open
@@ -283,6 +287,7 @@ def percentage_difference(closedvalue, smavalue):
     """Log the name of the currently running function."""
     current_function = inspect.currentframe().f_code.co_name
     logging.debug(f"Running function: {current_function}()")
+    print(f"momo debugRunning function: {current_function}()")
 
     percentage_difference = ((closedvalue - smavalue) / closedvalue) * 100
     formatted_percentage_difference = "{:.2f}".format(percentage_difference)
@@ -297,7 +302,7 @@ def is_need_buy(smaValue, closedValue, percentagedifference):
     """Log the name of the currently running function."""
     current_function = inspect.currentframe().f_code.co_name
     logging.debug(f"Running function: {current_function}()")
-
+    print(f"momo debugRunning function: {current_function}()")
 
     global smapercentagedifference
     result = False
@@ -318,7 +323,7 @@ def is_need_sell(closedValue, smaValue):
     """Log the name of the currently running function."""
     current_function = inspect.currentframe().f_code.co_name
     logging.debug(f"Running function: {current_function}()")
-
+    print(f"momo debugRunning function: {current_function}()")
 
     result = False
     smaLess = smaValue * 0.995
@@ -331,7 +336,7 @@ def sendtelegrammsg(message):
     """Log the name of the currently running function."""
     current_function = inspect.currentframe().f_code.co_name
     logging.debug(f"Running function: {current_function}()")
-
+    print(f"momo debugRunning function: {current_function}()")
     global enableSendTelgram
     if enableSendTelgram is True:
         # Replace 'your_bot_token' with your bot's token
@@ -364,7 +369,7 @@ def writeToLogfile(line):
     """Log the name of the currently running function."""
     current_function = inspect.currentframe().f_code.co_name
     logging.debug(f"Running function: {current_function}()")
-
+    print(f"momo debugRunning function: {current_function}()")
     global enableLogFile
     if enableLogFile is True:
         # Get the current date and time
@@ -381,7 +386,7 @@ def googlesheets_add_history(symbolsList, color_flag=False):
     """Log the name of the currently running function."""
     current_function = inspect.currentframe().f_code.co_name
     logging.debug(f"Running function: {current_function}()")
-
+    print(f"momo debugRunning function: {current_function}()")
     global enableGoogleSheetUpdate,isValidationGoogleSheetTitleDone,logTimezone
 
     if enableGoogleSheetUpdate is True:
@@ -480,7 +485,7 @@ def maRule(stockObj):
     """Log the name of the currently running function."""
     current_function = inspect.currentframe().f_code.co_name
     logging.debug(f"Running function: {current_function}()")
-
+    print(f"momo debugRunning function: {current_function}()")
     symbol = stockObj["symbol"]
     smarange  = int(stockObj["range"])
     action = stockObj["action"]
@@ -593,11 +598,7 @@ def main():
     :return:
     '''
     global portfolioFile
-    logging.getLogger().handlers = []  # Reset any existing handlers
-    logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
-    logging.debug("Start main")
     get_general_parameters()
-    logging.debug("main() after get_general_parameters() ")
     investDataFile = portfolioFile
     try:
         with open(investDataFile, 'r') as file:
