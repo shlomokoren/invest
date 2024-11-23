@@ -1,4 +1,5 @@
-v0.0.14beta change to yahoo finance library 0.2.50 and update the function 
+v0.0.15beta 23-nov-2024 add support for environment  globalFileParameters , allow to change general_parameters.json file
+v0.0.14beta 23-nov-2024 change to yahoo finance library 0.2.50 and update the function
 v0.0.13beta add smaLess to sell if less the smaLess
 v0.0.13beta add smaPLus to buy if greater then smaPLus
 v0.0.12beta fix delete stock in portfolio according to stock and action in manualHandleStocksListGUI.py

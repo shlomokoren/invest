@@ -16,9 +16,6 @@ import pandas as pd
 
 from playhouse.sqlite_udf import hostname
 
-#from datetime import datetime
-#from datetime import datetime
-#from pandas.core.computation.common import result_type_many
 
 debug = False
 __version__ = "v0.0.14beta"
@@ -38,9 +35,11 @@ def get_general_parameters():
     current_function = inspect.currentframe().f_code.co_name
     logging.debug(f"Running function: {current_function}()")
 
-    filename = "general_parameters.json"
+    globalFileParameters = "general_parameters.json"
+    globalFileParameters = os.environ.get("globalFileParameters", "globalFileParameters")
+    print("globalFileParameters is: "+globalFileParameters)
     try:
-        with open(filename, 'r') as file:
+        with open(globalFileParameters, 'r') as file:
             data = json.load(file)
         for item in data:
             if 'enableLogFile' in item:
