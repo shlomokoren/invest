@@ -12,6 +12,7 @@ import yfinance as yf
 from datetime import datetime, timedelta
 import socket
 import argparse
+import pandas as pd
 
 from playhouse.sqlite_udf import hostname
 
@@ -20,7 +21,7 @@ from playhouse.sqlite_udf import hostname
 #from pandas.core.computation.common import result_type_many
 
 debug = False
-__version__ = "v0.0.13beta"
+__version__ = "v0.0.14beta"
 print("script version: " + __version__)
 
 
@@ -91,7 +92,6 @@ def yahoo_finance_get_stock_values(ticker,range):
     try:
         # Fetch historical data for the last 1 year
         stock_data = yf.download(ticker, period="1y",progress=False)
-
         # Check if data is fetched successfully
         if stock_data.empty:
             retcode = 1
@@ -100,25 +100,24 @@ def yahoo_finance_get_stock_values(ticker,range):
 
         # Calculate the range-day moving average
         stock_data['SMA'] = stock_data['Close'].rolling(window=range).mean()
-
         # Get the latest value of the range-day moving average (current)
         currentsma = stock_data['SMA'].iloc[-1]
-
         # Get the value of the range-day moving average a week ago
         week_ago_date = datetime.now() - timedelta(days=7)
         weekagosma = stock_data['SMA'].loc[stock_data.index <= week_ago_date].iloc[-1]
 
         # Get the value of the range-day moving average two weeks ago
         two_weeks_ago_date = datetime.now() - timedelta(days=14)
+
         twoweekagosma = stock_data['SMA'].loc[stock_data.index <= two_weeks_ago_date].iloc[-1]
 
+        latest_row = stock_data.tail(1)
         # Get the latest closing price
-        closePrice = stock_data['Close'].iloc[-1]
-        openPrice = stock_data['Open'].iloc[-1]
-        highPrice = stock_data['High'].iloc[-1]
-        lowPrice = stock_data['Low'].iloc[-1]
-        volume = stock_data['Volume'].iloc[-1]
-
+        closePrice = latest_row['Close'].iloc[0].item()
+        openPrice = latest_row['Open'].iloc[0].item()
+        highPrice = latest_row['High'].iloc[0].item()
+        lowPrice = latest_row['Low'].iloc[0].item()
+        volume = latest_row['Volume'].iloc[0].item()
         # Return the results in a dictionary with success code and message
         retcode = 0
         retmessage = "success"
@@ -177,6 +176,7 @@ def notifyCenter(message, googleSheetsRaw, sheetColnotes, color_flag_bool):
     """Log the name of the currently running function."""
     current_function = inspect.currentframe().f_code.co_name
     logging.debug(f"Running function: {current_function}()")
+
     print(message)
     sendtelegrammsg(message)
     writeToLogfile(message)
@@ -297,7 +297,6 @@ def is_need_buy(smaValue, closedValue, percentagedifference):
     current_function = inspect.currentframe().f_code.co_name
     logging.debug(f"Running function: {current_function}()")
 
-
     global smapercentagedifference
     result = False
     smaPlus = smaValue * 1.005
@@ -317,7 +316,6 @@ def is_need_sell(closedValue, smaValue):
     """Log the name of the currently running function."""
     current_function = inspect.currentframe().f_code.co_name
     logging.debug(f"Running function: {current_function}()")
-
 
     result = False
     smaLess = smaValue * 0.995
@@ -479,7 +477,6 @@ def maRule(stockObj):
     """Log the name of the currently running function."""
     current_function = inspect.currentframe().f_code.co_name
     logging.debug(f"Running function: {current_function}()")
-
     symbol = stockObj["symbol"]
     smarange  = int(stockObj["range"])
     action = stockObj["action"]
@@ -600,6 +597,7 @@ def main():
         print("investDataFile has "+str(len(stocksList)) +" records ")
         portfolioChangesList = []
         # create change portfolio changes list
+        logging.debug("main() before loop stocksList ")
         for stock in stocksList:
             isNeedTakeProfit = False
             if debug == True:
@@ -610,6 +608,7 @@ def main():
                 maRule_result = maRule(stock)
             if maRule_result is not None:
                 portfolioChangesList.append(maRule_result)
+        logging.debug("main() after loop stocksList ")
         if (updateBuySellInInputFile) and (TWSEnable) and (len(portfolioChangesList) > 0):
             result = update_stocks_input_list(portfolioChangesList,investDataFile)
             print(result["message"])
