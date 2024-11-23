@@ -11,10 +11,10 @@
     {
         "symbol": "MSFT",
         "range": 150,
-        "action": "sell",
+        "action": "buy",
         "takeProfitPercentage": 20,
-        "isNeedToCheckTakeProfit": true,
-        "quantity": 36,
+        "isNeedToCheckTakeProfit": false,
+        "quantity": 35,
         "account": "DU2049237"
     },
     {
@@ -76,8 +76,8 @@
         "range": 150,
         "action": "sell",
         "takeProfitPercentage": 20,
-        "isNeedToCheckTakeProfit": true,
-        "quantity": 190,
+        "isNeedToCheckTakeProfit": false,
+        "quantity": 64,
         "account": "DU2049237"
     },
     {
@@ -120,7 +120,7 @@
         "symbol": "GOOG",
         "range": 150,
         "action": "buy",
-        "quantity": 90,
+        "quantity": 277,
         "takeProfitPercentage": 10,
         "isNeedToCheckTakeProfit": false,
         "account": "DU2049237"
