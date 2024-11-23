@@ -36,7 +36,7 @@ def get_general_parameters():
     logging.debug(f"Running function: {current_function}()")
 
     globalFileParameters = "general_parameters.json"
-    globalFileParameters = os.environ.get("globalFileParameters", "globalFileParameters")
+    globalFileParameters = os.environ.get("globalFileParameters", "general_parameters.json")
     print("globalFileParameters is: "+globalFileParameters)
     try:
         with open(globalFileParameters, 'r') as file:
