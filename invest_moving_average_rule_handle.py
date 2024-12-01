@@ -18,11 +18,7 @@ from playhouse.sqlite_udf import hostname
 
 
 debug = False
-<<<<<<< HEAD
 __version__ = "v0.0.16beta"
-=======
-__version__ = "v0.0.14beta"
->>>>>>> main
 print("script version: " + __version__)
 
 
