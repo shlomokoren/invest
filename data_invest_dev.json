@@ -20,7 +20,11 @@
     {
         "symbol": "ADBE",
         "range": "150",
+<<<<<<< HEAD
         "action": "buy",
+=======
+        "action": "trace",
+>>>>>>> main
         "account": "DU2049237",
         "takeProfitPercentage": "",
         "isNeedToCheckTakeProfit": false,
