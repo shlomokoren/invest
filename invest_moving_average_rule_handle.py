@@ -18,7 +18,7 @@ from playhouse.sqlite_udf import hostname
 
 
 debug = False
-__version__ = "v0.0.14beta"
+__version__ = "v0.0.16beta"
 print("script version: " + __version__)
 
 
@@ -179,8 +179,8 @@ def notifyCenter(message, googleSheetsRaw, sheetColnotes, color_flag_bool):
     print(message)
     sendtelegrammsg(message)
     writeToLogfile(message)
-    googleSheetsRaw.append(sheetColnotes)
-    googlesheets_add_history([googleSheetsRaw], color_flag=color_flag_bool)
+#    googleSheetsRaw.append(sheetColnotes)
+    googlesheets_add_history([googleSheetsRaw], color_flag=color_flag_bool,sheetColnotes=sheetColnotes)
 
 
 def update_stocks_input_list(portfolioChangesList,investDataFile):
@@ -373,7 +373,7 @@ def writeToLogfile(line):
             # Write a line to the log file
             logfile.write(current_time + "," + line + " \n")
 
-def googlesheets_add_history(symbolsList, color_flag=False):
+def googlesheets_add_history(symbolsList, color_flag=False,sheetColnotes=None):
     """Log the name of the currently running function."""
     current_function = inspect.currentframe().f_code.co_name
     logging.debug(f"Running function: {current_function}()")
@@ -419,6 +419,8 @@ def googlesheets_add_history(symbolsList, color_flag=False):
         for row in symbolsList:
             row.insert(0, current_date)
             row.append(hostname)
+            if sheetColnotes is not None:
+                row.append(sheetColnotes)
             attempt = 1
             max_attempts = 3  # Retry a few times if needed
             success = False
