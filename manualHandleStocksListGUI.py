@@ -23,8 +23,6 @@ def save_json_general_parameters(data):
     with open("general_parameters.json", "w") as f:
         json.dump(data, f, indent=4)
 
-
-
 # Populate the listbox based on selected action
 def populate_symbols(event):
     selected_action = action_combobox.get()
@@ -210,11 +208,17 @@ def edit_symbol_popup():
     else:
         messagebox.showerror("Error", "No symbol selected!")
 
+
+
+
 # Delete the selected symbol from the list and JSON file
 def delete_symbol():
     if symbol_listbox.curselection():
         selected_symbol = symbol_listbox.get(symbol_listbox.curselection())
-        stocks_data[:] = [stock for stock in stocks_data if stock['symbol'] != selected_symbol]
+        selected_action = action_combobox.get()
+        stocks_data[:] = [stock for stock in stocks_data if
+                          not (stock['symbol'] == selected_symbol and stock['action'] == selected_action)]
+
         save_json_data(stocks_data)
 
         populate_symbols(None)
