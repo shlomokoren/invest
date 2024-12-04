@@ -2,11 +2,11 @@
     {
         "symbol": "ADBE",
         "range": "150",
-        "action": "buy",
+        "action": "sell",
         "account": "shlomo126",
-        "takeProfitPercentage": "",
-        "isNeedToCheckTakeProfit": false,
-        "quantity": 20
+        "takeProfitPercentage": 20,
+        "isNeedToCheckTakeProfit": true,
+        "quantity": 8
     },
     {
         "symbol": "IBM",
