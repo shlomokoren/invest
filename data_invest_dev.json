@@ -11,28 +11,24 @@
     {
         "symbol": "MSFT",
         "range": 150,
-        "action": "buy",
+        "action": "sell",
         "takeProfitPercentage": 20,
         "isNeedToCheckTakeProfit": false,
-        "quantity": 35,
+        "quantity": 36,
         "account": "DU2049237"
     },
     {
         "symbol": "ADBE",
-        "range": "150",
-<<<<<<< HEAD
-        "action": "buy",
-=======
-        "action": "trace",
->>>>>>> main
+        "range": 150,
+        "action": "sell",
         "account": "DU2049237",
         "takeProfitPercentage": "",
         "isNeedToCheckTakeProfit": false,
-        "quantity": 20
+        "quantity": 29
     },
     {
         "symbol": "IBM",
-        "range": "150",
+        "range": 150,
         "action": "trace",
         "account": "DU2049237",
         "takeProfitPercentage": "",
@@ -41,7 +37,7 @@
     },
     {
         "symbol": "TSM",
-        "range": "150",
+        "range": 150,
         "action": "trace",
         "account": "DU2049237",
         "takeProfitPercentage": "",
@@ -50,7 +46,7 @@
     },
     {
         "symbol": "META",
-        "range": "150",
+        "range": 150,
         "action": "trace",
         "account": "DU2049237",
         "takeProfitPercentage": "",
@@ -59,7 +55,7 @@
     },
     {
         "symbol": "LULU",
-        "range": "150",
+        "range": 150,
         "action": "trace",
         "account": "DU2049237",
         "takeProfitPercentage": "",
@@ -95,7 +91,7 @@
     },
     {
         "symbol": "AFRM",
-        "range": "150",
+        "range": 150,
         "action": "buy",
         "quantity": "100",
         "account": "DU2049237",
@@ -123,8 +119,8 @@
     {
         "symbol": "GOOG",
         "range": 150,
-        "action": "buy",
-        "quantity": 277,
+        "action": "sell",
+        "quantity": 90,
         "takeProfitPercentage": 10,
         "isNeedToCheckTakeProfit": false,
         "account": "DU2049237"
