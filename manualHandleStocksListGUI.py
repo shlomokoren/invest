@@ -165,9 +165,9 @@ def add_symbol_popup():
 def edit_symbol_popup():
     selected_symbol = symbol_listbox.get(symbol_listbox.curselection())
     selected_action = action_combobox.get()
-    #selected_stock = next((stock for stock in stocks_data if stock['symbol'] == selected_symbol), None)
-    selected_stock = next ((stock for stock in stocks_data if
-                      stock['symbol'] == selected_symbol and stock['action'] == selected_action), None)
+    selected_stock = next((stock for stock in stocks_data if stock['symbol'] == selected_symbol), None)
+    #selected_stock = next ((stock for stock in stocks_data if
+    #                  stock['symbol'] == selected_symbol and stock['action'] == selected_action), None)
 
     if selected_stock:
         def save_edited_symbol():
