@@ -20,7 +20,7 @@
     {
         "symbol": "ADBE",
         "range": 150,
-        "action": "buy",
+        "action": "sell",
         "account": "DU2049237",
         "takeProfitPercentage": "",
         "isNeedToCheckTakeProfit": false,
@@ -67,8 +67,8 @@
         "range": 150,
         "action": "sell",
         "takeProfitPercentage": 20,
-        "isNeedToCheckTakeProfit": false,
-        "quantity": 69,
+        "isNeedToCheckTakeProfit": true,
+        "quantity": 103,
         "account": "DU2049237"
     },
     {
@@ -178,5 +178,23 @@
         "isNeedToCheckTakeProfit": false,
         "quantity": 100,
         "account": "DU2049237"
+    },
+    {
+        "symbol": "x1",
+        "action": "sell",
+        "range": 150,
+        "takeProfitPercentage": 20,
+        "isNeedToCheckTakeProfit": false,
+        "quantity": 58,
+        "account": "momo01"
+    },
+    {
+        "symbol": "x1",
+        "action": "buy",
+        "range": 150,
+        "takeProfitPercentage": 10,
+        "isNeedToCheckTakeProfit": false,
+        "quantity": 50,
+        "account": "momo01"
     }
 ]

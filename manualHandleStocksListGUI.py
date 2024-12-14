@@ -1,17 +1,42 @@
 import tkinter as tk
 from tkinter import ttk, messagebox
+from tkinter import Tk
+from tkinter.filedialog import askopenfilename
 import json
+import sys
+
 
 from invest_moving_average_rule_handle import enableLogFile
+datainvestjson = ""
 
 
-# Load the JSON data from data_invest.json file
+def quit_application():
+    root.destroy()
+    sys.exit()
+
+
 def load_json_data():
-    with open("data_invest.json", "r") as f:
+    global datainvestjson
+
+    # Open a file dialog to select a JSON file
+    datainvestjson = askopenfilename(
+        title="Select a JSON file",
+        filetypes=[("JSON files", "*.json")]
+    )
+
+    # Check if a file was selected
+    if not datainvestjson:
+        print("No file selected.")
+        return None
+
+    with open(datainvestjson, "r") as f:
         return json.load(f)
+
+
 # Save the JSON data to data_invest.json file
 def save_json_data(data):
-    with open("data_invest.json", "w") as f:
+    global datainvestjson
+    with open(datainvestjson, "w") as f:
         json.dump(data, f, indent=4)
 
 # Load the JSON data from data_invest.json file
@@ -34,8 +59,10 @@ def populate_symbols(event):
 
 # Display the details of the selected symbol on the right panel
 def display_symbol_details(event):
+    # Clear the fields first
+    clear_symbol_details()
+
     if not symbol_listbox.curselection():
-        clear_symbol_details()
         return
 
     selected_symbol = symbol_listbox.get(symbol_listbox.curselection())
@@ -137,7 +164,10 @@ def add_symbol_popup():
 # Edit symbol pop-up window
 def edit_symbol_popup():
     selected_symbol = symbol_listbox.get(symbol_listbox.curselection())
-    selected_stock = next((stock for stock in stocks_data if stock['symbol'] == selected_symbol), None)
+    selected_action = action_combobox.get()
+    #selected_stock = next((stock for stock in stocks_data if stock['symbol'] == selected_symbol), None)
+    selected_stock = next ((stock for stock in stocks_data if
+                      stock['symbol'] == selected_symbol and stock['action'] == selected_action), None)
 
     if selected_stock:
         def save_edited_symbol():
@@ -208,9 +238,6 @@ def edit_symbol_popup():
     else:
         messagebox.showerror("Error", "No symbol selected!")
 
-
-
-
 # Delete the selected symbol from the list and JSON file
 def delete_symbol():
     if symbol_listbox.curselection():
@@ -227,14 +254,15 @@ def delete_symbol():
     else:
         messagebox.showerror("Error", "No symbol selected!")
 
-
-
-
-
+# Load stocks data
+stocks_data = load_json_data()
 
 # Create the main window
 root = tk.Tk()
 root.title("Stock Management Tool")
+
+# Bind the close event
+root.protocol("WM_DELETE_WINDOW", quit_application)
 
 # Create the notebook (tab container)
 notebook = ttk.Notebook(root)
@@ -253,10 +281,6 @@ notebook.grid(row=0, column=0, padx=10, pady=10, sticky="nsew")
 # Configure the root window to expand properly
 root.grid_rowconfigure(0, weight=1)
 root.grid_columnconfigure(0, weight=1)
-
-
-# Load stocks data
-stocks_data = load_json_data()
 
 # Action combobox (sell, buy, trace)
 tk.Label(portfolio_tab, text="Select Action:").grid(row=0, column=0, padx=10, pady=10)
@@ -301,6 +325,7 @@ tk.Label(details_frame, textvariable=quantity_value_var).grid(row=5, column=1, p
 tk.Label(details_frame, text="Account:").grid(row=6, column=0, padx=5, pady=5, sticky="w")
 account_value_var = tk.StringVar()
 tk.Label(details_frame, textvariable=account_value_var).grid(row=6, column=1, padx=5, pady=5, sticky="w")
+
 
 # Buttons for Add, Edit, and Delete
 add_button = tk.Button(portfolio_tab, text="Add Symbol", command=add_symbol_popup)
