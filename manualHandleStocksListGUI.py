@@ -36,6 +36,7 @@ def load_json_data():
 # Save the JSON data to data_invest.json file
 def save_json_data(data):
     global datainvestjson
+    sorted_data = sorted(data, key=lambda x: (x['symbol'], x['action']))
     with open(datainvestjson, "w") as f:
         json.dump(data, f, indent=4)
 
@@ -66,9 +67,13 @@ def display_symbol_details(event):
         return
 
     selected_symbol = symbol_listbox.get(symbol_listbox.curselection())
+    selected_action = action_combobox.get()
 
     # Find selected stock data
-    selected_stock = next((stock for stock in stocks_data if stock['symbol'] == selected_symbol), None)
+#    selected_stock = next((stock for stock in stocks_data if stock['symbol'] == selected_symbol), None)
+    selected_stock = next ((stock for stock in stocks_data if
+                      stock['symbol'] == selected_symbol and stock['action'] == selected_action), None)
+
 
     if selected_stock:
         symbol_value_var.set(selected_stock['symbol'])
@@ -165,9 +170,9 @@ def add_symbol_popup():
 def edit_symbol_popup():
     selected_symbol = symbol_listbox.get(symbol_listbox.curselection())
     selected_action = action_combobox.get()
-    selected_stock = next((stock for stock in stocks_data if stock['symbol'] == selected_symbol), None)
-    #selected_stock = next ((stock for stock in stocks_data if
-    #                  stock['symbol'] == selected_symbol and stock['action'] == selected_action), None)
+    #selected_stock = next((stock for stock in stocks_data if stock['symbol'] == selected_symbol), None)
+    selected_stock = next ((stock for stock in stocks_data if
+                      stock['symbol'] == selected_symbol and stock['action'] == selected_action), None)
 
     if selected_stock:
         def save_edited_symbol():
