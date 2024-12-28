@@ -38,7 +38,7 @@ def save_json_data(data):
     global datainvestjson
     sorted_data = sorted(data, key=lambda x: (x['symbol'], x['action']))
     with open(datainvestjson, "w") as f:
-        json.dump(data, f, indent=4)
+        json.dump(sorted_data, f, indent=4)
 
 # Load the JSON data from data_invest.json file
 def load_json_general_parameters():
