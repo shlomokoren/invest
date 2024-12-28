@@ -9,85 +9,22 @@
         "account": "DU2049237"
     },
     {
-        "symbol": "MSFT",
+        "symbol": "AAPL",
+        "action": "trace",
         "range": 150,
-        "action": "sell",
         "takeProfitPercentage": 20,
-        "isNeedToCheckTakeProfit": false,
-        "quantity": 36,
-        "account": "DU2049237"
+        "isNeedToCheckTakeProfit": true,
+        "quantity": 100,
+        "account": "momotrace"
     },
     {
         "symbol": "ADBE",
         "range": 150,
-        "action": "buy",
+        "action": "sell",
         "account": "DU2049237",
         "takeProfitPercentage": "",
         "isNeedToCheckTakeProfit": false,
         "quantity": 29
-    },
-    {
-        "symbol": "IBM",
-        "range": 150,
-        "action": "trace",
-        "account": "DU2049237",
-        "takeProfitPercentage": "",
-        "isNeedToCheckTakeProfit": false,
-        "quantity": 20
-    },
-    {
-        "symbol": "TSM",
-        "range": 150,
-        "action": "trace",
-        "account": "DU2049237",
-        "takeProfitPercentage": "",
-        "isNeedToCheckTakeProfit": false,
-        "quantity": 20
-    },
-    {
-        "symbol": "META",
-        "range": 150,
-        "action": "trace",
-        "account": "DU2049237",
-        "takeProfitPercentage": "",
-        "isNeedToCheckTakeProfit": false,
-        "quantity": 20
-    },
-    {
-        "symbol": "LULU",
-        "range": 150,
-        "action": "trace",
-        "account": "DU2049237",
-        "takeProfitPercentage": "",
-        "isNeedToCheckTakeProfit": false,
-        "quantity": 100
-    },
-    {
-        "symbol": "AVGO",
-        "range": 150,
-        "action": "sell",
-        "takeProfitPercentage": 20,
-        "isNeedToCheckTakeProfit": false,
-        "quantity": 69,
-        "account": "DU2049237"
-    },
-    {
-        "symbol": "ARKW",
-        "range": 150,
-        "action": "sell",
-        "takeProfitPercentage": 20,
-        "isNeedToCheckTakeProfit": false,
-        "quantity": 64,
-        "account": "DU2049237"
-    },
-    {
-        "symbol": "AMZN",
-        "range": 150,
-        "action": "sell",
-        "takeProfitPercentage": 20,
-        "isNeedToCheckTakeProfit": false,
-        "quantity": 85,
-        "account": "DU2049237"
     },
     {
         "symbol": "AFRM",
@@ -105,6 +42,42 @@
         "quantity": 100,
         "takeProfitPercentage": 20,
         "isNeedToCheckTakeProfit": false,
+        "account": "DU2049237"
+    },
+    {
+        "symbol": "AMZN",
+        "range": 150,
+        "action": "sell",
+        "takeProfitPercentage": 20,
+        "isNeedToCheckTakeProfit": false,
+        "quantity": 85,
+        "account": "DU2049237"
+    },
+    {
+        "symbol": "ARKW",
+        "range": 150,
+        "action": "sell",
+        "takeProfitPercentage": 20,
+        "isNeedToCheckTakeProfit": false,
+        "quantity": 64,
+        "account": "DU2049237"
+    },
+    {
+        "symbol": "ASML",
+        "range": 150,
+        "action": "buy",
+        "takeProfitPercentage": 20,
+        "isNeedToCheckTakeProfit": false,
+        "quantity": 100,
+        "account": "DU2049237"
+    },
+    {
+        "symbol": "AVGO",
+        "range": 150,
+        "action": "sell",
+        "takeProfitPercentage": 20,
+        "isNeedToCheckTakeProfit": true,
+        "quantity": 103,
         "account": "DU2049237"
     },
     {
@@ -126,12 +99,57 @@
         "account": "DU2049237"
     },
     {
+        "symbol": "IBM",
+        "range": 150,
+        "action": "trace",
+        "account": "DU2049237",
+        "takeProfitPercentage": "",
+        "isNeedToCheckTakeProfit": false,
+        "quantity": 20
+    },
+    {
+        "symbol": "LULU",
+        "range": 150,
+        "action": "trace",
+        "account": "DU2049237",
+        "takeProfitPercentage": "",
+        "isNeedToCheckTakeProfit": false,
+        "quantity": 100
+    },
+    {
+        "symbol": "META",
+        "range": 150,
+        "action": "trace",
+        "account": "DU2049237",
+        "takeProfitPercentage": "",
+        "isNeedToCheckTakeProfit": false,
+        "quantity": 20
+    },
+    {
+        "symbol": "MSFT",
+        "range": 150,
+        "action": "sell",
+        "takeProfitPercentage": 20,
+        "isNeedToCheckTakeProfit": false,
+        "quantity": 36,
+        "account": "DU2049237"
+    },
+    {
         "symbol": "MSI",
         "range": 150,
         "action": "buy",
         "takeProfitPercentage": 20,
         "isNeedToCheckTakeProfit": false,
         "quantity": 35,
+        "account": "DU2049237"
+    },
+    {
+        "symbol": "MU",
+        "range": 150,
+        "action": "buy",
+        "takeProfitPercentage": 20,
+        "isNeedToCheckTakeProfit": false,
+        "quantity": 100,
         "account": "DU2049237"
     },
     {
@@ -153,25 +171,16 @@
         "account": "DU2049237"
     },
     {
-        "symbol": "ASML",
+        "symbol": "TSM",
         "range": 150,
-        "action": "buy",
-        "takeProfitPercentage": 20,
+        "action": "trace",
+        "account": "DU2049237",
+        "takeProfitPercentage": "",
         "isNeedToCheckTakeProfit": false,
-        "quantity": 100,
-        "account": "DU2049237"
+        "quantity": 20
     },
     {
         "symbol": "V",
-        "range": 150,
-        "action": "buy",
-        "takeProfitPercentage": 20,
-        "isNeedToCheckTakeProfit": false,
-        "quantity": 100,
-        "account": "DU2049237"
-    },
-    {
-        "symbol": "MU",
         "range": 150,
         "action": "buy",
         "takeProfitPercentage": 20,
