@@ -198,7 +198,7 @@
         "account": "shlomo126"
     },
     {
-        "symbol": "PAYPAL",
+        "symbol": "PYPL",
         "action": "buy",
         "range": 150,
         "takeProfitPercentage": 20,
