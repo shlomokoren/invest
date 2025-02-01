@@ -146,10 +146,10 @@
     {
         "symbol": "ORCL",
         "range": 150,
-        "action": "buy",
+        "action": "sell",
         "takeProfitPercentage": 20,
         "isNeedToCheckTakeProfit": false,
-        "quantity": 42,
+        "quantity": 98,
         "account": "DU2049237"
     },
     {
