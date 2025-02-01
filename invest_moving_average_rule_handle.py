@@ -18,7 +18,7 @@ from playhouse.sqlite_udf import hostname
 
 
 debug = False
-__version__ = "v0.0.18beta"
+__version__ = "v0.0.19beta"
 print("script version: " + __version__)
 
 
@@ -26,7 +26,7 @@ def get_general_parameters():
     ''' reade global parameters from general_parameters.json '''
     global enableLogFile, enableSendTelgram, enableGoogleSheetUpdate
     global smapercentagedifference, updateBuySellInInputFile, fixedInvestmentBuyAmount
-    global TWSaccount,TWSEnable , logTimezone
+    global TWSaccount,TWSEnable , logTimezone ,TWSSocketPort
     global isNeedToCheckTakeProfit
     global isValidationGoogleSheetTitleDone
     global portfolioFile
@@ -73,6 +73,8 @@ def get_general_parameters():
                 logTimezone = item["logTimezone"]
             elif 'portfolioFile' in item:
                 portfolioFile = item["portfolioFile"]
+            elif 'TWSSocketPort' in item:
+                TWSSocketPort = item["TWSSocketPort"]
     except FileNotFoundError:
         print(f"Error: The file general_parameters.json was not found.")
     parser = argparse.ArgumentParser(description="Process some parameters.")
@@ -198,7 +200,7 @@ def update_stocks_input_list(portfolioChangesList,investDataFile):
     try:
         # Connect to IBKR API
         ib = IB()
-        ib.connect('127.0.0.1', 7497, clientId=1)  # Use 7497 for TWS, 7496 for IB Gateway
+        ib.connect('127.0.0.1', TWSSocketPort, clientId=1)  # Use 7497 for TWS, 7496 for IB Gateway
         print("Connected to TWS successfully.")
 
     except ConnectionRefusedError:

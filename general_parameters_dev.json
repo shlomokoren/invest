@@ -17,6 +17,9 @@
     {
         "TWSEnable": true
     },
+      {
+    "TWSSocketPort": 4002
+   },
     {
         "TWSaccount": "DU2049237"
     },

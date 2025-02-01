@@ -1,32 +1,35 @@
 [
-    {
-        "enableLogFile": false
-    },
-    {
-        "enableSendTelgram": true
-    },
-    {
-        "enableGoogleSheetUpdate": true
-    },
-    {
-        "smapercentagedifference": 4
-    },
-    {
-        "updateBuySellInInputFile": false
-    },
-    {
-        "TWSEnable": false
-    },
-    {
-        "TWSaccount": "DU2049237"
-    },
-    {
-        "logTimezone": "Asia/Jerusalem"
-    },
-    {
-        "fixedInvestmentBuyAmount": 8000
-    },
-    {
-        "portfolioFile": "data_invest.json"
-    }
+  {
+    "enableLogFile": false
+  },
+  {
+    "enableSendTelgram": true
+  },
+  {
+    "enableGoogleSheetUpdate": true
+  },
+  {
+    "smapercentagedifference": 4
+  },
+  {
+    "updateBuySellInInputFile": false
+  },
+  {
+    "TWSEnable": false
+  },
+  {
+    "TWSSocketPort": 7497
+  },
+  {
+    "TWSaccount": "DU2049237"
+  },
+  {
+    "logTimezone": "Asia/Jerusalem"
+  },
+  {
+    "fixedInvestmentBuyAmount": 8000
+  },
+  {
+    "portfolioFile": "data_invest.json"
+  }
 ]
