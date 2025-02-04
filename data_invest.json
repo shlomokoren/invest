@@ -23,7 +23,7 @@
         "action": "sell",
         "takeProfitPercentage": 20,
         "isNeedToCheckTakeProfit": false,
-        "quantity": 200,
+        "quantity": 300,
         "account": "shlomo126"
     },
     {
@@ -154,10 +154,10 @@
     },
     {
         "symbol": "NVDA",
-        "action": "sell",
+        "action": "buy",
         "range": 150,
         "takeProfitPercentage": 20,
-        "isNeedToCheckTakeProfit": false,
+        "isNeedToCheckTakeProfit": true,
         "quantity": 300,
         "account": "shlomo126"
     },
