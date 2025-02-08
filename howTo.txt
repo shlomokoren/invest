@@ -1,3 +1,11 @@
 - update requirements.txt file
    pip3 freeze > requirements.txt
 
+
+environment parameters:
+globalFileParameters=general_parameters_dev.json;
+GOOGLE_APPLICATION_CREDENTIALS
+INVEST_LOGFILE
+TELEGRAM_BOT_TOKEN
+TELEGRAM_CHAT_ID
+

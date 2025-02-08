@@ -1,6 +1,6 @@
 [
     {
-        "enableLogFile": false
+        "enableLogFile": true
     },
     {
         "enableSendTelgram": true
