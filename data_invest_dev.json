@@ -110,8 +110,8 @@
     {
         "symbol": "CRM",
         "range": 150,
-        "action": "buy",
-        "quantity": 100,
+        "action": "sell",
+        "quantity": 51,
         "takeProfitPercentage": 20,
         "isNeedToCheckTakeProfit": false,
         "account": "DU2049237"
@@ -137,10 +137,10 @@
     {
         "symbol": "NVDA",
         "range": 150,
-        "action": "buy",
+        "action": "sell",
         "takeProfitPercentage": 20,
         "isNeedToCheckTakeProfit": false,
-        "quantity": 300,
+        "quantity": 120,
         "account": "DU2049237"
     },
     {

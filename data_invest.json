@@ -127,11 +127,11 @@
     },
     {
         "symbol": "MSFT",
-        "action": "sell",
+        "action": "buy",
         "range": 150,
-        "takeProfitPercentage": 20,
+        "takeProfitPercentage": 15,
         "isNeedToCheckTakeProfit": true,
-        "quantity": 10,
+        "quantity": 15,
         "account": "shlomo126"
     },
     {
@@ -171,6 +171,15 @@
         "account": "shlomo126:xnes"
     },
     {
+        "symbol": "PYPL",
+        "action": "buy",
+        "range": 150,
+        "takeProfitPercentage": 21,
+        "isNeedToCheckTakeProfit": true,
+        "quantity": 100,
+        "account": "shlomo126"
+    },
+    {
         "symbol": "TSLA",
         "action": "sell",
         "range": 150,
@@ -194,15 +203,6 @@
         "action": "buy",
         "takeProfitPercentage": 20,
         "isNeedToCheckTakeProfit": false,
-        "quantity": 100,
-        "account": "shlomo126"
-    },
-    {
-        "symbol": "PYPL",
-        "action": "buy",
-        "range": 150,
-        "takeProfitPercentage": 21,
-        "isNeedToCheckTakeProfit": true,
         "quantity": 100,
         "account": "shlomo126"
     }
