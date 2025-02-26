@@ -15,5 +15,5 @@ rsa==4.9
 urllib3==2.2.2
 ib_insync
 ibapi~=9.81.1.post1
-yfinance~=0.2.50
+yfinance~=0.2.54
 pytz~=2024.2
