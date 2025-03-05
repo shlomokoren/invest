@@ -20,7 +20,7 @@
     {
         "symbol": "AFRM",
         "range": 150,
-        "action": "sell",
+        "action": "buy",
         "takeProfitPercentage": 20,
         "isNeedToCheckTakeProfit": false,
         "quantity": 300,
@@ -64,7 +64,7 @@
     },
     {
         "symbol": "AVGO",
-        "action": "sell",
+        "action": "buy",
         "range": 150,
         "takeProfitPercentage": 20,
         "isNeedToCheckTakeProfit": false,
@@ -137,7 +137,7 @@
     {
         "symbol": "MSI",
         "range": 150,
-        "action": "sell",
+        "action": "buy",
         "takeProfitPercentage": 20,
         "isNeedToCheckTakeProfit": false,
         "quantity": 63,
