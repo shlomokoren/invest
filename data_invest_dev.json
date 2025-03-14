@@ -2,7 +2,7 @@
     {
         "symbol": "AAPL",
         "range": 150,
-        "action": "sell",
+        "action": "buy",
         "takeProfitPercentage": 10,
         "isNeedToCheckTakeProfit": false,
         "quantity": 14,
@@ -68,13 +68,13 @@
         "action": "sell",
         "takeProfitPercentage": 20,
         "isNeedToCheckTakeProfit": false,
-        "quantity": 69,
+        "quantity": 82,
         "account": "DU2049237"
     },
     {
         "symbol": "ARKW",
         "range": 150,
-        "action": "sell",
+        "action": "buy",
         "takeProfitPercentage": 20,
         "isNeedToCheckTakeProfit": false,
         "quantity": 64,
@@ -83,7 +83,7 @@
     {
         "symbol": "AMZN",
         "range": 150,
-        "action": "sell",
+        "action": "buy",
         "takeProfitPercentage": 20,
         "isNeedToCheckTakeProfit": false,
         "quantity": 85,
@@ -93,7 +93,7 @@
         "symbol": "AFRM",
         "range": 150,
         "action": "buy",
-        "quantity": "100",
+        "quantity": 295,
         "account": "DU2049237",
         "takeProfitPercentage": 20,
         "isNeedToCheckTakeProfit": false

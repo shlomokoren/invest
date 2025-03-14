@@ -83,7 +83,7 @@
     {
         "symbol": "GOOG",
         "range": 150,
-        "action": "sell",
+        "action": "buy",
         "takeProfitPercentage": 20,
         "isNeedToCheckTakeProfit": true,
         "quantity": 170,
@@ -118,12 +118,12 @@
     },
     {
         "symbol": "META",
-        "action": "sell",
+        "action": "buy",
         "range": 150,
         "takeProfitPercentage": 20,
         "isNeedToCheckTakeProfit": false,
         "quantity": 10,
-        "account": "xnes"
+        "account": "xnes,shlomo126"
     },
     {
         "symbol": "MSFT",
@@ -137,7 +137,7 @@
     {
         "symbol": "MSI",
         "range": 150,
-        "action": "buy",
+        "action": "sell",
         "takeProfitPercentage": 20,
         "isNeedToCheckTakeProfit": true,
         "quantity": 63,
@@ -180,8 +180,17 @@
         "account": "shlomo126"
     },
     {
+        "symbol": "SOFI",
+        "action": "buy",
+        "range": 150,
+        "takeProfitPercentage": 20,
+        "isNeedToCheckTakeProfit": true,
+        "quantity": 300,
+        "account": "shlomo126"
+    },
+    {
         "symbol": "TSLA",
-        "action": "sell",
+        "action": "buy",
         "range": 150,
         "takeProfitPercentage": 20,
         "isNeedToCheckTakeProfit": true,
