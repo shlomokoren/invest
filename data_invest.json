@@ -2,7 +2,7 @@
     {
         "symbol": "AAPL",
         "range": 150,
-        "action": "sell",
+        "action": "buy",
         "takeProfitPercentage": 20,
         "isNeedToCheckTakeProfit": false,
         "quantity": 75,
@@ -38,7 +38,7 @@
     {
         "symbol": "AMZN",
         "range": 150,
-        "action": "sell",
+        "action": "buy",
         "takeProfitPercentage": 20,
         "isNeedToCheckTakeProfit": true,
         "quantity": 127,
@@ -47,7 +47,7 @@
     {
         "symbol": "ARKW",
         "range": 150,
-        "action": "sell",
+        "action": "buy",
         "takeProfitPercentage": 20,
         "isNeedToCheckTakeProfit": true,
         "quantity": 135,
@@ -137,7 +137,7 @@
     {
         "symbol": "MSI",
         "range": 150,
-        "action": "sell",
+        "action": "buy",
         "takeProfitPercentage": 20,
         "isNeedToCheckTakeProfit": true,
         "quantity": 63,
