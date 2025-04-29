@@ -27,6 +27,15 @@
         "account": "shlomo126"
     },
     {
+        "symbol": "AFRM",
+        "action": "trace",
+        "range": 150,
+        "takeProfitPercentage": 20,
+        "isNeedToCheckTakeProfit": false,
+        "quantity": 0,
+        "account": "shlomo126"
+    },
+    {
         "symbol": "AMD",
         "range": 150,
         "action": "buy",
@@ -43,6 +52,15 @@
         "isNeedToCheckTakeProfit": true,
         "quantity": 127,
         "account": "shlomo126:xnes"
+    },
+    {
+        "symbol": "AMZN",
+        "action": "trace",
+        "range": 150,
+        "takeProfitPercentage": 20,
+        "isNeedToCheckTakeProfit": false,
+        "quantity": 0,
+        "account": "shlomo126"
     },
     {
         "symbol": "ARKW",
@@ -72,6 +90,15 @@
         "account": "shlomo126"
     },
     {
+        "symbol": "AVGO",
+        "action": "trace",
+        "range": 150,
+        "takeProfitPercentage": 20,
+        "isNeedToCheckTakeProfit": true,
+        "quantity": 0,
+        "account": "shlomo126"
+    },
+    {
         "symbol": "CRM",
         "range": 150,
         "action": "buy",
@@ -88,6 +115,15 @@
         "isNeedToCheckTakeProfit": true,
         "quantity": 170,
         "account": "shlomo126:xnes"
+    },
+    {
+        "symbol": "GOOG",
+        "action": "trace",
+        "range": 150,
+        "takeProfitPercentage": 20,
+        "isNeedToCheckTakeProfit": false,
+        "quantity": 0,
+        "account": "shlomo126"
     },
     {
         "symbol": "IBM",
@@ -162,6 +198,15 @@
         "account": "shlomo126"
     },
     {
+        "symbol": "NVDA",
+        "action": "trace",
+        "range": 150,
+        "takeProfitPercentage": 20,
+        "isNeedToCheckTakeProfit": false,
+        "quantity": 0,
+        "account": "shlomo126"
+    },
+    {
         "symbol": "ORCL",
         "action": "buy",
         "range": 150,
@@ -189,6 +234,15 @@
         "account": "shlomo126"
     },
     {
+        "symbol": "SOFI",
+        "action": "trace",
+        "range": 150,
+        "takeProfitPercentage": 20,
+        "isNeedToCheckTakeProfit": true,
+        "quantity": 0,
+        "account": "shlomo126"
+    },
+    {
         "symbol": "TSLA",
         "action": "buy",
         "range": 150,
@@ -205,6 +259,15 @@
         "takeProfitPercentage": 20,
         "isNeedToCheckTakeProfit": true,
         "quantity": 20
+    },
+    {
+        "symbol": "TSM",
+        "action": "trace",
+        "range": 150,
+        "takeProfitPercentage": 20,
+        "isNeedToCheckTakeProfit": false,
+        "quantity": 0,
+        "account": "shlomo126"
     },
     {
         "symbol": "V",
