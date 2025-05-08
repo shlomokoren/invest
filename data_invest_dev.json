@@ -65,7 +65,7 @@
     {
         "symbol": "AVGO",
         "range": 150,
-        "action": "sell",
+        "action": "buy",
         "takeProfitPercentage": 20,
         "isNeedToCheckTakeProfit": false,
         "quantity": 82,
@@ -74,10 +74,10 @@
     {
         "symbol": "ARKW",
         "range": 150,
-        "action": "buy",
+        "action": "sell",
         "takeProfitPercentage": 20,
         "isNeedToCheckTakeProfit": false,
-        "quantity": 64,
+        "quantity": 153,
         "account": "DU2049237"
     },
     {
@@ -164,10 +164,10 @@
     {
         "symbol": "V",
         "range": 150,
-        "action": "buy",
+        "action": "sell",
         "takeProfitPercentage": 20,
         "isNeedToCheckTakeProfit": false,
-        "quantity": 100,
+        "quantity": 50,
         "account": "DU2049237"
     },
     {
