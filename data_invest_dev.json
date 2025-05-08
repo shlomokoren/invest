@@ -92,8 +92,8 @@
     {
         "symbol": "AFRM",
         "range": 150,
-        "action": "buy",
-        "quantity": 295,
+        "action": "sell",
+        "quantity": 287,
         "account": "DU2049237",
         "takeProfitPercentage": 20,
         "isNeedToCheckTakeProfit": false
