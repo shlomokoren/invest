@@ -20,19 +20,10 @@
     {
         "symbol": "AFRM",
         "range": 150,
-        "action": "buy",
+        "action": "sell",
         "takeProfitPercentage": 20,
         "isNeedToCheckTakeProfit": true,
         "quantity": 300,
-        "account": "shlomo126"
-    },
-    {
-        "symbol": "AFRM",
-        "action": "trace",
-        "range": 150,
-        "takeProfitPercentage": 20,
-        "isNeedToCheckTakeProfit": false,
-        "quantity": 0,
         "account": "shlomo126"
     },
     {
@@ -65,7 +56,7 @@
     {
         "symbol": "ARKW",
         "range": 150,
-        "action": "buy",
+        "action": "sell",
         "takeProfitPercentage": 20,
         "isNeedToCheckTakeProfit": true,
         "quantity": 135,
@@ -74,7 +65,7 @@
     {
         "symbol": "ASML",
         "range": 150,
-        "action": "buy",
+        "action": "sell",
         "takeProfitPercentage": 20,
         "isNeedToCheckTakeProfit": true,
         "quantity": 100,
@@ -82,20 +73,11 @@
     },
     {
         "symbol": "AVGO",
-        "action": "buy",
+        "action": "sell",
         "range": 150,
         "takeProfitPercentage": 15,
         "isNeedToCheckTakeProfit": true,
         "quantity": 50,
-        "account": "shlomo126"
-    },
-    {
-        "symbol": "AVGO",
-        "action": "trace",
-        "range": 150,
-        "takeProfitPercentage": 20,
-        "isNeedToCheckTakeProfit": true,
-        "quantity": 0,
         "account": "shlomo126"
     },
     {
@@ -128,7 +110,7 @@
     {
         "symbol": "IBM",
         "range": "150",
-        "action": "buy",
+        "action": "trace",
         "account": "shlomo126",
         "takeProfitPercentage": "",
         "isNeedToCheckTakeProfit": true,
@@ -163,7 +145,7 @@
     },
     {
         "symbol": "MSFT",
-        "action": "buy",
+        "action": "sell",
         "range": 150,
         "takeProfitPercentage": 15,
         "isNeedToCheckTakeProfit": true,
@@ -195,15 +177,6 @@
         "takeProfitPercentage": 20,
         "isNeedToCheckTakeProfit": true,
         "quantity": 300,
-        "account": "shlomo126"
-    },
-    {
-        "symbol": "NVDA",
-        "action": "trace",
-        "range": 150,
-        "takeProfitPercentage": 20,
-        "isNeedToCheckTakeProfit": false,
-        "quantity": 0,
         "account": "shlomo126"
     },
     {
