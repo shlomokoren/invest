@@ -75,7 +75,7 @@
         "symbol": "AVGO",
         "action": "sell",
         "range": 150,
-        "takeProfitPercentage": 15,
+        "takeProfitPercentage": 25,
         "isNeedToCheckTakeProfit": true,
         "quantity": 50,
         "account": "shlomo126"
