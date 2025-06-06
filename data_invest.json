@@ -29,19 +29,19 @@
     {
         "symbol": "AMD",
         "range": 150,
-        "action": "buy",
-        "takeProfitPercentage": 15,
+        "action": "sell",
+        "takeProfitPercentage": 20,
         "isNeedToCheckTakeProfit": true,
-        "quantity": 100,
+        "quantity": 75,
         "account": "shlomo126"
     },
     {
         "symbol": "AMZN",
         "range": 150,
-        "action": "buy",
-        "takeProfitPercentage": 20,
+        "action": "sell",
+        "takeProfitPercentage": 25,
         "isNeedToCheckTakeProfit": true,
-        "quantity": 127,
+        "quantity": 70,
         "account": "shlomo126:xnes"
     },
     {
@@ -92,10 +92,10 @@
     {
         "symbol": "GOOG",
         "range": 150,
-        "action": "buy",
+        "action": "sell",
         "takeProfitPercentage": 20,
         "isNeedToCheckTakeProfit": true,
-        "quantity": 170,
+        "quantity": 70,
         "account": "shlomo126:xnes"
     },
     {
@@ -149,7 +149,7 @@
         "range": 150,
         "takeProfitPercentage": 15,
         "isNeedToCheckTakeProfit": true,
-        "quantity": 15,
+        "quantity": 20,
         "account": "shlomo126"
     },
     {
@@ -172,11 +172,11 @@
     },
     {
         "symbol": "NVDA",
-        "action": "buy",
+        "action": "sell",
         "range": 150,
         "takeProfitPercentage": 20,
         "isNeedToCheckTakeProfit": true,
-        "quantity": 300,
+        "quantity": 100,
         "account": "shlomo126"
     },
     {
@@ -199,11 +199,11 @@
     },
     {
         "symbol": "SOFI",
-        "action": "buy",
+        "action": "sell",
         "range": 150,
         "takeProfitPercentage": 20,
         "isNeedToCheckTakeProfit": true,
-        "quantity": 300,
+        "quantity": 900,
         "account": "shlomo126"
     },
     {
@@ -226,12 +226,12 @@
     },
     {
         "symbol": "TSM",
-        "range": "150",
-        "action": "buy",
+        "range": 150,
+        "action": "sell",
         "account": "shlomo126",
         "takeProfitPercentage": 20,
         "isNeedToCheckTakeProfit": true,
-        "quantity": 20
+        "quantity": 60
     },
     {
         "symbol": "TSM",
