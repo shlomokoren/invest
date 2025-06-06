@@ -83,16 +83,16 @@
     {
         "symbol": "AMZN",
         "range": 150,
-        "action": "buy",
+        "action": "sell",
         "takeProfitPercentage": 20,
         "isNeedToCheckTakeProfit": false,
-        "quantity": 85,
+        "quantity": 75,
         "account": "DU2049237"
     },
     {
         "symbol": "AFRM",
         "range": 150,
-        "action": "sell",
+        "action": "buy",
         "quantity": 287,
         "account": "DU2049237",
         "takeProfitPercentage": 20,
