@@ -31,7 +31,7 @@
         "range": 150,
         "action": "sell",
         "takeProfitPercentage": 20,
-        "isNeedToCheckTakeProfit": true,
+        "isNeedToCheckTakeProfit": false,
         "quantity": 75,
         "account": "shlomo126"
     },
@@ -57,7 +57,7 @@
         "symbol": "ARKW",
         "range": 150,
         "action": "sell",
-        "takeProfitPercentage": 20,
+        "takeProfitPercentage": 30,
         "isNeedToCheckTakeProfit": true,
         "quantity": 135,
         "account": "xnes"
