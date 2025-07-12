@@ -30,6 +30,7 @@
     "fixedInvestmentBuyAmount": 8000
   },
   {
-    "portfolioFile": "data_invest.json"
+    "portfolioFile": "data_invest.json",
+    "portfolioLink": "https://drive.google.com/file/d/1T8NuTF7ruNXpoDx0Zq277Pxy6BQj8gmj/view?usp=sharing"
   }
 ]
