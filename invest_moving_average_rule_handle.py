@@ -13,12 +13,21 @@ from datetime import datetime, timedelta
 import socket
 import argparse
 import pandas as pd
+import gdown
+from google.oauth2.service_account import Credentials
+from googleapiclient.discovery import build
+from googleapiclient.http import MediaIoBaseDownload
+from googleapiclient.http import MediaFileUpload
+import io
+import re
 
-from playhouse.sqlite_udf import hostname
+
+
+#from playhouse.sqlite_udf import hostname
 
 
 debug = False
-__version__ = "v0.0.19beta"
+__version__ = "v0.0.20beta"
 print("script version: " + __version__)
 
 
@@ -29,7 +38,7 @@ def get_general_parameters():
     global TWSaccount,TWSEnable , logTimezone ,TWSSocketPort
     global isNeedToCheckTakeProfit
     global isValidationGoogleSheetTitleDone
-    global portfolioFile
+    global portfolioFile,portfolioLink
     isValidationGoogleSheetTitleDone = False
     """Log the name of the currently running function."""
     current_function = inspect.currentframe().f_code.co_name
@@ -38,6 +47,7 @@ def get_general_parameters():
     globalFileParameters = "general_parameters.json"
     globalFileParameters = os.environ.get("globalFileParameters", "general_parameters.json")
     print("globalFileParameters is: "+globalFileParameters)
+    portfolioLink = None
     try:
         with open(globalFileParameters, 'r') as file:
             data = json.load(file)
@@ -73,6 +83,7 @@ def get_general_parameters():
                 logTimezone = item["logTimezone"]
             elif 'portfolioFile' in item:
                 portfolioFile = item["portfolioFile"]
+                portfolioLink = item["portfolioLink"]
             elif 'TWSSocketPort' in item:
                 TWSSocketPort = item["TWSSocketPort"]
     except FileNotFoundError:
@@ -81,9 +92,96 @@ def get_general_parameters():
     parser.add_argument('--portfolioFile', type=str, help='json input portfoilio config ')
 
     args = parser.parse_args()
-    portfolioFileparametr = args.portfolioFile
-    if portfolioFileparametr is not None:
+    portfolioFileparameter = args.portfolioFile
+    if portfolioFileparameter is not None:
         portfolioFile = args.portfolioFile
+    if portfolioLink:
+        service_account_path = os.getenv('GOOGLE_APPLICATION_CREDENTIALS')
+        result = download_from_google_drive(service_account_path=service_account_path,file_url=portfolioLink, output_path = portfolioFile )
+        if result == 1:
+            print("ERROR: fail to download ${portfolioLink}")
+
+def update_file_on_google_drive(service_account_path: str, file_url: str, local_file_path: str, mime_type: str = 'application/json') -> int:
+    """
+    Uploads a local file to an existing Google Drive file (creates a new version).
+
+    :param service_account_path: Path to the service account JSON file
+    :param file_url: Google Drive file URL of the existing file
+    :param local_file_path: Local file to upload
+    :param mime_type: MIME type of the file (default: 'application/json')
+    :return: 0 if successful, 1 if failed
+    """
+    try:
+        # Extract file ID from URL
+        match = re.search(r'/d/([a-zA-Z0-9_-]+)', file_url)
+        if not match:
+            print("Invalid Google Drive URL format.")
+            return 1
+        file_id = match.group(1)
+
+        # Authenticate using service account
+        #scopes = ['https://www.googleapis.com/auth/drive.file']
+        scopes = ['https://www.googleapis.com/auth/drive']  # FULL ACCESS
+        credentials = Credentials.from_service_account_file(service_account_path, scopes=scopes)
+        service = build('drive', 'v3', credentials=credentials)
+
+        # Prepare media upload
+        media = MediaFileUpload(local_file_path, mimetype=mime_type, resumable=True)
+
+        # Update the file (creates a new version)
+        updated_file = service.files().update(
+            fileId=file_id,
+            media_body=media
+        ).execute()
+
+        print(f"File updated successfully. New version ID: {updated_file.get('id')}")
+        return 0
+    except Exception as e:
+        print(f"Failed to update file: {e}")
+        return 1
+
+
+def download_from_google_drive(service_account_path: str, file_url: str, output_path: str) -> int:
+    """
+    Downloads a private file from Google Drive using a service account.
+
+    :param service_account_path: Path to your service account JSON file
+    :param file_url: Google Drive file URL (must extract file ID)
+    :param output_path: Path to save the downloaded file
+    :return: 0 if successful, 1 if failed
+    """
+    try:
+        # Extract the file ID from the URL
+        match = re.search(r'/d/([a-zA-Z0-9_-]+)', file_url)
+        if not match:
+            print("Invalid Google Drive URL format.")
+            return 1
+        file_id = match.group(1)
+
+        # Set up credentials and Drive API client
+        scopes = ['https://www.googleapis.com/auth/drive.readonly']
+        credentials = Credentials.from_service_account_file(service_account_path, scopes=scopes)
+        service = build('drive', 'v3', credentials=credentials)
+
+        # Prepare download request
+        request = service.files().get_media(fileId=file_id)
+        fh = io.FileIO(output_path, 'wb')
+        downloader = MediaIoBaseDownload(fh, request)
+
+        # Download in chunks
+        done = False
+        while not done:
+            status, done = downloader.next_chunk()
+            if status:
+                print(f"Download progress: {int(status.progress() * 100)}%")
+
+        print(f"File downloaded successfully to {output_path}")
+        return 0
+
+    except Exception as e:
+        print(f"Failed to download file: {e}")
+        return 1
+
 
 def yahoo_finance_get_stock_values(ticker,range):
     """Log the name of the currently running function."""
@@ -196,6 +294,7 @@ def update_stocks_input_list(portfolioChangesList,investDataFile):
     logging.debug(f"Running function: {current_function}()")
 
     global fixedInvestmentBuyAmount,enableTakeProfit
+    global portfolioLink, portfolioFile
     ##//check if nasdaq is open
     ## if nasdaq is open connect tws
     ib = None
@@ -276,6 +375,12 @@ def update_stocks_input_list(portfolioChangesList,investDataFile):
 
     with open(investDataFile, 'w') as file:
         json.dump(symbols_input_list, file, indent=4)  # Write the updated symbols to the file
+    if portfolioLink :
+        service_account_path = os.getenv('GOOGLE_APPLICATION_CREDENTIALS')
+        file_url = portfolioLink, output_path = portfolioFile
+        result = update_file_on_google_drive(service_account_path=service_account_path, file_url= portfolioLink, output_path = portfolioFile)
+
+        print("Upload result:", result)
     msg = "portfolio file was update . please take attention for manually update."
     result = {"retStatus": False, "message": msg}
     return(result)
