@@ -27,7 +27,7 @@ import re
 
 
 debug = False
-__version__ = "v0.0.21beta"
+__version__ = "v0.0.22beta"
 print("script version: " + __version__)
 
 
@@ -233,7 +233,7 @@ def yahoo_finance_get_stock_values(ticker,range):
 
     try:
         # Fetch historical data for the last 1 year
-        stock_data = yf.download(ticker, period="1y",progress=False)
+        stock_data = yf.download(ticker, period="1y",progress=False,auto_adjust=True)
    #     yf.enable_debug_mode()
         # Check if data is fetched successfully
         print(len(stock_data))
