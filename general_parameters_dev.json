@@ -1,37 +1,14 @@
-[
-	{
-		"enableLogFile": true
-	},
-	{
-		"enableSendTelgram": true
-	},
-	{
-		"enableGoogleSheetUpdate": true
-	},
-	{
-		"smapercentagedifference": 4
-	},
-	{
-		"updateBuySellInInputFile": true
-	},
-	{
-		"TWSEnable": true
-	},
-	{
-		"TWSSocketPort": 7497
-	},
-	{
-		"TWSaccount": "DU2049237"
-	},
-	{
-		"logTimezone": "Asia/Jerusalem"
-	},
-	{
-		"fixedInvestmentBuyAmount": 16000
-	},
-	{
-		"portfolioFile": "data_invest_dev.json",
-        "portfolioLink": "https://drive.google.com/file/d/1zeXS_Howx8uD0KvQbk3TtD6NVKZvEqPE/view?usp=sharing"
-
-	}
-]
+{
+	"enableLogFile": true,
+	"enableSendTelgram": true,
+	"enableGoogleSheetUpdate": true,
+	"smapercentagedifference": 4,
+	"updateBuySellInInputFile": true,
+	"TWSEnable": true,
+	"TWSSocketPort": 7497,
+	"TWSaccount": "DU2049237",
+	"logTimezone": "Asia/Jerusalem",
+	"fixedInvestmentBuyAmount": 16000,
+	"portfolioFile": "data_invest_dev.json",
+	"_portfolioLink": "https://drive.google.com/file/d/1zeXS_Howx8uD0KvQbk3TtD6NVKZvEqPE/view?usp=sharing"
+}
