@@ -27,11 +27,69 @@ import re
 
 
 debug = False
-__version__ = "v0.0.20beta"
+__version__ = "v0.0.21beta"
 print("script version: " + __version__)
 
 
 def get_general_parameters():
+    ''' reade global parameters from general_parameters.json '''
+    # global enableLogFile, enableSendTelgram, enableGoogleSheetUpdate
+    # global smapercentagedifference, updateBuySellInInputFile, fixedInvestmentBuyAmount
+    # global TWSaccount,TWSEnable , logTimezone ,TWSSocketPort
+    # global isNeedToCheckTakeProfit
+    # global isValidationGoogleSheetTitleDone
+    # global portfolioFile,portfolioLink
+    # isValidationGoogleSheetTitleDone = False
+    # """Log the name of the currently running function."""
+    # current_function = inspect.currentframe().f_code.co_name
+    # logging.debug(f"Running function: {current_function}()")
+    #
+    # globalFileParameters = "general_parameters.json"
+    # globalFileParameters = os.environ.get("globalFileParameters", "general_parameters.json")
+    # print("globalFileParameters is: "+globalFileParameters)
+    # portfolioLink = None
+
+
+    # try:
+    #     with open(globalFileParameters, 'r') as file:
+    #         data = json.load(file)
+    #     for item in data:
+    #         if 'enableLogFile' in item:
+    #             enableLogFile = item['enableLogFile']
+    #             print("send to log is " + str(enableLogFile))
+    #         elif 'enableSendTelgram' in item:
+    #             enableSendTelgram = item['enableSendTelgram']
+    #             print("send alerts to telegram  is " + str(enableSendTelgram))
+    #         elif 'enableGoogleSheetUpdate' in item:
+    #             enableGoogleSheetUpdate = item['enableGoogleSheetUpdate']
+    #             print("send info to googesheet is "+str(enableGoogleSheetUpdate))
+    #         elif 'smapercentagedifference' in item:
+    #             smapercentagedifference = item['smapercentagedifference']
+    #             print("range from sma that allow actions in % is " + str(smapercentagedifference))
+    #         elif 'updateBuySellInInputFile' in item:
+    #             updateBuySellInInputFile = item['updateBuySellInInputFile']
+    #             print("enable change values automatic in input file is "+str(updateBuySellInInputFile))
+    #         elif 'fixedInvestmentBuyAmount' in item:
+    #             fixedInvestmentBuyAmount = item['fixedInvestmentBuyAmount']
+    #             print("total price for buy command is " + str(fixedInvestmentBuyAmount))
+    #         elif 'TWSaccount' in item:
+    #             TWSaccount = item['TWSaccount']
+    #             print("IB Broker Account is "+ TWSaccount)
+    #         elif 'TWSEnable' in item:
+    #             TWSEnable = item['TWSEnable']
+    #             print("use IBbroker to buy or sell in market is "+ str(TWSEnable))
+    #         elif 'isNeedToCheckTakeProfit' in item:
+    #             isNeedToCheckTakeProfit = item['isNeedToCheckTakeProfit']
+    #             print("Is Need To Check Take Profit  is  "+str(isNeedToCheckTakeProfit))
+    #         elif 'logTimezone' in item:
+    #             logTimezone = item["logTimezone"]
+    #         elif 'portfolioFile' in item:
+    #             portfolioFile = item["portfolioFile"]
+    #             portfolioLink = item["portfolioLink"]
+    #         elif 'TWSSocketPort' in item:
+    #             TWSSocketPort = item["TWSSocketPort"]
+    # except FileNotFoundError:
+    #     print(f"Error: The file general_parameters.json was not found.")
     ''' reade global parameters from general_parameters.json '''
     global enableLogFile, enableSendTelgram, enableGoogleSheetUpdate
     global smapercentagedifference, updateBuySellInInputFile, fixedInvestmentBuyAmount
@@ -47,47 +105,32 @@ def get_general_parameters():
     globalFileParameters = "general_parameters.json"
     globalFileParameters = os.environ.get("globalFileParameters", "general_parameters.json")
     print("globalFileParameters is: "+globalFileParameters)
-    portfolioLink = None
-    try:
-        with open(globalFileParameters, 'r') as file:
-            data = json.load(file)
-        for item in data:
-            if 'enableLogFile' in item:
-                enableLogFile = item['enableLogFile']
-                print("send to log is " + str(enableLogFile))
-            elif 'enableSendTelgram' in item:
-                enableSendTelgram = item['enableSendTelgram']
-                print("send alerts to telegram  is " + str(enableSendTelgram))
-            elif 'enableGoogleSheetUpdate' in item:
-                enableGoogleSheetUpdate = item['enableGoogleSheetUpdate']
-                print("send info to googesheet is "+str(enableGoogleSheetUpdate))
-            elif 'smapercentagedifference' in item:
-                smapercentagedifference = item['smapercentagedifference']
-                print("range from sma that allow actions in % is " + str(smapercentagedifference))
-            elif 'updateBuySellInInputFile' in item:
-                updateBuySellInInputFile = item['updateBuySellInInputFile']
-                print("enable change values automatic in input file is "+str(updateBuySellInInputFile))
-            elif 'fixedInvestmentBuyAmount' in item:
-                fixedInvestmentBuyAmount = item['fixedInvestmentBuyAmount']
-                print("total price for buy command is " + str(fixedInvestmentBuyAmount))
-            elif 'TWSaccount' in item:
-                TWSaccount = item['TWSaccount']
-                print("IB Broker Account is "+ TWSaccount)
-            elif 'TWSEnable' in item:
-                TWSEnable = item['TWSEnable']
-                print("use IBbroker to buy or sell in market is "+ str(TWSEnable))
-            elif 'isNeedToCheckTakeProfit' in item:
-                isNeedToCheckTakeProfit = item['isNeedToCheckTakeProfit']
-                print("Is Need To Check Take Profit  is  "+str(isNeedToCheckTakeProfit))
-            elif 'logTimezone' in item:
-                logTimezone = item["logTimezone"]
-            elif 'portfolioFile' in item:
-                portfolioFile = item["portfolioFile"]
-                portfolioLink = item["portfolioLink"]
-            elif 'TWSSocketPort' in item:
-                TWSSocketPort = item["TWSSocketPort"]
-    except FileNotFoundError:
-        print(f"Error: The file general_parameters.json was not found.")
+
+
+    # Load parameters from JSON file
+    with open(globalFileParameters, "r") as f:
+        params = json.load(f)
+
+    # Access parameters
+    enableLogFile = params.get("enableLogFile", False)
+    enableSendTelgram = params.get("enableSendTelgram",False)
+    enableGoogleSheetUpdate = params.get("enableGoogleSheetUpdate",False)
+    smapercentagedifference = params.get("smapercentagedifference", 4)
+    updateBuySellInInputFile = params.get("updateBuySellInInputFile",False)
+    TWSEnable = params.get("TWSEnable",False)
+    TWSSocketPort = params.get("TWSSocketPort",7497)
+    TWSaccount = params.get("TWSaccount","accountA")
+    logTimezone = params.get("logTimezone","Asia/Jerusalem")
+    fixedInvestmentBuyAmount = params.get("fixedInvestmentBuyAmount",1000)
+    portfolioFile = params.get("portfolioFile","data_invest.json")
+    portfolioLink = params.get("portfolioLink",None)
+
+
+
+
+
+
+
     parser = argparse.ArgumentParser(description="Process some parameters.")
     parser.add_argument('--portfolioFile', type=str, help='json input portfoilio config ')
 

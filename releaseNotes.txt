@@ -1,3 +1,4 @@
+v0.0.21beta 19-jul-2025 simplify json parameters file general_parameters.json
 v0.0.20beta 12-jul-2025 add support use remote portfolio files on google drive
 v0.0.16beta 1-dec-2024 fix googlesheet write notes on correct column
 v0.0.15beta 23-nov-2024 add support for environment  globalFileParameters , allow to change general_parameters.json file
