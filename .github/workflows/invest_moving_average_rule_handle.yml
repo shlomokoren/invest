@@ -12,7 +12,7 @@ jobs:
   invest_sma_alert:
     runs-on: ubuntu-latest
     env:
-      INVEST_LOGFILE : "history.log"
+      INVEST_LOGFILE: "history.log"
       FINANCIALMODELINGPREP_APIKEY: ${{ secrets.FINANCIALMODELINGPREP_APIKEY }}
       TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
       TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
@@ -40,19 +40,24 @@ jobs:
         env:
           GOOGLE_APPLICATION_CREDENTIALS: google-credentials.json
         run: python invest_moving_average_rule_handle.py  # Specify the path to your Python script here
+    # This will mark the job as failed if any step fails
+    continue-on-error: false
 
-#      - name: Configure git
-#        run: |
-#          git config user.name "shlomokoren"
-#          git config user.email "shlomo.koren@gmail.com"
-#
-#      - name: Commit changes
-#        run: |
-#          git add data_invest.json  # Add the modified file
-#          git commit -m "Update file during pipeline run" || echo "No changes to commit"
-#
-#      - name: Push changes
-#        env:
-#          GH_TOKEN: ${{ secrets.GH_TOKEN }}  # Use your PAT stored as a secret
-#        run: |
-#          git push https://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@github.com/${{ github.repository }} HEAD:${{ github.ref_name }}
+  notify-on-failure:
+    needs: invest_sma_alert
+    if: failure()  # Only run if the previous job failed
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send failure notification email
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          username: ${{ secrets.SMTP_USERNAME }}
+          password: ${{ secrets.SMTP_PASSWORD }}
+          subject: 'GitHub Action Failed: invest_sma_alert'
+          to: shlomo.koren@gmail.com
+          from: GitHub Action <your_email@example.com>
+          body: |
+            The GitHub Actions job 'invest_sma_alert' has failed.
+            Please check the logs at: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}

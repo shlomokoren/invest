@@ -26,8 +26,8 @@ import re
 #from playhouse.sqlite_udf import hostname
 
 
-debug = False
-__version__ = "v0.0.22beta"
+debug = Fals
+__version__ = "v0.0.23beta"
 print("script version: " + __version__)
 
 
