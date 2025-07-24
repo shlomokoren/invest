@@ -1,3 +1,4 @@
+v0.0.24beta 24-jul-2025 fix email pipline on fail
 v0.0.23beta 24-jul-2025 add send email if action pipline fail
 v0.0.22beta 19-jul-2025 set auto_adjust=True in yf.download
 v0.0.21beta 19-jul-2025 simplify json parameters file general_parameters.json

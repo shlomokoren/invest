@@ -57,7 +57,7 @@ jobs:
           password: ${{ secrets.SMTP_PASSWORD }}
           subject: 'GitHub Action Failed: invest_sma_alert'
           to: shlomo.koren@gmail.com
-          from: GitHub Action <your_email@example.com>
+          from: GitHub Action <shlomo.koren@gmail.com>
           body: |
             The GitHub Actions job 'invest_sma_alert' has failed.
             Please check the logs at: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
