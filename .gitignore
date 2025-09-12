@@ -1,3 +1,20 @@
 application.log
 tests
 __pycache__/*
+# Node / build
+node_modules/
+dist/
+.vite/
+client/dist/
+
+# Local env
+.env
+*.env
+
+# 🔒 Secrets
+server/service-account.json
+*.p12
+*.pem
+*.key
+*.keystore
+
