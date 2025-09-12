@@ -12,7 +12,7 @@ client/dist/
 *.env
 
 # 🔒 Secrets
-server/service-account.json
+json-editor-app/server/service-account.json
 *.p12
 *.pem
 *.key
