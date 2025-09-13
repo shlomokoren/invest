@@ -13,18 +13,16 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
-app.use(cors());
-app.use(express.json({ limit: "2mb" }));
+app.use(cors()); // you can restrict origins later if you want
+app.use(express.json({ limit: "10mb" }));
 
-// -------- helpers --------
-const explain = (err) => ({
-  message: err?.message,
-  code: err?.code,
-  status: err?.response?.status,
-  statusText: err?.response?.statusText,
-  data: err?.response?.data,
-});
+// ──────────────────────────────────────────────────────────────
+// Health routes FIRST (so startup never fails due to auth issues)
+app.get("/api/ping", (_req, res) => res.json({ ok: true }));
+app.get("/", (_req, res) => res.send("OK"));
+// ──────────────────────────────────────────────────────────────
 
+// Resolve local key path (for dev)
 function resolveKeyPath(p) {
   if (!p) return path.resolve(__dirname, "service-account.json"); // default: next to index.js
   if (path.isAbsolute(p)) return p;
@@ -35,47 +33,80 @@ function resolveKeyPath(p) {
   const candidateB = path.resolve(__dirname, p); // relative to this file
   if (fs.existsSync(candidateB)) return candidateB;
 
-  return candidateA; // fall-through (will fail later if not found)
+  return candidateA; // fall-through (may not exist)
 }
 
 const rawEnvPath = process.env.GOOGLE_APPLICATION_CREDENTIALS || "";
 const keyPath = resolveKeyPath(rawEnvPath);
 
-console.log("cwd =", process.cwd());
-console.log(
-  "GOOGLE_APPLICATION_CREDENTIALS =",
-  rawEnvPath || "(empty, using default)"
-);
-console.log("Resolved keyPath =", keyPath, "exists =", fs.existsSync(keyPath));
-
-// -------- health + whoami --------
-app.get("/api/ping", (req, res) => res.json({ ok: true }));
-
-app.get("/api/whoami", (req, res) => {
+// Prefer GOOGLE_SERVICE_ACCOUNT_JSON in cloud (Render)
+let svcJson = null;
+if (process.env.GOOGLE_SERVICE_ACCOUNT_JSON) {
   try {
+    svcJson = JSON.parse(process.env.GOOGLE_SERVICE_ACCOUNT_JSON);
+  } catch (e) {
+    console.error(
+      "❌ Failed to JSON.parse GOOGLE_SERVICE_ACCOUNT_JSON:",
+      e.message
+    );
+    // keep svcJson = null; Drive calls will fail later but server stays up
+  }
+}
+
+console.log("PORT =", process.env.PORT || 5001);
+console.log(
+  "Using env creds =",
+  !!svcJson,
+  "| keyPath exists =",
+  fs.existsSync(keyPath)
+);
+
+// Simple whoami to verify which credentials are in use
+app.get("/api/whoami", (_req, res) => {
+  try {
+    if (svcJson) {
+      return res.json({
+        source: "env",
+        client_email: svcJson.client_email,
+        keyPresent: true,
+      });
+    }
     const raw = fs.readFileSync(keyPath, "utf8");
     const svc = JSON.parse(raw);
-    res.json({ client_email: svc.client_email, keyPath, keyFileExists: true });
+    return res.json({
+      source: "file",
+      client_email: svc.client_email,
+      keyPath,
+      keyPresent: true,
+    });
   } catch (e) {
-    res
-      .status(500)
-      .json({ error: "cannot read key", details: e?.message, keyPath });
+    return res.status(500).json({
+      error: "cannot read service account",
+      details: e?.message,
+      keyPath,
+      usingEnvCreds: !!svcJson,
+    });
   }
 });
 
-// before creating GoogleAuth:
-const svcJson = process.env.GOOGLE_SERVICE_ACCOUNT_JSON
-  ? JSON.parse(process.env.GOOGLE_SERVICE_ACCOUNT_JSON)
-  : null;
-
+// Build Google Drive client (env creds preferred; file for local dev)
 const auth = new google.auth.GoogleAuth({
-  credentials: svcJson || undefined, // use env JSON if provided
-  keyFile: svcJson ? undefined : keyPath, // else fall back to local file (dev)
+  credentials: svcJson || undefined,
+  keyFile: svcJson ? undefined : keyPath,
   scopes: ["https://www.googleapis.com/auth/drive"],
 });
 const drive = google.drive({ version: "v3", auth });
 
-// Peek metadata (debug)
+// Helper for concise error logs
+const explain = (err) => ({
+  message: err?.message,
+  code: err?.code,
+  status: err?.response?.status,
+  statusText: err?.response?.statusText,
+  data: err?.response?.data,
+});
+
+// Peek metadata (checks permissions, mimeType, shortcut, etc.)
 app.get("/api/peek/:fileId", async (req, res) => {
   try {
     const meta = await drive.files.get({
@@ -85,6 +116,7 @@ app.get("/api/peek/:fileId", async (req, res) => {
         "name",
         "mimeType",
         "driveId",
+        "shortcutDetails",
         "capabilities(canEdit,canModifyContent,canComment)",
         "permissions(kind,id,emailAddress,role,displayName)",
         "contentRestrictions(readOnly,reason)",
@@ -98,7 +130,7 @@ app.get("/api/peek/:fileId", async (req, res) => {
   }
 });
 
-// Get JSON content
+// GET file content (resolves shortcuts; streams JSON)
 app.get("/api/file/:fileId", async (req, res) => {
   const { fileId } = req.params;
   try {
@@ -130,8 +162,7 @@ app.get("/api/file/:fileId", async (req, res) => {
   }
 });
 
-// Save JSON content
-// server/index.js  (replace the PUT route)
+// PUT file content (media-only update, resolves shortcuts, checks locks/permissions)
 app.put("/api/file/:fileId", async (req, res) => {
   const { fileId } = req.params;
   const payload = req.body?.json;
@@ -140,7 +171,6 @@ app.put("/api/file/:fileId", async (req, res) => {
   }
 
   try {
-    // Resolve shortcut & check locks
     const meta = await drive.files.get({
       fileId,
       fields:
@@ -167,7 +197,7 @@ app.put("/api/file/:fileId", async (req, res) => {
         ? meta.data.shortcutDetails?.targetId
         : fileId;
 
-    // ✅ MEDIA-ONLY update (reliable with googleapis)
+    // MEDIA-ONLY update (reliable with googleapis)
     await drive.files.update({
       fileId: realId,
       supportsAllDrives: true,
@@ -180,19 +210,16 @@ app.put("/api/file/:fileId", async (req, res) => {
 
     res.json({ ok: true });
   } catch (err) {
-    console.error("Update error:", {
-      message: err?.message,
-      status: err?.response?.status,
-      data: err?.response?.data,
-    });
-    res.status(err?.response?.status || 500).json({
+    const details = explain(err);
+    console.error("Update error:", details);
+    res.status(details.status || 500).json({
       error: "Failed to update file",
-      details: err?.response?.data || err?.message,
+      details: details.data || details.message,
     });
   }
 });
 
-// -------- start server (this keeps the process alive) --------
+// Start server
 const port = process.env.PORT || 5001;
 app.listen(port, () =>
   console.log(`✅ Server running at http://localhost:${port}`)
