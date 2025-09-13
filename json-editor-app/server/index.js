@@ -63,9 +63,14 @@ app.get("/api/whoami", (req, res) => {
   }
 });
 
-// -------- Google Drive client --------
+// before creating GoogleAuth:
+const svcJson = process.env.GOOGLE_SERVICE_ACCOUNT_JSON
+  ? JSON.parse(process.env.GOOGLE_SERVICE_ACCOUNT_JSON)
+  : null;
+
 const auth = new google.auth.GoogleAuth({
-  keyFile: keyPath,
+  credentials: svcJson || undefined, // use env JSON if provided
+  keyFile: svcJson ? undefined : keyPath, // else fall back to local file (dev)
   scopes: ["https://www.googleapis.com/auth/drive"],
 });
 const drive = google.drive({ version: "v3", auth });
