@@ -2,23 +2,26 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import axios from "axios";
 import Editor from "@monaco-editor/react";
 
-// Put your Drive fileId in VITE_FILE_ID (client/.env.local) or hardcode below
+// Configure via env for dev/prod:
+// client/.env.local -> VITE_FILE_ID=your_drive_file_id
+// (optional) client/.env.production -> VITE_API_BASE=https://your-backend.onrender.com
+const API = import.meta.env.VITE_API_BASE || ""; // "" uses Vite proxy in dev
 const FILE_ID = import.meta.env.VITE_FILE_ID ?? "YOUR_FILE_ID_HERE";
 
 export default function App() {
   const [raw, setRaw] = useState("{ }");
   const [status, setStatus] = useState("idle"); // idle | loading | ready | saving | saved | error
   const [error, setError] = useState("");
-  const [loadedOnce, setLoadedOnce] = useState(false); // avoid autosave during initial load
-  const [lastSavedRaw, setLastSavedRaw] = useState("{ }"); // to know if there are unsaved changes
+  const [loadedOnce, setLoadedOnce] = useState(false);
+  const [lastSavedRaw, setLastSavedRaw] = useState("{ }"); // for unsaved-change detection
   const saveTimer = useRef(null);
 
-  // Load JSON from backend
+  // ---- Load JSON from backend ----
   useEffect(() => {
     (async () => {
       setStatus("loading");
       try {
-        const res = await axios.get(`/api/file/${FILE_ID}`);
+        const res = await axios.get(`${API}/api/file/${FILE_ID}`);
         const text =
           typeof res.data === "string"
             ? res.data
@@ -35,32 +38,32 @@ export default function App() {
     })();
   }, []);
 
-  // Parse JSON (shows errors live)
+  // ---- Live JSON syntax check ----
   const parsed = useMemo(() => {
     try {
       setError("");
       return JSON.parse(raw);
     } catch (e) {
-      setError(e.message);
+      setError(e.message); // shows "Unexpected token ..." etc.
       return null;
     }
   }, [raw]);
 
   const hasUnsavedChanges = raw !== lastSavedRaw;
 
-  // Manual save (keeps the Save button behavior)
+  // ---- Manual Save ----
   const save = async () => {
     if (!parsed) return; // don't save invalid JSON
     try {
       setStatus("saving");
       await axios.put(
-        `/api/file/${FILE_ID}`,
+        `${API}/api/file/${FILE_ID}`,
         { json: parsed },
-        {
-          headers: { "Content-Type": "application/json" },
-        }
+        { headers: { "Content-Type": "application/json" } }
       );
-      setLastSavedRaw(JSON.stringify(parsed, null, 2));
+      const pretty = JSON.stringify(parsed, null, 2);
+      setLastSavedRaw(pretty);
+      setRaw(pretty); // normalize formatting in editor
       setStatus("saved");
       setTimeout(() => setStatus("ready"), 600);
     } catch (e) {
@@ -70,19 +73,15 @@ export default function App() {
     }
   };
 
-  // ✅ Autosave with debounce (fires 1s after user stops typing)
+  // ---- Autosave with 1s debounce ----
   useEffect(() => {
-    // only after first successful load, only if valid JSON, and only if content changed
     if (!loadedOnce || !parsed || !hasUnsavedChanges) return;
-
     clearTimeout(saveTimer.current);
     saveTimer.current = setTimeout(() => {
-      // fire-and-forget save (uses same save() for consistency)
-      save();
-    }, 1000); // 1s debounce
-
+      void save();
+    }, 1000);
     return () => clearTimeout(saveTimer.current);
-  }, [raw, parsed, loadedOnce, hasUnsavedChanges]); // runs on edits
+  }, [raw, parsed, loadedOnce, hasUnsavedChanges]);
 
   return (
     <div
