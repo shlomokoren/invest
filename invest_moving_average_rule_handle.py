@@ -20,6 +20,7 @@ from googleapiclient.http import MediaIoBaseDownload
 from googleapiclient.http import MediaFileUpload
 import io
 import re
+import sys
 
 
 
@@ -742,6 +743,7 @@ def main():
     :return:
     '''
     global portfolioFile
+    print(sys.version)
     get_general_parameters()
     investDataFile = portfolioFile
     try:
