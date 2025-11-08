@@ -28,7 +28,7 @@ import sys
 
 
 debug = False
-__version__ = "v0.0.23beta"
+__version__ = "v0.0.24beta"
 print("script version: " + __version__)
 
 
