@@ -7,7 +7,19 @@ import requests
 import os
 import gspread
 from google.oauth2.service_account import Credentials
+
+#workaround for ib_insync error in python 14
+import asyncio
+# Must be BEFORE importing ib_insync
+try:
+    # If there is no running loop, this will raise RuntimeError
+    asyncio.get_running_loop()
+except RuntimeError:
+    # Create and set a new event loop for the main thread
+    loop = asyncio.new_event_loop()
+    asyncio.set_event_loop(loop)
 from ib_insync import *
+
 import yfinance as yf
 from datetime import datetime, timedelta
 import socket
