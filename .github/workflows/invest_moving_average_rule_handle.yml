@@ -40,7 +40,7 @@ jobs:
       - name: Run Python script
         env:
           GOOGLE_APPLICATION_CREDENTIALS: google-credentials.json
-        run: python invest_moving_average_rule_handle.py  # Specify the path to your Python script here
+        run: python -u invest_moving_average_rule_handle.py  # Specify the path to your Python script here
     # This will mark the job as failed if any step fails
     continue-on-error: false
 
