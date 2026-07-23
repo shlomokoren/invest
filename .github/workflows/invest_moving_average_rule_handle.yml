@@ -1,6 +1,7 @@
 name: Run Python Script
 
 on:
+  workflow_dispatch: 
   schedule:
     # Run at 13:30 UTC (9:30 AM ET) every weekday (Mon-Fri)
     - cron: '30 16 * * 1-5'
