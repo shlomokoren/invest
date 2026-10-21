@@ -25,7 +25,7 @@ jobs:
         uses: actions/setup-python@v5
         with:
           # pinned: '3.x' floats to the newest release, whose native wheels (pandas/numpy) may not exist yet
-          python-version: '3.15'
+          python-version: '3.13'
           cache: 'pip'
       - name: list files
         run: ls -la
