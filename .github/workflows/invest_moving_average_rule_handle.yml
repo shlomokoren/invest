@@ -20,11 +20,13 @@ jobs:
       TZ: "Asia/Jerusalem"
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Set up Python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v5
         with:
-          python-version: '3.x'  # You can specify the Python version here
+          # pinned: '3.x' floats to the newest release, whose native wheels (pandas/numpy) may not exist yet
+          python-version: '3.15'
+          cache: 'pip'
       - name: list files
         run: ls -la
       - name: cat data_invest.json
@@ -34,13 +36,12 @@ jobs:
       - name: Set up Google credentials
         run: echo "${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}" > google-credentials.json
         shell: bash
-      - name: Set up Google credentials
-        run: echo "${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}" > google-credentials.json
       - name: Print current time
         run: date -u
       - name: Run Python script
         env:
           GOOGLE_APPLICATION_CREDENTIALS: google-credentials.json
+          PYTHONFAULTHANDLER: "1"  # print a Python traceback if a native extension segfaults
         run: python -u invest_moving_average_rule_handle.py  # Specify the path to your Python script here
     # This will mark the job as failed if any step fails
     continue-on-error: false
